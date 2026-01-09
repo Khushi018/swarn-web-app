@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    @apply bg-dark;
+  }
+
+  body {
+    @apply m-0 p-0 bg-dark text-white font-sans antialiased;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #0f172a; /* Ensure consistent dark background */
+  }
+
+  #root {
+    @apply min-h-screen bg-dark;
+    background-color: #0f172a; /* Ensure consistent dark background */
+  }
+}
+
+@layer utilities {
+  /* Mobile-first: no fixed widths, fluid layout */
+  .container-mobile {
+    @apply w-full max-w-full px-4 mx-auto;
+  }
+
+  /* Touch-friendly minimums */
+  .touch-target {
+    @apply min-h-11 min-w-11;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Safe area for iPhone notches */
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Desktop media queries - only added via min-width */
+@media (min-width: 768px) {
+  .container-mobile {
+    @apply max-w-2xl px-6;
+  }
+
+  body {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-mobile {
+    @apply max-w-3xl px-8;
+  }
+
+  /* Single column layout maintained, just wider spacing */
+  .scrollbar-hide {
+    overflow-x: visible;
+  }
+}
+
+/* Ensure touch targets stay large even on desktop */
+@media (hover: hover) and (pointer: fine) {
+  button:hover,
+  .touch-target:hover {
+    opacity: 0.9;
+    transition: opacity 0.2s;
+  }
+}
+
