@@ -67,7 +67,7 @@ const TopPicks = () => {
           <button className="text-primary text-sm font-medium">See All</button>
         </div>
 
-        <div className="flex gap-4 overflow-x-auto pb-2 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide scroll-smooth snap-x snap-mandatory">
+        <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide scroll-smooth snap-x snap-mandatory">
           {picks.map((pick) => (
             <div
               key={pick.id}

@@ -25,7 +25,7 @@ const Sidebar = ({ isOpen, onClose, userName = "Alex Sterling", avatarUrl }) => 
 
       {/* Sidebar - Slides in from LEFT */}
       <aside
-        className={`fixed inset-y-0 left-0 z-[110] w-full md:w-80 bg-dark-light transform transition-transform duration-300 ease-in-out ${
+        className={`fixed inset-y-0 left-0 z-[110] w-3/4 md:w-80 bg-dark-light transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         style={{ backgroundColor: '#1e293b' }}

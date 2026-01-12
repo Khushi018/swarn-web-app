@@ -8,6 +8,7 @@ import CompanyUpdateCard from './components/CompanyUpdateCard';
 import BottomNavigation from './components/BottomNavigation';
 import ExploreReels from './components/ExploreReels';
 import CompanyProfile from './components/CompanyProfile';
+import Feed from './components/Feed';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
@@ -35,15 +36,20 @@ function App() {
           <div className="min-h-screen bg-dark text-white pb-20" style={{ backgroundColor: '#0f172a' }}>
             <Header onCompanySelect={handleCompanySelect} />
             
-            <main className="w-full bg-dark" style={{ backgroundColor: '#0f172a' }}>
-              <TopPicks />
-              <InvestmentNotification />
-              <VideoPitchCard />
-              <MarketWatchCard />
-              <CompanyUpdateCard />
-              
-              {/* Add some spacing at the bottom for navigation */}
-              <div className="h-4 bg-dark" style={{ backgroundColor: '#0f172a' }}></div>
+            <main className="w-full bg-dark overflow-x-hidden" style={{ backgroundColor: '#0f172a' }}>
+              <div className="w-full max-w-4xl mx-auto">
+                <TopPicks />
+                <InvestmentNotification />
+                <VideoPitchCard />
+                <MarketWatchCard />
+                <CompanyUpdateCard />
+                
+                {/* Instagram-like Feed */}
+                <Feed />
+                
+                {/* Add some spacing at the bottom for navigation */}
+                <div className="h-4 bg-dark" style={{ backgroundColor: '#0f172a' }}></div>
+              </div>
             </main>
           </div>
         );
