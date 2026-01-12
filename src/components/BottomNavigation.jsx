@@ -1,6 +1,6 @@
 import React from 'react';
 
-const BottomNavigation = ({ currentScreen = 'home', onNavigate }) => {
+const BottomNavigation = ({ currentScreen = 'home', onNavigate, onOpenCreatePost }) => {
   const navItems = [
     { id: 'home', label: 'Home', icon: 'home', active: currentScreen === 'home' },
     { id: 'explore', label: 'Explore', icon: 'explore', active: currentScreen === 'explore' },
@@ -55,7 +55,13 @@ const BottomNavigation = ({ currentScreen = 'home', onNavigate }) => {
           {navItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => !item.isCenter && onNavigate && onNavigate(item.id)}
+              onClick={() => {
+                if (item.isCenter && onOpenCreatePost) {
+                  onOpenCreatePost();
+                } else if (!item.isCenter && onNavigate) {
+                  onNavigate(item.id);
+                }
+              }}
               className={`relative flex flex-col items-center justify-center touch-target ${
                 item.isCenter 
                   ? 'w-14 h-14 bg-gradient-to-br from-green-400 via-green-500 to-green-600 rounded-full text-white -mt-6 shadow-xl shadow-green-500/50' 

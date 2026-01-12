@@ -32,38 +32,22 @@ const Sidebar = ({ isOpen, onClose, userName = "Alex Sterling", avatarUrl }) => 
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col h-full overflow-y-auto">
-          {/* Header */}
-          <div className="p-6 border-b border-dark">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold text-white">Profile</h2>
-              <button
-                onClick={onClose}
-                className="touch-target text-gray-400 hover:text-white transition-colors"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
+          {/* Menu Items */}
+          <nav className="flex-1 p-4 space-y-1">
             {/* User Info */}
-            <div className="flex items-center gap-3">
-              <div className="w-14 h-14 rounded-full bg-primary-dark flex items-center justify-center border-2 border-primary overflow-hidden">
+            <div className="flex flex-col items-start gap-3 px-4 py-3 mb-2">
+              <div className="w-16 h-16 rounded-full bg-primary-dark flex items-center justify-center border-2 border-primary overflow-hidden flex-shrink-0">
                 {avatarUrl ? (
                   <img src={avatarUrl} alt={userName} className="w-full h-full object-cover" />
                 ) : (
-                  <span className="text-white text-xl font-semibold">{userName.charAt(0)}</span>
+                  <span className="text-white text-lg font-semibold">{userName.charAt(0)}</span>
                 )}
               </div>
               <div>
-                <p className="text-base font-semibold text-white">{userName}</p>
-                <p className="text-sm text-gray-400">Angel Investor</p>
+                <p className="text-sm font-semibold text-white">{userName}</p>
+                <p className="text-xs text-gray-400">Angel Investor</p>
               </div>
             </div>
-          </div>
-
-          {/* Menu Items */}
-          <nav className="flex-1 p-4 space-y-1">
             <button className="w-full flex items-center justify-between px-4 py-3 rounded-lg hover:bg-dark transition-colors touch-target">
               <div className="flex items-center gap-3">
                 <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

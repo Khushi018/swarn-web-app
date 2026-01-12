@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Sidebar from './Sidebar';
 import { companies } from '../data/companies';
 
-const Header = ({ onCompanySelect }) => {
+const Header = ({ onCompanySelect, onOpenCreatePost }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -165,7 +165,10 @@ const Header = ({ onCompanySelect }) => {
       <div className="w-full bg-dark" style={{ backgroundColor: '#0f172a' }}>
         <div className="container-mobile py-4">
           <div className="flex items-center gap-4 overflow-x-auto pb-2 scrollbar-hide">
-            <button className="flex-shrink-0 flex flex-col items-center gap-2">
+            <button 
+              onClick={() => onOpenCreatePost && onOpenCreatePost()}
+              className="flex-shrink-0 flex flex-col items-center gap-2"
+            >
               <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center border-2 border-primary">
                 <span className="text-white text-xl">+</span>
               </div>
