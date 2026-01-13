@@ -13,6 +13,7 @@ import Feed from './components/Feed';
 import CreatePostModal from './components/CreatePostModal';
 import Chat from './components/Chat';
 import Analytics from './components/Analytics';
+import FeedPreferences from './components/FeedPreferences';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
@@ -37,6 +38,10 @@ function App() {
     setCurrentScreen('home');
   };
 
+  const handleBackFromFeedPreferences = () => {
+    setCurrentScreen('home');
+  };
+
   const handleCreatePost = (postData) => {
     console.log('New post created:', postData);
     // Here you would typically send the post data to your backend/API
@@ -55,6 +60,8 @@ function App() {
         return <Chat />;
       case 'analytics':
         return <Analytics onBack={handleBackFromAnalytics} />;
+      case 'feedPreferences':
+        return <FeedPreferences onBack={handleBackFromFeedPreferences} />;
       case 'home':
       default:
         return (
