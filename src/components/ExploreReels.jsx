@@ -37,39 +37,85 @@ const ExploreReels = () => {
     switch (activeTab) {
       case 'Videos':
         return (
-          <div className="grid grid-cols-3 gap-1">
-            {videos.map((video) => (
-              <div
-                key={video.id}
-                className="aspect-[9/16] bg-dark-light rounded-lg overflow-hidden relative group cursor-pointer"
-              >
-                <div className="w-full h-full bg-gradient-to-br from-primary/20 via-purple-500/20 to-blue-500/20 flex items-center justify-center relative">
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-                    <svg className="w-8 h-8 text-white opacity-80" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
-                    </svg>
-                  </div>
-                  <div className="absolute top-2 right-2 px-1.5 py-0.5 bg-black/60 rounded text-xs text-white font-medium">
-                    {Math.floor(Math.random() * 60) + 15}s
-                  </div>
-                  <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between text-white text-xs">
-                    <div className="flex items-center gap-1.5">
-                      <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                        <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
-                      </svg>
-                      <span className="font-semibold">{(video.views / 1000).toFixed(1)}k</span>
+          <div className="w-full">
+            {/* Grid Layout - 3 columns like Instagram */}
+            <div className="grid grid-cols-3 gap-1 md:gap-2">
+              {videos.map((video) => {
+                const gradients = [
+                  'from-blue-500/30 via-purple-500/30 to-pink-500/30',
+                  'from-green-500/30 via-emerald-500/30 to-teal-500/30',
+                  'from-red-500/30 via-pink-500/30 to-rose-500/30',
+                  'from-yellow-500/30 via-orange-500/30 to-amber-500/30',
+                  'from-indigo-500/30 via-blue-500/30 to-cyan-500/30',
+                  'from-purple-500/30 via-pink-500/30 to-red-500/30',
+                ];
+                const gradient = gradients[video.id % gradients.length];
+                const duration = `${Math.floor(Math.random() * 3) + 1}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`;
+                
+                return (
+                  <div
+                    key={video.id}
+                    className="relative aspect-square bg-dark-light rounded-lg overflow-hidden cursor-pointer group"
+                  >
+                    {/* Video Thumbnail */}
+                    <div className={`w-full h-full bg-gradient-to-br ${gradient} flex items-center justify-center relative`}>
+                      {/* Play icon in center */}
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                        <svg className="w-12 h-12 text-white opacity-80" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                        </svg>
+                      </div>
+                      
+                      {/* Overlay on hover */}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                        <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-4 text-white">
+                          {/* Views */}
+                          <div className="flex items-center gap-1">
+                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                              <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
+                            </svg>
+                            <span className="text-sm font-semibold">{(video.views / 1000).toFixed(1)}k</span>
+                          </div>
+                          
+                          {/* Likes */}
+                          <div className="flex items-center gap-1">
+                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                            <span className="text-sm font-semibold">{video.likes}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Duration indicator (top left) */}
+                      <div className="absolute top-2 left-2 flex items-center gap-1 text-white bg-black/60 rounded px-2 py-1">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                        </svg>
+                        <span className="text-xs font-medium">{duration}</span>
+                      </div>
+
+                      {/* Video icon badge (top right) */}
+                      <div className="absolute top-2 right-2">
+                        <div className="w-6 h-6 rounded-full bg-black/60 flex items-center justify-center">
+                          <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                          </svg>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-1.5">
-                      <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.834a1 1 0 001.8.6l2.7-3.6-2.7-3.6a1 1 0 00-1.8.6zM12.326 7.4a1 1 0 00-1.152 1.152l1.224 4.652a1 1 0 001.152.776l4.652-1.224a1 1 0 00.776-1.152l-1.224-4.652a1 1 0 00-1.152-.776l-4.652 1.224z" />
-                      </svg>
-                      <span className="font-semibold">{video.likes}</span>
-                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                );
+              })}
+            </div>
+
+            {/* Video count info */}
+            <div className="mt-4 text-center">
+              <p className="text-sm text-gray-400">
+                {videos.length} {videos.length === 1 ? 'video' : 'videos'}
+              </p>
+            </div>
           </div>
         );
       case 'News':

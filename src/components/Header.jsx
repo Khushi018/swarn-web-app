@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Sidebar from './Sidebar';
 import { companies } from '../data/companies';
 
-const Header = ({ onCompanySelect, onOpenCreatePost }) => {
+const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -58,7 +58,12 @@ const Header = ({ onCompanySelect, onOpenCreatePost }) => {
 
   return (
     <>
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} userName="Alex Sterling" />
+      <Sidebar 
+        isOpen={isSidebarOpen} 
+        onClose={() => setIsSidebarOpen(false)} 
+        userName="Alex Sterling"
+        onNavigate={onNavigate}
+      />
       
       {/* Sticky Header - Search Bar and Categories */}
       <header className="w-full bg-dark sticky top-0 z-50 border-b border-dark-light" style={{ backgroundColor: '#0f172a' }}>

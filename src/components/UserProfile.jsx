@@ -1,5 +1,178 @@
 import React, { useState } from 'react';
 
+// PostsGrid Component - Instagram-like grid view
+const PostsGrid = ({ user }) => {
+  const [selectedPost, setSelectedPost] = useState(null);
+
+  // Generate sample posts for the user
+  const getUserPosts = () => {
+    const gradients = [
+      'from-blue-500/30 via-purple-500/30 to-pink-500/30',
+      'from-green-500/30 via-emerald-500/30 to-teal-500/30',
+      'from-red-500/30 via-pink-500/30 to-rose-500/30',
+      'from-yellow-500/30 via-orange-500/30 to-amber-500/30',
+      'from-indigo-500/30 via-blue-500/30 to-cyan-500/30',
+      'from-purple-500/30 via-pink-500/30 to-red-500/30',
+      'from-teal-500/30 via-cyan-500/30 to-blue-500/30',
+      'from-orange-500/30 via-red-500/30 to-pink-500/30',
+      'from-blue-500/30 via-indigo-500/30 to-purple-500/30',
+      'from-green-500/30 via-teal-500/30 to-cyan-500/30',
+      'from-red-500/30 via-orange-500/30 to-yellow-500/30',
+      'from-purple-500/30 via-indigo-500/30 to-blue-500/30',
+    ];
+
+    const postTypes = ['news', 'article', 'note', 'reel'];
+    const icons = ['📰', '📝', '📋', '🎬', '💡', '📊', '🎯', '🚀', '💼', '🌟', '📈', '✨'];
+
+    // Generate 18 posts for a nice grid
+    return Array.from({ length: 18 }, (_, i) => {
+      const type = postTypes[i % postTypes.length];
+      const isReel = type === 'reel';
+      
+      return {
+        id: i + 1,
+        type: type,
+        title: `Post ${i + 1}`,
+        gradient: gradients[i % gradients.length],
+        icon: icons[i % icons.length],
+        likes: Math.floor(Math.random() * 1000) + 50,
+        comments: Math.floor(Math.random() * 100) + 5,
+        isVideo: isReel,
+        duration: isReel ? `${Math.floor(Math.random() * 3) + 1}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}` : null,
+      };
+    });
+  };
+
+  const posts = getUserPosts();
+
+  const getTypeIcon = (type) => {
+    switch (type) {
+      case 'news':
+        return '📰';
+      case 'article':
+        return '📝';
+      case 'note':
+        return '📋';
+      case 'reel':
+        return '🎬';
+      default:
+        return '📄';
+    }
+  };
+
+  return (
+    <div className="w-full">
+      {/* Grid Layout - 3 columns like Instagram */}
+      <div className="grid grid-cols-3 gap-1 md:gap-2">
+        {posts.map((post) => (
+          <div
+            key={post.id}
+            className="relative aspect-square bg-dark-light rounded-lg overflow-hidden cursor-pointer group"
+            onClick={() => setSelectedPost(post)}
+          >
+            {/* Post Thumbnail */}
+            <div className={`w-full h-full bg-gradient-to-br ${post.gradient} flex items-center justify-center relative`}>
+              <div className="text-4xl opacity-40">{post.icon}</div>
+              
+              {/* Overlay on hover */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-4 text-white">
+                  {/* Likes */}
+                  <div className="flex items-center gap-1">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                    <span className="text-sm font-semibold">{post.likes}</span>
+                  </div>
+                  
+                  {/* Comments */}
+                  <div className="flex items-center gap-1">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                    <span className="text-sm font-semibold">{post.comments}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Video/Reel indicator */}
+              {post.isVideo && (
+                <div className="absolute top-2 left-2 flex items-center gap-1 text-white bg-black/50 rounded px-2 py-1">
+                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                  </svg>
+                  {post.duration && (
+                    <span className="text-xs font-medium">{post.duration}</span>
+                  )}
+                </div>
+              )}
+
+              {/* Type badge (top right) */}
+              <div className="absolute top-2 right-2">
+                <div className="w-6 h-6 rounded-full bg-black/50 flex items-center justify-center text-xs">
+                  {getTypeIcon(post.type)}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Post count info */}
+      <div className="mt-4 text-center">
+        <p className="text-sm text-gray-400">
+          {posts.length} {posts.length === 1 ? 'post' : 'posts'}
+        </p>
+      </div>
+
+      {/* Modal for post details (optional - can be enhanced later) */}
+      {selectedPost && (
+        <div 
+          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedPost(null)}
+        >
+          <div 
+            className="bg-dark-light rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-4 border-b border-dark-light flex justify-between items-center">
+              <h3 className="text-lg font-semibold text-white">Post {selectedPost.id}</h3>
+              <button
+                onClick={() => setSelectedPost(null)}
+                className="text-gray-400 hover:text-white"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className={`aspect-video bg-gradient-to-br ${selectedPost.gradient} flex items-center justify-center`}>
+              <div className="text-8xl opacity-50">{selectedPost.icon}</div>
+            </div>
+            <div className="p-4">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="flex items-center gap-1 text-white">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                  </svg>
+                  <span className="font-semibold">{selectedPost.likes}</span>
+                </div>
+                <div className="flex items-center gap-1 text-white">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                  <span className="font-semibold">{selectedPost.comments}</span>
+                </div>
+              </div>
+              <p className="text-white">This is a {selectedPost.type} post.</p>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const UserProfile = ({ onBack }) => {
   const [activeTab, setActiveTab] = useState('About');
   
@@ -105,11 +278,7 @@ const UserProfile = ({ onBack }) => {
           </div>
         );
       case 'Posts':
-        return (
-          <div className="text-center py-12">
-            <p className="text-gray-400">No posts available</p>
-          </div>
-        );
+        return <PostsGrid user={user} />;
       case 'Deals':
         return (
           <div className="space-y-6">

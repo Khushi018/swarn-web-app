@@ -12,6 +12,7 @@ import UserProfile from './components/UserProfile';
 import Feed from './components/Feed';
 import CreatePostModal from './components/CreatePostModal';
 import Chat from './components/Chat';
+import Analytics from './components/Analytics';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
@@ -32,6 +33,10 @@ function App() {
     setCurrentScreen('home');
   };
 
+  const handleBackFromAnalytics = () => {
+    setCurrentScreen('home');
+  };
+
   const handleCreatePost = (postData) => {
     console.log('New post created:', postData);
     // Here you would typically send the post data to your backend/API
@@ -48,11 +53,17 @@ function App() {
         return <UserProfile onBack={handleBackFromProfile} />;
       case 'chat':
         return <Chat />;
+      case 'analytics':
+        return <Analytics onBack={handleBackFromAnalytics} />;
       case 'home':
       default:
         return (
           <div className="min-h-screen bg-dark text-white pb-20" style={{ backgroundColor: '#0f172a' }}>
-            <Header onCompanySelect={handleCompanySelect} onOpenCreatePost={() => setIsCreatePostModalOpen(true)} />
+            <Header 
+              onCompanySelect={handleCompanySelect} 
+              onOpenCreatePost={() => setIsCreatePostModalOpen(true)}
+              onNavigate={setCurrentScreen}
+            />
             
             <main className="w-full bg-dark overflow-x-hidden" style={{ backgroundColor: '#0f172a' }}>
               <div className="w-full max-w-4xl mx-auto">
