@@ -11,6 +11,7 @@ import CompanyProfile from './components/CompanyProfile';
 import UserProfile from './components/UserProfile';
 import Feed from './components/Feed';
 import CreatePostModal from './components/CreatePostModal';
+import Chat from './components/Chat';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
@@ -45,6 +46,8 @@ function App() {
         return <CompanyProfile companyId={selectedCompanyId} onBack={handleBackFromCompany} />;
       case 'profile':
         return <UserProfile onBack={handleBackFromProfile} />;
+      case 'chat':
+        return <Chat />;
       case 'home':
       default:
         return (
