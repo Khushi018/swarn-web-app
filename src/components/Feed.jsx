@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import CompanyLogo from './CompanyLogo';
 
 const Feed = () => {
   const [likedPosts, setLikedPosts] = useState(new Set());
@@ -25,8 +26,7 @@ const Feed = () => {
       userAvatar: 'GE',
       time: '4h ago',
       type: 'video',
-      gradient: 'from-green-500/30 via-emerald-500/30 to-teal-500/30',
-      icon: '☀️',
+      video: '/videos/video2.mp4',
       caption: 'Our solar panel technology is revolutionizing residential energy! Watch our 30-second pitch ⚡',
       likes: 892,
       comments: 45,
@@ -52,8 +52,7 @@ const Feed = () => {
       userAvatar: 'FP',
       time: '8h ago',
       type: 'video',
-      gradient: 'from-yellow-500/30 via-orange-500/30 to-amber-500/30',
-      icon: '💳',
+      video: '/videos/video5-fintech.mp4',
       caption: 'Processing over $500M monthly with 99.9% uptime! Here\'s how we do it 💳',
       likes: 1834,
       comments: 112,
@@ -75,13 +74,12 @@ const Feed = () => {
     },
     {
       id: 6,
-      username: 'CloudSecure Systems',
+      username: 'CloudSync Technologies',
       userAvatar: 'CS',
       time: '1d ago',
       type: 'video',
-      gradient: 'from-gray-500/30 via-slate-500/30 to-zinc-500/30',
-      icon: '🔒',
-      caption: 'Zero-trust architecture protecting 1,000+ companies from cyber threats. Security first! 🔒',
+      video: '/videos/video4.mp4',
+      caption: 'Seamless cloud storage solution trusted by 50,000+ businesses! ☁️',
       likes: 1456,
       comments: 98,
       shares: 56,
@@ -152,9 +150,7 @@ const Feed = () => {
                 {/* Post Header */}
                 <div className="flex items-center justify-between p-4 pb-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center border-2 border-primary">
-                      <span className="text-white text-xs font-semibold">{post.userAvatar}</span>
-                    </div>
+                    <CompanyLogo initials={post.userAvatar} author={post.username} size="md" showBorder={true} />
                     <div>
                       <h3 className="text-sm font-semibold text-white">{post.username}</h3>
                       <p className="text-xs text-gray-400">{post.time}</p>
@@ -169,10 +165,36 @@ const Feed = () => {
 
                 {/* Media */}
                 <div className="relative w-full bg-dark aspect-square overflow-hidden">
-                  {isVideo ? (
+                  {isVideo && post.video ? (
+                    <div className="relative w-full h-full">
+                      <video
+                        src={post.video}
+                        className="w-full h-full object-cover"
+                        controls={isPlaying}
+                        muted={!isPlaying}
+                        loop
+                        playsInline
+                        onClick={() => setPlayingVideo(isPlaying ? null : post.id)}
+                      />
+                      {!isPlaying && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/20 cursor-pointer" onClick={() => setPlayingVideo(post.id)}>
+                          <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center">
+                            <svg className="w-8 h-8 text-dark ml-1" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                            </svg>
+                          </div>
+                        </div>
+                      )}
+                      {post.duration && (
+                        <div className="absolute top-3 right-3 px-2 py-1 bg-black/60 rounded text-xs text-white font-medium">
+                          {post.duration}
+                        </div>
+                      )}
+                    </div>
+                  ) : isVideo ? (
                     <div className="relative w-full h-full">
                       <div
-                        className={`w-full h-full bg-gradient-to-br ${post.gradient} flex items-center justify-center cursor-pointer relative`}
+                        className={`w-full h-full bg-gradient-to-br ${post.gradient || 'from-gray-500/30 via-slate-500/30 to-zinc-500/30'} flex items-center justify-center cursor-pointer relative`}
                         onClick={() => setPlayingVideo(isPlaying ? null : post.id)}
                       >
                         <div className="text-6xl opacity-50">{post.icon}</div>
@@ -190,13 +212,6 @@ const Feed = () => {
                             {post.duration}
                           </div>
                         )}
-                        <div className="absolute bottom-3 left-3 flex items-center gap-2 text-white text-xs">
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                            <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
-                          </svg>
-                          <span className="font-semibold">{formatNumber(post.likes)}</span>
-                        </div>
                       </div>
                     </div>
                   ) : (

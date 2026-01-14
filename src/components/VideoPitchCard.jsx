@@ -1,4 +1,5 @@
 import React from 'react';
+import CompanyLogo from './CompanyLogo';
 
 const VideoPitchCard = () => {
   return (
@@ -9,9 +10,7 @@ const VideoPitchCard = () => {
           <div className="p-4 pb-3">
             <div className="flex items-start justify-between mb-2">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                  <span className="text-white text-xs font-semibold">ES</span>
-                </div>
+                <CompanyLogo initials="ES" author="EcoLoop Systems" size="md" />
                 <div>
                   <h3 className="text-base font-semibold text-white">EcoLoop Systems</h3>
                   <p className="text-xs text-gray-400">Seed • CleanTech • San Francisco</p>

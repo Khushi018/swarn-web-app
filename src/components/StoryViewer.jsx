@@ -143,7 +143,7 @@ const StoryViewer = ({ stories, initialStoryIndex = 0, onClose }) => {
 
         {/* Company Info Overlay on Video */}
         <div className="absolute top-6 left-4 z-10 flex items-center gap-3">
-          <CompanyLogo initials={currentStory.authorAvatar} size="md" showBorder={true} className="shadow-lg" />
+          <CompanyLogo initials={currentStory.authorAvatar} author={currentStory.author} size="md" showBorder={true} className="shadow-lg" />
           <div>
             <p className="text-white font-semibold text-sm drop-shadow-lg">{currentStory.author}</p>
             <p className="text-white/90 text-xs drop-shadow-lg">{currentStory.time || 'Just now'}</p>

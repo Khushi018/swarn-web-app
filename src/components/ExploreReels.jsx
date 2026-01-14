@@ -10,8 +10,8 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
   const containerRefs = useRef([]);
 
   // Real videos from public/videos folder - arranged for 2 rows x 3 cols with 3rd col merged
-  // Layout: [video1] [video2] [video3 (merged)]
-  //         [video4] [video5] [video3 (continues)]
+  // Layout: [video1] [video2] [video9 (merged, spans 2 rows)]
+  //         [video4] [video5] [video9 (continues)]
   const videos = [
     {
       id: 1,
@@ -32,14 +32,14 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
       authorAvatar: 'GE',
     },
     {
-      id: 3,
-      video: '/videos/video3.mp4',
-      views: 21600,
-      likes: 2156,
-      thumbnail: '/videos/video3-thumb.jpg',
+      id: 9,
+      video: '/videos/video9-climatetech.mp4',
+      views: 29400,
+      likes: 2876,
+      thumbnail: '/videos/video9-climatetech-thumb.jpg',
       isMerged: true, // This video spans 2 rows in the 3rd column
-      author: 'MediCare AI',
-      authorAvatar: 'MA',
+      author: 'ClimateTech Solutions',
+      authorAvatar: 'CT',
     },
     {
       id: 4,

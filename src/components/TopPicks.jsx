@@ -1,4 +1,5 @@
 import React from 'react';
+import CompanyLogo from './CompanyLogo';
 
 const TopPicks = () => {
   const picks = [
@@ -75,9 +76,7 @@ const TopPicks = () => {
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3">
-                  <div className={`w-12 h-12 ${pick.logoColor} rounded-lg flex items-center justify-center`}>
-                    <span className="text-white text-sm font-bold">{pick.logo}</span>
-                  </div>
+                  <CompanyLogo initials={pick.logo} author={pick.name} size="lg" className="rounded-lg" />
                   <div>
                     <h3 className="text-base font-semibold text-white">{pick.name}</h3>
                     <p className="text-xs text-gray-400">{pick.category} • {pick.stage}</p>

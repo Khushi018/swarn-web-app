@@ -29,18 +29,6 @@ const Reels = ({ initialVideoId = null }) => {
       description: 'Our solar panel technology is revolutionizing residential energy! ⚡',
     },
     {
-      id: 3,
-      video: '/videos/video3.mp4',
-      thumbnail: '/videos/video3-thumb.jpg',
-      author: 'MediCare AI',
-      authorAvatar: 'MA',
-      likes: 2156,
-      comments: 156,
-      shares: 34,
-      views: '21.6k',
-      description: 'Proud to announce 95% accuracy in early disease detection! 🏥',
-    },
-    {
       id: 4,
       video: '/videos/video4.mp4',
       thumbnail: '/videos/video4-thumb.jpg',
@@ -99,6 +87,18 @@ const Reels = ({ initialVideoId = null }) => {
       shares: 145,
       views: '22.1k',
       description: 'Smart farming technology increasing crop yields by 40%! Empowering farmers with data-driven agriculture. 🌾🚜',
+    },
+    {
+      id: 9,
+      video: '/videos/video9-climatetech.mp4',
+      thumbnail: '/videos/video9-climatetech-thumb.jpg',
+      author: 'ClimateTech Solutions',
+      authorAvatar: 'CT',
+      likes: 2876,
+      comments: 203,
+      shares: 167,
+      views: '29.4k',
+      description: 'Carbon-neutral solutions reducing emissions by 60%! Leading the fight against climate change with innovative technology. 🌍🌿',
     },
   ];
 
@@ -279,8 +279,8 @@ const Reels = ({ initialVideoId = null }) => {
   };
 
   return (
-    <div className="h-screen bg-black overflow-hidden" style={{ backgroundColor: '#000' }}>
-      {/* Reels Container - Full Screen Vertical Scroll */}
+    <div className="fixed inset-0 bottom-16 bg-dark overflow-hidden" style={{ backgroundColor: '#0f172a' }}>
+      {/* Reels Container - Full screen on mobile, centered on desktop */}
       <div className="reels-container h-full overflow-y-auto snap-y snap-mandatory">
         {reels.map((reel, index) => {
           const isLiked = likedVideos.has(reel.id);
@@ -290,10 +290,10 @@ const Reels = ({ initialVideoId = null }) => {
             <div
               key={reel.id}
               ref={(el) => (containerRefs.current[index] = el)}
-              className="h-screen w-full snap-start snap-always flex items-center justify-center relative"
+              className="h-full w-full snap-start snap-always flex items-center justify-center relative"
             >
-              {/* Video Container */}
-              <div className="relative w-full h-full bg-black flex items-center justify-center">
+              {/* Video Container - Full screen on mobile, centered on desktop */}
+              <div className="relative w-full h-full md:max-w-2xl md:mx-auto md:h-auto md:aspect-[9/16] bg-black flex items-center justify-center md:rounded-lg overflow-hidden">
                 {/* Video Element */}
                 <video
                   ref={(el) => {
@@ -306,7 +306,7 @@ const Reels = ({ initialVideoId = null }) => {
                   }}
                   src={reel.video}
                   poster={reel.thumbnail}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover md:object-contain"
                   loop
                   playsInline
                   autoPlay={index === 0}
@@ -453,15 +453,15 @@ const Reels = ({ initialVideoId = null }) => {
                 </div>
 
                         {/* Bottom Info Section */}
-                        <div className="absolute bottom-0 left-0 right-0 p-4 pb-20 bg-gradient-to-t from-black/80 to-transparent">
+                        <div className="absolute bottom-0 left-0 right-0 p-4 pb-4 bg-gradient-to-t from-black/80 to-transparent">
                           <div className="flex items-start gap-3 mb-3">
-                            <CompanyLogo initials={reel.authorAvatar} size="md" showBorder={true} />
+                            <CompanyLogo initials={reel.authorAvatar} author={reel.author} size="md" showBorder={true} />
                     <div className="flex-1 min-w-0">
                       <p className="text-white font-semibold text-sm mb-1">{reel.author}</p>
                       <p className="text-white text-sm line-clamp-2">{reel.description}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4 text-white text-sm">
+                  <div className="flex items-center gap-4 text-white text-sm mb-2">
                     <span>{reel.views} views</span>
                     <span>•</span>
                     <span>{formatNumber(reel.likes)} likes</span>

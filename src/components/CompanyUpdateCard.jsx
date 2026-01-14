@@ -1,4 +1,5 @@
 import React from 'react';
+import CompanyLogo from './CompanyLogo';
 
 const CompanyUpdateCard = () => {
   return (
@@ -8,9 +9,7 @@ const CompanyUpdateCard = () => {
           {/* Header */}
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center">
-                <span className="text-white text-xs font-bold">QL</span>
-              </div>
+              <CompanyLogo initials="QL" author="Quantum Leap" size="md" />
               <div>
                 <h3 className="text-base font-semibold text-white">Quantum Leap</h3>
                 <p className="text-xs text-gray-400">Series B • Hardware • Boston</p>

@@ -205,8 +205,15 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate, onOpenStory }) 
                 author: 'MediCare AI', 
                 authorAvatar: 'MA',
                 stories: [
-                  { video: '/videos/video3.mp4', description: 'Proud to announce 95% accuracy in early disease detection! 🏥', id: 1 },
-                  { video: '/videos/video6-edtech.mp4', description: '100,000+ students improving their grades with our adaptive learning system! 📚', id: 2 },
+                  { video: '/videos/video6-edtech.mp4', description: '100,000+ students improving their grades with our adaptive learning system! 📚', id: 1 },
+                ]
+              },
+              { 
+                name: 'ClimateTech Solutions', 
+                author: 'ClimateTech Solutions', 
+                authorAvatar: 'CT',
+                stories: [
+                  { video: '/videos/video9-climatetech.mp4', description: 'Carbon-neutral solutions reducing emissions by 60%! Leading the fight against climate change with innovative technology. 🌍🌿', id: 1 },
                 ]
               },
               // Rest without videos
@@ -253,7 +260,7 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate, onOpenStory }) 
                   <div className="w-16 h-16 rounded-full p-0.5 bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center">
                     <div className="w-full h-full rounded-full bg-dark-light flex items-center justify-center">
                       {isVideoStory && item.authorAvatar ? (
-                        <CompanyLogo initials={item.authorAvatar} size="lg" className="border-0" />
+                        <CompanyLogo initials={item.authorAvatar} author={item.author} size="lg" className="border-0" />
                       ) : (
                         <span className="text-white text-sm font-semibold">{name.substring(0, 2)}</span>
                       )}
