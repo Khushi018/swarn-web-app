@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Sidebar from './Sidebar';
+import CompanyLogo from './CompanyLogo';
 
 const ExploreReels = ({ onNavigate, onVideoSelect }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -18,6 +19,8 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
       views: 12500,
       likes: 1247,
       thumbnail: '/videos/video1-thumb.jpg',
+      author: 'TechFlow Solutions',
+      authorAvatar: 'TF',
     },
     {
       id: 2,
@@ -25,6 +28,8 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
       views: 8900,
       likes: 892,
       thumbnail: '/videos/video2-thumb.jpg',
+      author: 'GreenEnergy Innovations',
+      authorAvatar: 'GE',
     },
     {
       id: 3,
@@ -33,6 +38,8 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
       likes: 2156,
       thumbnail: '/videos/video3-thumb.jpg',
       isMerged: true, // This video spans 2 rows in the 3rd column
+      author: 'MediCare AI',
+      authorAvatar: 'MA',
     },
     {
       id: 4,
@@ -40,6 +47,8 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
       views: 18300,
       likes: 1834,
       thumbnail: '/videos/video4-thumb.jpg',
+      author: 'CloudSync Technologies',
+      authorAvatar: 'CS',
     },
     {
       id: 5,
@@ -47,6 +56,8 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
       views: 24800,
       likes: 2456,
       thumbnail: '/videos/video5-fintech-thumb.jpg',
+      author: 'FinTech Pro',
+      authorAvatar: 'FP',
     },
     {
       id: 6,
@@ -54,6 +65,8 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
       views: 19200,
       likes: 1867,
       thumbnail: '/videos/video6-edtech-thumb.jpg',
+      author: 'EduLearn Platform',
+      authorAvatar: 'EL',
     },
     {
       id: 7,
@@ -61,6 +74,8 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
       views: 35700,
       likes: 3456,
       thumbnail: '/videos/video7-indianSweetShop-thumb.jpg',
+      author: 'Mithai Express',
+      authorAvatar: 'ME',
     },
     {
       id: 8,
@@ -68,6 +83,8 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
       views: 22100,
       likes: 2134,
       thumbnail: '/videos/video8-agritech-thumb.jpg',
+      author: 'AgriGrow Solutions',
+      authorAvatar: 'AG',
     },
   ];
 

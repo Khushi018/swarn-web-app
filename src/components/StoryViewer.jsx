@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import CompanyLogo from './CompanyLogo';
 
 const StoryViewer = ({ stories, initialStoryIndex = 0, onClose }) => {
   const [currentStoryIndex, setCurrentStoryIndex] = useState(initialStoryIndex);
@@ -141,10 +142,8 @@ const StoryViewer = ({ stories, initialStoryIndex = 0, onClose }) => {
         </div>
 
         {/* Company Info Overlay on Video */}
-        <div className="absolute top-12 left-4 z-10 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center border-2 border-white flex-shrink-0 shadow-lg">
-            <span className="text-white text-xs font-semibold">{currentStory.authorAvatar}</span>
-          </div>
+        <div className="absolute top-6 left-4 z-10 flex items-center gap-3">
+          <CompanyLogo initials={currentStory.authorAvatar} size="md" showBorder={true} className="shadow-lg" />
           <div>
             <p className="text-white font-semibold text-sm drop-shadow-lg">{currentStory.author}</p>
             <p className="text-white/90 text-xs drop-shadow-lg">{currentStory.time || 'Just now'}</p>

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Sidebar from './Sidebar';
 import { companies } from '../data/companies';
+import CompanyLogo from './CompanyLogo';
 
 const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate, onOpenStory }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -251,7 +252,11 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate, onOpenStory }) 
                 >
                   <div className="w-16 h-16 rounded-full p-0.5 bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center">
                     <div className="w-full h-full rounded-full bg-dark-light flex items-center justify-center">
-                      <span className="text-white text-sm font-semibold">{name.substring(0, 2)}</span>
+                      {isVideoStory && item.authorAvatar ? (
+                        <CompanyLogo initials={item.authorAvatar} size="lg" className="border-0" />
+                      ) : (
+                        <span className="text-white text-sm font-semibold">{name.substring(0, 2)}</span>
+                      )}
                     </div>
                   </div>
                   <span className="text-xs text-gray-400">{name.length > 8 ? name.substring(0, 8) + '...' : name}</span>

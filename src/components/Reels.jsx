@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import CompanyLogo from './CompanyLogo';
 
 const Reels = ({ initialVideoId = null }) => {
   // Sample reels data - videos should be stored in public/videos folder
@@ -451,12 +452,10 @@ const Reels = ({ initialVideoId = null }) => {
                   </button>
                 </div>
 
-                {/* Bottom Info Section */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 pb-20 bg-gradient-to-t from-black/80 to-transparent">
-                  <div className="flex items-start gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center border-2 border-white flex-shrink-0">
-                      <span className="text-white text-xs font-semibold">{reel.authorAvatar}</span>
-                    </div>
+                        {/* Bottom Info Section */}
+                        <div className="absolute bottom-0 left-0 right-0 p-4 pb-20 bg-gradient-to-t from-black/80 to-transparent">
+                          <div className="flex items-start gap-3 mb-3">
+                            <CompanyLogo initials={reel.authorAvatar} size="md" showBorder={true} />
                     <div className="flex-1 min-w-0">
                       <p className="text-white font-semibold text-sm mb-1">{reel.author}</p>
                       <p className="text-white text-sm line-clamp-2">{reel.description}</p>
