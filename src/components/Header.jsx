@@ -72,9 +72,9 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate }) => {
           <div className="flex items-center gap-3 mb-4">
             <button
               onClick={() => setIsSidebarOpen(true)}
-              className="w-8 h-8 rounded-full bg-primary-dark flex items-center justify-center border border-primary flex-shrink-0 hover:opacity-90 transition-opacity cursor-pointer"
+              className="w-9 h-9 rounded-full bg-primary-dark flex items-center justify-center border border-primary flex-shrink-0 hover:opacity-90 transition-opacity cursor-pointer"
             >
-              <span className="text-white text-xs font-semibold">AS</span>
+              <span className="text-white text-sm font-semibold">AS</span>
             </button>
             
             {/* Search Bar */}
@@ -146,7 +146,7 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate }) => {
           </div>
 
           {/* Categories */}
-          <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-hide">
+          {/* <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-hide">
             <button className="flex-shrink-0 flex items-center gap-2 px-4 py-2 bg-primary rounded-full text-white text-sm font-medium">
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -162,7 +162,7 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate }) => {
             <button className="flex-shrink-0 px-4 py-2 bg-dark-light rounded-full text-gray-300 text-sm font-medium hover:bg-dark-light/80">
               AI
             </button>
-          </div>
+          </div> */}
         </div>
       </header>
 
@@ -174,7 +174,7 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate }) => {
               onClick={() => onOpenCreatePost && onOpenCreatePost()}
               className="flex-shrink-0 flex flex-col items-center gap-2"
             >
-              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center border-2 border-primary">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center border-2 border-primary">
                 <span className="text-white text-xl">+</span>
               </div>
               <span className="text-xs text-gray-400">Add Story</span>
@@ -200,8 +200,8 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate }) => {
               'Cortex Link'
             ].map((name) => (
               <button key={name} className="flex-shrink-0 flex flex-col items-center gap-2">
-                <div className="w-14 h-14 rounded-full bg-dark-light border-2 border-primary flex items-center justify-center">
-                  <span className="text-white text-xs font-semibold">{name.substring(0, 2)}</span>
+                <div className="w-16 h-16 rounded-full bg-dark-light border-2 border-primary flex items-center justify-center">
+                  <span className="text-white text-sm font-semibold">{name.substring(0, 2)}</span>
                 </div>
                 <span className="text-xs text-gray-400">{name.length > 8 ? name.substring(0, 8) + '...' : name}</span>
               </button>
