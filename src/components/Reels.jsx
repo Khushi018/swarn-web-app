@@ -1,13 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const Reels = () => {
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [likedVideos, setLikedVideos] = useState(new Set());
-  const [mutedVideos, setMutedVideos] = useState(new Set()); // Track muted videos (start all muted)
-  const videoRefs = useRef([]);
-  const containerRefs = useRef([]);
-
+const Reels = ({ initialVideoId = null }) => {
   // Sample reels data - videos should be stored in public/videos folder
   const reels = [
     {
@@ -71,6 +64,34 @@ const Reels = () => {
       description: '100,000+ students improving their grades with our adaptive learning system! 📚✨',
     },
   ];
+
+  // Find initial video index based on videoId
+  const getInitialVideoIndex = () => {
+    if (initialVideoId) {
+      const index = reels.findIndex(reel => reel.id === initialVideoId);
+      return index >= 0 ? index : 0;
+    }
+    return 0;
+  };
+
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(getInitialVideoIndex());
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [likedVideos, setLikedVideos] = useState(new Set());
+  const [mutedVideos, setMutedVideos] = useState(new Set()); // Track muted videos (start all muted)
+  const videoRefs = useRef([]);
+  const containerRefs = useRef([]);
+
+  // Scroll to initial video when component mounts with initialVideoId
+  useEffect(() => {
+    if (initialVideoId) {
+      const targetIndex = getInitialVideoIndex();
+      if (targetIndex > 0 && containerRefs.current[targetIndex]) {
+        setTimeout(() => {
+          containerRefs.current[targetIndex]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    }
+  }, [initialVideoId]);
 
   // Intersection Observer to detect which video is in view and auto-play
   useEffect(() => {

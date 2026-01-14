@@ -19,6 +19,7 @@ function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
   const [isCreatePostModalOpen, setIsCreatePostModalOpen] = useState(false);
+  const [selectedVideoId, setSelectedVideoId] = useState(null);
 
   const handleCompanySelect = (companyId) => {
     setSelectedCompanyId(companyId);
@@ -51,13 +52,13 @@ function App() {
   const renderScreen = () => {
     switch (currentScreen) {
       case 'explore':
-        return <ExploreReels />;
+        return <ExploreReels onNavigate={setCurrentScreen} onVideoSelect={setSelectedVideoId} />;
       case 'company':
         return <CompanyProfile companyId={selectedCompanyId} onBack={handleBackFromCompany} />;
       case 'profile':
         return <UserProfile onBack={handleBackFromProfile} />;
       case 'reels':
-        return <Reels />;
+        return <Reels initialVideoId={selectedVideoId} />;
       case 'analytics':
         return <Analytics onBack={handleBackFromAnalytics} />;
       case 'feedPreferences':

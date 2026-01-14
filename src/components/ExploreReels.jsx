@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Sidebar from './Sidebar';
 
-const ExploreReels = () => {
+const ExploreReels = ({ onNavigate, onVideoSelect }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('Videos');
   const [searchQuery, setSearchQuery] = useState('');
+  const videoRefs = useRef([]);
+  const containerRefs = useRef([]);
 
   // Real videos from public/videos folder - arranged for 2 rows x 3 cols with 3rd col merged
   // Layout: [video1] [video2] [video3 (merged)]
@@ -79,27 +81,31 @@ const ExploreReels = () => {
                 return (
                   <div
                     key={video.id}
+                    ref={(el) => (containerRefs.current[index] = el)}
                     className={`relative bg-dark-light rounded-lg overflow-hidden cursor-pointer group ${
                       isMerged ? 'row-span-2' : ''
                     }`}
                     style={isMerged ? {} : { aspectRatio: '1 / 1' }}
+                    onClick={() => {
+                      if (onVideoSelect) {
+                        onVideoSelect(video.id);
+                      }
+                      if (onNavigate) {
+                        onNavigate('reels');
+                      }
+                    }}
                   >
                     {/* Video Element */}
                     <video
+                      ref={(el) => (videoRefs.current[index] = el)}
                       src={video.video}
-                      poster={video.thumbnail}
                       className="w-full h-full object-cover"
                       loop
                       muted
                       playsInline
+                      autoPlay
+                      preload="auto"
                     />
-                    
-                    {/* Play icon overlay */}
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-                      <svg className="w-12 h-12 text-white opacity-80" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
-                      </svg>
-                    </div>
                     
                     {/* Overlay on hover */}
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
