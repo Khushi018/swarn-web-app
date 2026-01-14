@@ -77,7 +77,8 @@ const Reels = ({ initialVideoId = null }) => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(getInitialVideoIndex());
   const [isPlaying, setIsPlaying] = useState(true);
   const [likedVideos, setLikedVideos] = useState(new Set());
-  const [mutedVideos, setMutedVideos] = useState(new Set()); // Track muted videos (start all muted)
+  // Initialize with all video indices so all videos start unmuted
+  const [mutedVideos, setMutedVideos] = useState(new Set(Array.from({ length: reels.length }, (_, i) => i)));
   const videoRefs = useRef([]);
   const containerRefs = useRef([]);
 
@@ -118,7 +119,7 @@ const Reels = ({ initialVideoId = null }) => {
           // Play the current video
           const currentVideo = videoRefs.current[index];
           if (currentVideo) {
-            // Check if this video should be muted (all start muted for autoplay)
+            // Check if this video should be muted
             // If video is in Set, it's unmuted; if not, it's muted
             const isMuted = !mutedVideos.has(index);
             currentVideo.muted = isMuted;
@@ -150,11 +151,12 @@ const Reels = ({ initialVideoId = null }) => {
       }
     });
 
-    // Play first video on mount
-    const firstVideo = videoRefs.current[0];
+    // Play first video on mount (unmuted by default)
+    const initialIndex = getInitialVideoIndex();
+    const firstVideo = videoRefs.current[initialIndex];
     if (firstVideo) {
       setTimeout(() => {
-        firstVideo.muted = true;
+        firstVideo.muted = false; // Start unmuted
         firstVideo.play().catch((error) => {
           console.log('First video autoplay prevented:', error);
         });
@@ -260,7 +262,7 @@ const Reels = ({ initialVideoId = null }) => {
                   ref={(el) => {
                     videoRefs.current[index] = el;
                     if (el) {
-                      // Initialize muted state (all videos start muted for autoplay)
+                      // Initialize muted state (videos start unmuted by default)
                       // If video is in Set, it's unmuted; if not, it's muted
                       el.muted = !mutedVideos.has(index);
                     }
@@ -272,11 +274,11 @@ const Reels = ({ initialVideoId = null }) => {
                   playsInline
                   autoPlay={index === 0}
                   onLoadedData={() => {
-                    // Auto-play first video when data is loaded
-                    if (index === 0) {
-                      const firstVideo = videoRefs.current[0];
+                    // Auto-play first video when data is loaded (unmuted by default)
+                    if (index === getInitialVideoIndex()) {
+                      const firstVideo = videoRefs.current[getInitialVideoIndex()];
                       if (firstVideo) {
-                        firstVideo.muted = true; // Start muted for autoplay
+                        firstVideo.muted = false; // Start unmuted
                         firstVideo.play().catch(() => {});
                       }
                     }
