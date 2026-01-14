@@ -67,12 +67,12 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate }) => {
       
       {/* Sticky Header - Search Bar and Categories */}
       <header className="w-full bg-dark sticky top-0 z-50 border-b border-dark-light" style={{ backgroundColor: '#0f172a' }}>
-        <div className="container-mobile py-4">
+        <div className="container-mobile py-3">
           {/* Profile, Search Bar, and Notification */}
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex items-center gap-3">
             <button
               onClick={() => setIsSidebarOpen(true)}
-              className="w-9 h-9 rounded-full bg-primary-dark flex items-center justify-center border border-primary flex-shrink-0 hover:opacity-90 transition-opacity cursor-pointer"
+              className="w-10 h-10 rounded-full bg-primary-dark flex items-center justify-center border-2 border-primary flex-shrink-0 hover:opacity-90 transition-opacity cursor-pointer"
             >
               <span className="text-white text-sm font-semibold">AS</span>
             </button>
@@ -81,13 +81,13 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate }) => {
             <div className="relative flex-1" ref={searchRef}>
               <input
                 type="text"
-                placeholder="Search companies..."
+                placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={() => searchQuery.trim() && searchResults.length > 0 && setShowResults(true)}
-                className="w-full h-11 px-4 pl-12 pr-12 bg-dark-light rounded-xl text-base text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full h-10 px-4 pl-10 bg-dark-light rounded-lg text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
               />
-              <svg className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               {searchQuery && (
@@ -96,9 +96,9 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate }) => {
                     setSearchQuery('');
                     setShowResults(false);
                   }}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 touch-target"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 touch-target"
                 >
-                  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
@@ -137,11 +137,11 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate }) => {
               )}
             </div>
 
-            <button className="touch-target relative flex-shrink-0">
+            <button className="touch-target relative flex-shrink-0 p-2 hover:bg-dark-light rounded-lg transition-colors">
               <svg className="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
               </svg>
-              <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
             </button>
           </div>
 
@@ -174,8 +174,8 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate }) => {
               onClick={() => onOpenCreatePost && onOpenCreatePost()}
               className="flex-shrink-0 flex flex-col items-center gap-2"
             >
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center border-2 border-primary">
-                <span className="text-white text-xl">+</span>
+              <div className="w-16 h-16 rounded-full bg-dark-light flex items-center justify-center border-2 border-dashed border-gray-500">
+                <span className="text-white text-2xl">+</span>
               </div>
               <span className="text-xs text-gray-400">Add Story</span>
             </button>
@@ -200,8 +200,10 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate }) => {
               'Cortex Link'
             ].map((name) => (
               <button key={name} className="flex-shrink-0 flex flex-col items-center gap-2">
-                <div className="w-16 h-16 rounded-full bg-dark-light border-2 border-primary flex items-center justify-center">
-                  <span className="text-white text-sm font-semibold">{name.substring(0, 2)}</span>
+                <div className="w-16 h-16 rounded-full p-0.5 bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center">
+                  <div className="w-full h-full rounded-full bg-dark-light flex items-center justify-center">
+                    <span className="text-white text-sm font-semibold">{name.substring(0, 2)}</span>
+                  </div>
                 </div>
                 <span className="text-xs text-gray-400">{name.length > 8 ? name.substring(0, 8) + '...' : name}</span>
               </button>
