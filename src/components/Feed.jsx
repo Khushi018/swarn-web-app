@@ -13,8 +13,7 @@ const Feed = () => {
       userAvatar: 'TF',
       time: '2h ago',
       type: 'image',
-      gradient: 'from-blue-500/30 via-purple-500/30 to-pink-500/30',
-      icon: '💻',
+      image: '/images/techflow.png',
       caption: 'Just launched our new AI-powered workflow automation platform! 🚀 #SaaS #AI #Productivity',
       likes: 1247,
       comments: 89,
@@ -39,8 +38,7 @@ const Feed = () => {
       userAvatar: 'MA',
       time: '6h ago',
       type: 'image',
-      gradient: 'from-red-500/30 via-pink-500/30 to-rose-500/30',
-      icon: '🏥',
+      image: '/images/medicare.png',
       caption: 'Proud to announce 95% accuracy in early disease detection! Healthcare innovation at its finest 🏥',
       likes: 2156,
       comments: 156,
@@ -214,9 +212,15 @@ const Feed = () => {
                         )}
                       </div>
                     </div>
+                  ) : post.image ? (
+                    <img
+                      src={post.image}
+                      alt={post.caption}
+                      className="w-full h-full object-cover"
+                    />
                   ) : (
                     <div
-                      className={`w-full h-full bg-gradient-to-br ${post.gradient} flex items-center justify-center cursor-pointer relative`}
+                      className={`w-full h-full bg-gradient-to-br ${post.gradient || 'from-gray-500/30 via-slate-500/30 to-zinc-500/30'} flex items-center justify-center cursor-pointer relative`}
                     >
                       <div className="text-6xl opacity-50">{post.icon}</div>
                       <div className="absolute inset-0 bg-black/10"></div>

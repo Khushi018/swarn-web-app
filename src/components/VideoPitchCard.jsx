@@ -25,22 +25,13 @@ const VideoPitchCard = () => {
           </div>
 
           {/* Video Player */}
-          <div className="relative bg-gradient-to-br from-blue-900/50 to-green-900/50 aspect-video flex items-center justify-center">
-            <button className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40">
-              <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center">
-                <svg className="w-8 h-8 text-dark ml-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
-                </svg>
-              </div>
-            </button>
-            <div className="absolute top-3 right-3">
-              <button className="touch-target bg-black/50 rounded-full p-2">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
-                </svg>
-              </button>
-            </div>
+          <div className="relative aspect-video bg-black">
+            <video
+              src="/videos/video2.mp4"
+              className="w-full h-full object-cover"
+              controls
+              poster="/images/ecoloops.png"
+            />
           </div>
 
           {/* Video Info */}

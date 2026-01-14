@@ -27,15 +27,11 @@ const CompanyUpdateCard = () => {
 
           {/* Images */}
           <div className="flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide">
-            <div className="flex-shrink-0 w-48 h-32 bg-gradient-to-br from-green-800/50 to-green-900/50 rounded-xl flex items-center justify-center">
-              <svg className="w-16 h-16 text-primary/30" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
-              </svg>
+            <div className="flex-shrink-0 w-48 h-32 rounded-xl overflow-hidden">
+              <img src="/images/quantum.png" alt="Quantum Leap prototype" className="w-full h-full object-cover" />
             </div>
-            <div className="flex-shrink-0 w-48 h-32 bg-dark rounded-xl flex items-center justify-center">
-              <svg className="w-12 h-12 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
+            <div className="flex-shrink-0 w-48 h-32 rounded-xl overflow-hidden">
+              <img src="/images/biotech.png" alt="Quantum Leap hardware" className="w-full h-full object-cover" />
             </div>
           </div>
 

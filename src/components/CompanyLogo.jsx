@@ -15,6 +15,10 @@ const getLogoImage = (author, initials) => {
     'DV': '/images/datavault.png',
     'CloudSync Technologies': '/images/stock.png',
     'CS': '/images/stock.png',
+    'EcoLoop Systems': '/images/ecoloops.png',
+    'ES': '/images/ecoloops.png',
+    'Quantum Leap': '/images/quantum.png',
+    'QL': '/images/quantum.png',
   };
 
   return logoMap[author] || logoMap[initials] || null;
