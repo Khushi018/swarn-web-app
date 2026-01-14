@@ -5,7 +5,7 @@ const BottomNavigation = ({ currentScreen = 'home', onNavigate, onOpenCreatePost
     { id: 'home', label: 'Home', icon: 'home', active: currentScreen === 'home' },
     { id: 'explore', label: 'Explore', icon: 'explore', active: currentScreen === 'explore' },
     { id: 'add', label: '', icon: 'add', active: false, isCenter: true },
-    { id: 'chat', label: 'Chat', icon: 'chat', active: currentScreen === 'chat', badge: 2 },
+    { id: 'reels', label: 'Reels', icon: 'reels', active: currentScreen === 'reels' },
     { id: 'profile', label: 'Profile', icon: 'profile', active: currentScreen === 'profile' },
   ];
 
@@ -31,10 +31,10 @@ const BottomNavigation = ({ currentScreen = 'home', onNavigate, onOpenCreatePost
             <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
           </svg>
         );
-      case 'chat':
+      case 'reels':
         return (
           <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
           </svg>
         );
       case 'profile':
