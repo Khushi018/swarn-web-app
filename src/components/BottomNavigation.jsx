@@ -51,7 +51,7 @@ const BottomNavigation = ({ currentScreen = 'home', onNavigate, onOpenCreatePost
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-dark-light border-t border-dark z-50 safe-area-bottom" style={{ backgroundColor: '#1e293b' }}>
       <div className="container-mobile">
-        <div className="flex items-center justify-around h-16">
+        <div className="flex items-center justify-between h-16 gap-2">
           {navItems.map((item) => (
             <button
               key={item.id}
