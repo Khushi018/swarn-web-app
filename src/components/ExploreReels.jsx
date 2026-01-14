@@ -43,10 +43,31 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
     },
     {
       id: 5,
-      video: '/videos/video1.mp4',
-      views: 9700,
-      likes: 967,
-      thumbnail: '/videos/video1-thumb.jpg',
+      video: '/videos/video5-fintech.mp4',
+      views: 24800,
+      likes: 2456,
+      thumbnail: '/videos/video5-fintech-thumb.jpg',
+    },
+    {
+      id: 6,
+      video: '/videos/video6-edtech.mp4',
+      views: 19200,
+      likes: 1867,
+      thumbnail: '/videos/video6-edtech-thumb.jpg',
+    },
+    {
+      id: 7,
+      video: '/videos/video7-indianSweetShop.mp4',
+      views: 35700,
+      likes: 3456,
+      thumbnail: '/videos/video7-indianSweetShop-thumb.jpg',
+    },
+    {
+      id: 8,
+      video: '/videos/video8-agritech.mp4',
+      views: 22100,
+      likes: 2134,
+      thumbnail: '/videos/video8-agritech-thumb.jpg',
     },
   ];
 

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Sidebar from './Sidebar';
 import { companies } from '../data/companies';
 
-const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate }) => {
+const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate, onOpenStory }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -180,6 +180,35 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate }) => {
               <span className="text-xs text-gray-400">Add Story</span>
             </button>
             {[
+              // Companies with multiple stories
+              { 
+                name: 'TechFlow Solutions', 
+                author: 'TechFlow Solutions', 
+                authorAvatar: 'TF',
+                stories: [
+                  { video: '/videos/video1.mp4', description: 'Just launched our new AI-powered workflow automation platform! 🚀', id: 1 },
+                  { video: '/videos/video4.mp4', description: 'Seamless cloud storage solution trusted by 50,000+ businesses! ☁️', id: 2 },
+                ]
+              },
+              { 
+                name: 'GreenEnergy Innovations', 
+                author: 'GreenEnergy Innovations', 
+                authorAvatar: 'GE',
+                stories: [
+                  { video: '/videos/video2.mp4', description: 'Our solar panel technology is revolutionizing residential energy! ⚡', id: 1 },
+                  { video: '/videos/video8-agritech.mp4', description: 'Smart farming technology increasing crop yields by 40%! 🌾', id: 2 },
+                ]
+              },
+              { 
+                name: 'MediCare AI', 
+                author: 'MediCare AI', 
+                authorAvatar: 'MA',
+                stories: [
+                  { video: '/videos/video3.mp4', description: 'Proud to announce 95% accuracy in early disease detection! 🏥', id: 1 },
+                  { video: '/videos/video6-edtech.mp4', description: '100,000+ students improving their grades with our adaptive learning system! 📚', id: 2 },
+                ]
+              },
+              // Rest without videos
               'SolarGrid', 
               'Sarah Jenkins', 
               'Vertex AI', 
@@ -198,16 +227,37 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate }) => {
               'FitLife App', 
               'Quantum Leap', 
               'Cortex Link'
-            ].map((name) => (
-              <button key={name} className="flex-shrink-0 flex flex-col items-center gap-2">
-                <div className="w-16 h-16 rounded-full p-0.5 bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center">
-                  <div className="w-full h-full rounded-full bg-dark-light flex items-center justify-center">
-                    <span className="text-white text-sm font-semibold">{name.substring(0, 2)}</span>
+            ].map((item, index) => {
+              const isVideoStory = typeof item === 'object' && item.stories;
+              const name = isVideoStory ? item.name : item;
+              const storyId = isVideoStory ? `story-${index}` : `story-${index}`;
+
+              return (
+                <button 
+                  key={storyId}
+                  onClick={() => {
+                    if (isVideoStory && onOpenStory) {
+                      // Map company stories to story format with company info
+                      const companyStories = item.stories.map(story => ({
+                        ...story,
+                        author: item.author,
+                        authorAvatar: item.authorAvatar,
+                        time: 'Just now',
+                      }));
+                      onOpenStory(companyStories, 0);
+                    }
+                  }}
+                  className="flex-shrink-0 flex flex-col items-center gap-2"
+                >
+                  <div className="w-16 h-16 rounded-full p-0.5 bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center">
+                    <div className="w-full h-full rounded-full bg-dark-light flex items-center justify-center">
+                      <span className="text-white text-sm font-semibold">{name.substring(0, 2)}</span>
+                    </div>
                   </div>
-                </div>
-                <span className="text-xs text-gray-400">{name.length > 8 ? name.substring(0, 8) + '...' : name}</span>
-              </button>
-            ))}
+                  <span className="text-xs text-gray-400">{name.length > 8 ? name.substring(0, 8) + '...' : name}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>

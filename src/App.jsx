@@ -14,12 +14,14 @@ import CreatePostModal from './components/CreatePostModal';
 import Reels from './components/Reels';
 import Analytics from './components/Analytics';
 import FeedPreferences from './components/FeedPreferences';
+import StoryViewer from './components/StoryViewer';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
   const [isCreatePostModalOpen, setIsCreatePostModalOpen] = useState(false);
   const [selectedVideoId, setSelectedVideoId] = useState(null);
+  const [storyViewer, setStoryViewer] = useState({ isOpen: false, stories: [], initialIndex: 0 });
 
   const handleCompanySelect = (companyId) => {
     setSelectedCompanyId(companyId);
@@ -71,6 +73,7 @@ function App() {
               onCompanySelect={handleCompanySelect} 
               onOpenCreatePost={() => setIsCreatePostModalOpen(true)}
               onNavigate={setCurrentScreen}
+              onOpenStory={(stories, initialIndex) => setStoryViewer({ isOpen: true, stories, initialIndex })}
             />
             
             <main className="w-full bg-dark overflow-x-hidden" style={{ backgroundColor: '#0f172a' }}>
@@ -107,6 +110,14 @@ function App() {
         onClose={() => setIsCreatePostModalOpen(false)}
         onSubmit={handleCreatePost}
       />
+      {/* Story Viewer */}
+      {storyViewer.isOpen && (
+        <StoryViewer
+          stories={storyViewer.stories}
+          initialStoryIndex={storyViewer.initialIndex}
+          onClose={() => setStoryViewer({ isOpen: false, stories: [], initialIndex: 0 })}
+        />
+      )}
     </>
   );
 }
