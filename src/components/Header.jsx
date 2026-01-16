@@ -95,7 +95,7 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate, onOpenStory }) 
                 onClick={() => setShowLogoDropdown(!showLogoDropdown)}
                 className="flex items-center gap-1 rounded px-1 py-1 transition-colors active:bg-transparent"
               >
-                <span className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-green-400 via-emerald-400 to-blue-500 bg-clip-text text-transparent drop-shadow-lg">
+                <span className="text-2xl font-black tracking-tighter bg-gradient-to-r from-green-400 via-emerald-400 to-blue-500 bg-clip-text text-transparent drop-shadow-lg uppercase">
                   Swarg
                 </span>
                 <svg className="w-3 h-3 text-gray-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
