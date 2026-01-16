@@ -4,7 +4,7 @@ const BottomNavigation = ({ currentScreen = 'home', onNavigate, onOpenCreatePost
   const navItems = [
     { id: 'home', label: 'Home', icon: 'home', active: currentScreen === 'home' },
     { id: 'explore', label: 'Explore', icon: 'explore', active: currentScreen === 'explore' },
-    { id: 'add', label: '', icon: 'add', active: false, isCenter: true },
+    { id: 'add', label: 'Post', icon: 'add', active: false, isCenter: true },
     { id: 'reels', label: 'Reels', icon: 'reels', active: currentScreen === 'reels' },
     { id: 'profile', label: 'Profile', icon: 'profile', active: currentScreen === 'profile' },
   ];
@@ -27,8 +27,8 @@ const BottomNavigation = ({ currentScreen = 'home', onNavigate, onOpenCreatePost
         );
       case 'add':
         return (
-          <svg className={iconClass} fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+          <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
         );
       case 'reels':
@@ -64,7 +64,7 @@ const BottomNavigation = ({ currentScreen = 'home', onNavigate, onOpenCreatePost
               }}
               className={`relative flex flex-col items-center justify-center touch-target ${
                 item.isCenter 
-                  ? 'w-14 h-14 bg-gradient-to-br from-green-400 via-green-500 to-green-600 rounded-full text-white -mt-6 shadow-xl shadow-green-500/50' 
+                  ? 'flex-1 text-gray-400' 
                   : 'flex-1 text-gray-400'
               } ${item.active && !item.isCenter ? 'text-primary' : ''}`}
             >

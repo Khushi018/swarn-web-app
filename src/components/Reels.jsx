@@ -5,6 +5,18 @@ const Reels = ({ initialVideoId = null }) => {
   // Sample reels data - videos should be stored in public/videos folder
   const reels = [
     {
+      id: 0,
+      video: '/videos/AI Solar Disruption.mp4',
+      thumbnail: '/images/greenenergy.png',
+      author: 'Quantum Leap',
+      authorAvatar: 'QL',
+      likes: 3156,
+      comments: 234,
+      shares: 156,
+      views: '32.5k',
+      description: 'AI Solar disruption is here! Post from startup - revolutionizing renewable energy with artificial intelligence 🌞⚡',
+    },
+    {
       id: 1,
       video: '/videos/video1.mp4', // Video files from public/videos folder
       thumbnail: '/videos/video1-thumb.jpg',

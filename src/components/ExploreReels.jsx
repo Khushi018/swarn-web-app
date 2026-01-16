@@ -14,6 +14,15 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
   //         [video4] [video5] [video9 (continues)]
   const videos = [
     {
+      id: 0,
+      video: '/videos/Solar Disruption.mp4',
+      views: 32500,
+      likes: 3156,
+      thumbnail: '/images/greenenergy.png',
+      author: 'Quantum Leap',
+      authorAvatar: 'QL',
+    },
+    {
       id: 1,
       video: '/videos/video1.mp4',
       views: 12500,

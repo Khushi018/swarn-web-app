@@ -8,8 +8,10 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate, onOpenStory }) 
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
+  const [showLogoDropdown, setShowLogoDropdown] = useState(false);
   const searchRef = useRef(null);
   const resultsRef = useRef(null);
+  const logoDropdownRef = useRef(null);
 
   // Handle search
   useEffect(() => {
@@ -41,6 +43,12 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate, onOpenStory }) 
       ) {
         setShowResults(false);
       }
+      if (
+        logoDropdownRef.current &&
+        !logoDropdownRef.current.contains(event.target)
+      ) {
+        setShowLogoDropdown(false);
+      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
@@ -66,83 +74,82 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate, onOpenStory }) 
         onNavigate={onNavigate}
       />
       
-      {/* Sticky Header - Search Bar and Categories */}
+      {/* Sticky Header - Reddit Style */}
       <header className="w-full bg-dark sticky top-0 z-50 border-b border-dark-light" style={{ backgroundColor: '#0f172a' }}>
-        <div className="container-mobile py-3">
-          {/* Profile, Search Bar, and Notification */}
-          <div className="flex items-center gap-3">
+        <div className="container-mobile py-2">
+          <div className="flex items-center gap-2">
+            {/* Hamburger Menu with Green Notification */}
             <button
               onClick={() => setIsSidebarOpen(true)}
-              className="w-10 h-10 rounded-full bg-primary-dark flex items-center justify-center border-2 border-primary flex-shrink-0 hover:opacity-90 transition-opacity cursor-pointer"
+              className="relative flex-shrink-0 p-1.5 hover:bg-dark-light rounded-lg transition-colors"
             >
-              <span className="text-white text-sm font-semibold">AS</span>
-            </button>
-            
-            {/* Search Bar */}
-            <div className="relative flex-1" ref={searchRef}>
-              <input
-                type="text"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onFocus={() => searchQuery.trim() && searchResults.length > 0 && setShowResults(true)}
-                className="w-full h-10 px-4 pl-10 bg-dark-light rounded-lg text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
-              {searchQuery && (
-                <button 
-                  onClick={() => {
-                    setSearchQuery('');
-                    setShowResults(false);
-                  }}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 touch-target"
-                >
-                  <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              )}
-              
-              {/* Search Results Dropdown */}
-              {showResults && searchResults.length > 0 && (
-                <div 
-                  ref={resultsRef}
-                  className="absolute top-full left-0 right-0 mt-2 bg-dark-light rounded-xl border border-dark-light shadow-2xl max-h-96 overflow-y-auto z-50"
-                  style={{ backgroundColor: '#1e293b' }}
-                >
-                  {searchResults.map((company) => (
-                    <button
-                      key={company.id}
-                      onClick={() => handleCompanyClick(company.id)}
-                      className="w-full flex items-center gap-3 p-4 hover:bg-dark transition-colors border-b border-dark last:border-b-0"
-                    >
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center flex-shrink-0">
-                        <span className="text-white text-sm font-bold">{company.shortName}</span>
-                      </div>
-                      <div className="flex-1 text-left">
-                        <h3 className="text-white font-semibold text-base mb-1">{company.name}</h3>
-                        <p className="text-gray-400 text-xs">{company.industry} • {company.location}</p>
-                        <div className="flex items-center gap-2 mt-1">
-                          <span className="text-xs text-gray-500">{company.stage}</span>
-                          <span className="text-xs text-primary font-medium">{company.status}</span>
-                        </div>
-                      </div>
-                      <svg className="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
-                  ))}
+              <span className="absolute top-0.5 right-0.5 w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+            </button>
+
+            {/* Logo with Dropdown */}
+            <div className="relative flex-shrink-0" ref={logoDropdownRef}>
+              <button
+                onClick={() => setShowLogoDropdown(!showLogoDropdown)}
+                className="flex items-center gap-1 rounded px-1 py-1 transition-colors active:bg-transparent"
+              >
+                <span className="text-2xl font-bold bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+                  Swarg
+                </span>
+                <svg className="w-3 h-3 text-gray-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {/* Dropdown Menu */}
+              {showLogoDropdown && (
+                <div className="absolute top-full left-0 mt-2 bg-dark-light rounded-lg border border-dark-light shadow-xl min-w-[180px] z-50" style={{ backgroundColor: '#1e293b' }}>
+                  <button
+                    onClick={() => {
+                      if (onNavigate) onNavigate('home');
+                      setShowLogoDropdown(false);
+                    }}
+                    className="w-full text-left px-4 py-3 text-white hover:bg-dark transition-colors text-sm font-medium"
+                  >
+                    Home
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowLogoDropdown(false);
+                    }}
+                    className="w-full text-left px-4 py-3 text-white hover:bg-dark transition-colors text-sm font-medium border-t border-dark"
+                  >
+                    For Founder
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowLogoDropdown(false);
+                    }}
+                    className="w-full text-left px-4 py-3 text-white hover:bg-dark transition-colors text-sm font-medium border-t border-dark"
+                  >
+                    For Investors
+                  </button>
                 </div>
               )}
             </div>
 
-            <button className="touch-target relative flex-shrink-0 p-2 hover:bg-dark-light rounded-lg transition-colors">
-              <svg className="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+            {/* Spacer */}
+            <div className="flex-1"></div>
+
+            {/* Search Icon */}
+            <button className="touch-target flex-shrink-0 p-1 hover:bg-dark-light rounded-lg transition-colors">
+              <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+
+            {/* Notification Icon */}
+            <button className="touch-target relative flex-shrink-0 p-1 hover:bg-dark-light rounded-lg transition-colors -ml-1">
+              <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>             
             </button>
           </div>
 
@@ -182,6 +189,14 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate, onOpenStory }) 
             </button>
             {[
               // Companies with multiple stories
+              { 
+                name: 'Quantum Leap', 
+                author: 'Quantum Leap', 
+                authorAvatar: 'QL',
+                stories: [
+                  { video: '/videos/ai-solar-story.mp4', description: 'AI Solar disruption is here! Post from startup - revolutionizing renewable energy with artificial intelligence 🌞⚡', id: 1 },
+                ]
+              },
               { 
                 name: 'TechFlow Solutions', 
                 author: 'TechFlow Solutions', 

@@ -17,8 +17,8 @@ const getLogoImage = (author, initials) => {
     'CS': '/images/stock.png',
     'EcoLoop Systems': '/images/ecoloops.png',
     'ES': '/images/ecoloops.png',
-    'Quantum Leap': '/images/quantum.png',
-    'QL': '/images/quantum.png',
+    'Quantum Leap': '/images/quantumLeap-logo.png',
+    'QL': '/images/quantumLeap-logo.png',
   };
 
   return logoMap[author] || logoMap[initials] || null;

@@ -106,12 +106,12 @@ const StoryViewer = ({ stories, initialStoryIndex = 0, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 bg-black">
-      {/* Video Container - Full Screen */}
-      <div className="relative w-full h-full flex items-center justify-center">
+      {/* Video Container - Full Screen with bottom padding for interactions */}
+      <div className="relative w-full h-full flex items-center justify-center pb-24">
         <video
           ref={videoRef}
           src={currentStory.video}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain"
           onClick={handleVideoClick}
           onEnded={handleVideoEnd}
           loop={false}

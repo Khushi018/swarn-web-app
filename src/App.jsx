@@ -80,7 +80,6 @@ function App() {
               <div className="w-full max-w-4xl mx-auto">
                 <TopPicks />
                 <InvestmentNotification />
-                <VideoPitchCard />
                 <MarketWatchCard />
                 <CompanyUpdateCard />
                 

@@ -8,6 +8,20 @@ const Feed = () => {
   // Sample feed data with images and videos
   const feedPosts = [
     {
+      id: 0,
+      username: 'Quantum Leap',
+      userAvatar: 'QL',
+      time: '1h ago',
+      type: 'video',
+      video: '/videos/AI Solar Disruption.mp4',
+      caption: 'AI Solar disruption is here! Post from startup - revolutionizing renewable energy with artificial intelligence 🌞⚡ #AISolar #GreenEnergy #Startup',
+      likes: 2156,
+      comments: 234,
+      shares: 156,
+      duration: '2:30',
+      isReel: true,
+    },
+    {
       id: 1,
       username: 'TechFlow Solutions',
       userAvatar: 'TF',
@@ -162,11 +176,12 @@ const Feed = () => {
                 </div>
 
                 {/* Media */}
-                <div className="relative w-full bg-dark aspect-square overflow-hidden">
+                <div className={`relative w-full bg-dark overflow-hidden ${isVideo ? 'aspect-[9/16]' : 'aspect-square'}`}>
                   {isVideo && post.video ? (
                     <div className="relative w-full h-full">
                       <video
                         src={post.video}
+                        poster={post.image || undefined}
                         className="w-full h-full object-cover"
                         controls={isPlaying}
                         muted={!isPlaying}
