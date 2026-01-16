@@ -147,8 +147,8 @@ const Feed = () => {
 
   return (
     <div className="w-full bg-dark" style={{ backgroundColor: '#0f172a' }}>
-      <div className="container-mobile">
-        <div className="space-y-6 py-4">
+      <div className="w-full">
+        <div className="space-y-0">
           {feedPosts.map((post) => {
             const isLiked = likedPosts.has(post.id);
             const isVideo = post.type === 'video';
@@ -157,10 +157,10 @@ const Feed = () => {
             return (
               <div
                 key={post.id}
-                className="bg-dark-light rounded-2xl border border-dark-light overflow-hidden"
+                className="overflow-hidden"
               >
                 {/* Post Header */}
-                <div className="flex items-center justify-between p-4 pb-3">
+                <div className="flex items-center justify-between px-4 pt-4 pb-3">
                   <div className="flex items-center gap-3">
                     <CompanyLogo initials={post.userAvatar} author={post.username} size="md" showBorder={true} />
                     <div>
@@ -175,8 +175,8 @@ const Feed = () => {
                   </button>
                 </div>
 
-                {/* Media */}
-                <div className={`relative w-full bg-dark overflow-hidden ${isVideo ? 'aspect-[9/16]' : 'aspect-square'}`}>
+                {/* Media - Full Screen */}
+                <div className={`relative w-screen bg-dark overflow-hidden ${isVideo ? 'aspect-[9/16]' : 'aspect-square'}`} style={{ marginLeft: 'calc(-50vw + 50%)', width: '100vw' }}>
                   {isVideo && post.video ? (
                     <div className="relative w-full h-full">
                       <video
