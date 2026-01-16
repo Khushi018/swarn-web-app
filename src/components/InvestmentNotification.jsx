@@ -3,7 +3,7 @@ import React from 'react';
 const InvestmentNotification = () => {
   return (
     <div className="w-full mb-6 bg-dark" style={{ backgroundColor: '#0f172a' }}>
-      <div className="container-mobile">
+      <div className="w-full px-4">
         <button className="w-full bg-dark-light rounded-xl p-4 flex items-center gap-3 hover:bg-dark-light/80">
           <div className="flex -space-x-2">
             <div className="w-10 h-10 rounded-full bg-primary-dark border-2 border-dark flex items-center justify-center">

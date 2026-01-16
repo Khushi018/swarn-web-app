@@ -79,7 +79,7 @@ function App() {
             <main className="w-full bg-dark overflow-x-hidden" style={{ backgroundColor: '#0f172a' }}>
               <div className="w-full max-w-4xl mx-auto">
                 <TopPicks />
-                <InvestmentNotification />
+                {/* <InvestmentNotification /> */}
                 <MarketWatchCard />
                 <CompanyUpdateCard />
                 

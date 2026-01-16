@@ -76,7 +76,7 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate, onOpenStory }) 
       
       {/* Sticky Header - Reddit Style */}
       <header className="w-full bg-dark sticky top-0 z-50 border-b border-dark-light" style={{ backgroundColor: '#0f172a' }}>
-        <div className="container-mobile py-2">
+        <div className="w-full px-4 py-2 md:max-w-4xl md:mx-auto">
           <div className="flex items-center gap-2">
             {/* Hamburger Menu with Green Notification */}
             <button
@@ -177,8 +177,8 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate, onOpenStory }) 
 
       {/* Non-Sticky Stories Section - Scrolls with page */}
       <div className="w-full bg-dark" style={{ backgroundColor: '#0f172a' }}>
-        <div className="container-mobile py-4">
-          <div className="flex items-center gap-4 overflow-x-auto pb-2 scrollbar-hide">
+        <div className="w-full px-4 py-4 md:max-w-4xl md:mx-auto">
+          <div className="flex items-center gap-4 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
             <button 
               onClick={() => onOpenCreatePost && onOpenCreatePost()}
               className="flex-shrink-0 flex flex-col items-center gap-2"

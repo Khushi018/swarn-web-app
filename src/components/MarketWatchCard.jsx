@@ -3,7 +3,7 @@ import React from 'react';
 const MarketWatchCard = () => {
   return (
     <div className="w-full mb-6 bg-dark" style={{ backgroundColor: '#0f172a' }}>
-      <div className="container-mobile">
+      <div className="w-full px-4">
         <div className="bg-dark-light rounded-2xl p-4 border border-dark-light">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-xs text-gray-400 font-medium">MARKET WATCH</span>

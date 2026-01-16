@@ -4,7 +4,7 @@ import CompanyLogo from './CompanyLogo';
 const CompanyUpdateCard = () => {
   return (
     <div className="w-full mb-6 bg-dark" style={{ backgroundColor: '#0f172a' }}>
-      <div className="container-mobile">
+      <div className="w-full px-4">
         <div className="bg-dark-light rounded-2xl p-4 border border-dark-light">
           {/* Header */}
           <div className="flex items-start justify-between mb-3">

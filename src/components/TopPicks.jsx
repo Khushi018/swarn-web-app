@@ -62,13 +62,13 @@ const TopPicks = () => {
 
   return (
     <section className="w-full mb-6 bg-dark" style={{ backgroundColor: '#0f172a' }}>
-      <div className="container-mobile">
-        <div className="flex items-center justify-between mb-4">
+        <div className="container-mobile">
+        <div className="flex items-center justify-between mb-4 px-4">
           <h2 className="text-lg font-semibold text-white">Top Picks for You</h2>
           <button className="text-primary text-sm font-medium">See All</button>
         </div>
 
-        <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide scroll-smooth snap-x snap-mandatory">
+        <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide scroll-smooth snap-x snap-mandatory px-4">
           {picks.map((pick) => (
             <div
               key={pick.id}
