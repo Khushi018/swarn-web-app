@@ -1,101 +1,129 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Sidebar from './Sidebar';
 import CompanyLogo from './CompanyLogo';
+import { companyVideos } from '../data/companyVideos';
 
 const ExploreReels = ({ onNavigate, onVideoSelect }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('Videos');
   const [searchQuery, setSearchQuery] = useState('');
+  const [playingVideos, setPlayingVideos] = useState(new Set());
   const videoRefs = useRef([]);
   const containerRefs = useRef([]);
 
-  // Real videos from public/videos folder - arranged for 2 rows x 3 cols with 3rd col merged
-  // Layout: [video1] [video2] [video9 (merged, spans 2 rows)]
-  //         [video4] [video5] [video9 (continues)]
-  const videos = [
-    {
-      id: 0,
-      video: '/videos/Solar Disruption.mp4',
-      views: 32500,
-      likes: 3156,
-      thumbnail: '/images/greenenergy.png',
-      author: 'Quantum Leap',
-      authorAvatar: 'QL',
-    },
-    {
-      id: 1,
-      video: '/videos/video1.mp4',
-      views: 12500,
-      likes: 1247,
-      thumbnail: '/videos/video1-thumb.jpg',
-      author: 'TechFlow Solutions',
-      authorAvatar: 'TF',
-    },
-    {
-      id: 2,
-      video: '/videos/video2.mp4',
-      views: 8900,
-      likes: 892,
-      thumbnail: '/videos/video2-thumb.jpg',
-      author: 'GreenEnergy Innovations',
-      authorAvatar: 'GE',
-    },
-    {
-      id: 9,
-      video: '/videos/video9-climatetech.mp4',
-      views: 29400,
-      likes: 2876,
-      thumbnail: '/videos/video9-climatetech-thumb.jpg',
-      isMerged: true, // This video spans 2 rows in the 3rd column
-      author: 'ClimateTech Solutions',
-      authorAvatar: 'CT',
-    },
-    {
-      id: 4,
-      video: '/videos/video4.mp4',
-      views: 18300,
-      likes: 1834,
-      thumbnail: '/videos/video4-thumb.jpg',
-      author: 'CloudSync Technologies',
-      authorAvatar: 'CS',
-    },
-    {
-      id: 5,
-      video: '/videos/video5-fintech.mp4',
-      views: 24800,
-      likes: 2456,
-      thumbnail: '/videos/video5-fintech-thumb.jpg',
-      author: 'FinTech Pro',
-      authorAvatar: 'FP',
-    },
-    {
-      id: 6,
-      video: '/videos/video6-edtech.mp4',
-      views: 19200,
-      likes: 1867,
-      thumbnail: '/videos/video6-edtech-thumb.jpg',
-      author: 'EduLearn Platform',
-      authorAvatar: 'EL',
-    },
-    {
-      id: 7,
-      video: '/videos/video7-indianSweetShop.mp4',
-      views: 35700,
-      likes: 3456,
-      thumbnail: '/videos/video7-indianSweetShop-thumb.jpg',
-      author: 'Mithai Express',
-      authorAvatar: 'ME',
-    },
-    {
-      id: 8,
-      video: '/videos/video8-agritech.mp4',
-      views: 22100,
-      likes: 2134,
-      thumbnail: '/videos/video8-agritech-thumb.jpg',
-      author: 'AgriGrow Solutions',
-      authorAvatar: 'AG',
-    },
-  ];
+  // Transform videos for grid layout: 2-2-merged pattern with alternating merged columns
+  // Pattern alternates between:
+  // Group 1 (merged right): [vid1] [vid2] [vid3 (merged, spans 2 rows)]
+  //                          [vid4] [vid5] [vid3 (continues)]
+  // Group 2 (merged left):  [vid6 (merged, spans 2 rows)] [vid7] [vid8]
+  //                          [vid6 (continues)] [vid9] [vid10]
+  // Groups of 5 videos, alternating merged position
+  const prepareGridVideos = () => {
+    const gridVideos = [];
+    let i = 0;
+    let groupIndex = 0; // Track which group to determine merged column position
+    
+    while (i < companyVideos.length) {
+      const isMergedRight = groupIndex % 2 === 0; // Even groups: merged in column 3 (right)
+      
+      if (isMergedRight) {
+        // Group with merged video in column 3 (right)
+        // Order: vid1, vid2, vid3(merged), vid4, vid5
+        if (i < companyVideos.length) {
+          gridVideos.push({ ...companyVideos[i] }); // Row 1, col 1
+          i++;
+        }
+        if (i < companyVideos.length) {
+          gridVideos.push({ ...companyVideos[i] }); // Row 1, col 2
+          i++;
+        }
+        if (i < companyVideos.length) {
+          gridVideos.push({ ...companyVideos[i], isMerged: true, mergedColumn: 'right' }); // Row 1, col 3 (merged)
+          i++;
+        }
+        if (i < companyVideos.length) {
+          gridVideos.push({ ...companyVideos[i] }); // Row 2, col 1
+          i++;
+        }
+        if (i < companyVideos.length) {
+          gridVideos.push({ ...companyVideos[i] }); // Row 2, col 2
+          i++;
+        }
+      } else {
+        // Group with merged video in column 1 (left)
+        // Order: vid6(merged), vid7, vid8, vid9, vid10
+        if (i < companyVideos.length) {
+          gridVideos.push({ ...companyVideos[i], isMerged: true, mergedColumn: 'left' }); // Row 1, col 1 (merged)
+          i++;
+        }
+        if (i < companyVideos.length) {
+          gridVideos.push({ ...companyVideos[i] }); // Row 1, col 2
+          i++;
+        }
+        if (i < companyVideos.length) {
+          gridVideos.push({ ...companyVideos[i] }); // Row 1, col 3
+          i++;
+        }
+        if (i < companyVideos.length) {
+          gridVideos.push({ ...companyVideos[i] }); // Row 2, col 2
+          i++;
+        }
+        if (i < companyVideos.length) {
+          gridVideos.push({ ...companyVideos[i] }); // Row 2, col 3
+          i++;
+        }
+      }
+      
+      groupIndex++;
+    }
+    
+    return gridVideos;
+  };
+
+  const videos = prepareGridVideos();
+
+  // Handle video play/pause for non-merged videos
+  const handleVideoClick = (index, video) => {
+    if (video.isMerged) {
+      // Merged videos navigate to reels
+      if (onVideoSelect) {
+        onVideoSelect(video.id);
+      }
+      if (onNavigate) {
+        onNavigate('reels');
+      }
+    } else {
+      // Non-merged videos toggle play/pause
+      const videoEl = videoRefs.current[index];
+      if (videoEl) {
+        if (videoEl.paused) {
+          videoEl.play();
+          setPlayingVideos((prev) => new Set(prev).add(index));
+        } else {
+          videoEl.pause();
+          setPlayingVideos((prev) => {
+            const newSet = new Set(prev);
+            newSet.delete(index);
+            return newSet;
+          });
+        }
+      }
+    }
+  };
+
+  // Ensure merged videos play and non-merged videos pause on mount/update
+  useEffect(() => {
+    videos.forEach((video, index) => {
+      const videoEl = videoRefs.current[index];
+      if (videoEl) {
+        if (video.isMerged) {
+          videoEl.play().catch(() => {});
+        } else {
+          videoEl.pause();
+        }
+      }
+    });
+  }, [videos]);
 
   const news = Array.from({ length: 12 }, (_, i) => ({
     id: i + 1,
@@ -120,38 +148,54 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
       case 'Videos':
         return (
           <div className="w-full">
-            {/* Grid Layout - 2 rows x 3 columns with 3rd column merged */}
-            <div className="grid grid-cols-3 grid-rows-2 gap-1 md:gap-2" style={{ gridAutoRows: '1fr' }}>
+            {/* Grid Layout - 2-2-merged pattern with alternating merged columns */}
+            {/* Pattern alternates:
+                Group 1 (merged right): [vid1] [vid2] [vid3 (merged)]
+                                        [vid4] [vid5] [vid3 (continues)]
+                Group 2 (merged left):  [vid6 (merged)] [vid7] [vid8]
+                                        [vid6 (continues)] [vid9] [vid10] */}
+            <div className="grid grid-cols-3 gap-1 md:gap-2" style={{ gridAutoRows: '1fr' }}>
               {videos.map((video, index) => {
                 const isMerged = video.isMerged || false;
+                const views = video.metrics?.views || 0;
+                const likes = video.metrics?.likes || 0;
                 
                 return (
                   <div
-                    key={video.id}
+                    key={`${video.id}-${index}`}
                     ref={(el) => (containerRefs.current[index] = el)}
                     className={`relative bg-dark-light rounded-lg overflow-hidden cursor-pointer group ${
                       isMerged ? 'row-span-2' : ''
                     }`}
                     style={isMerged ? {} : { aspectRatio: '1 / 1' }}
-                    onClick={() => {
-                      if (onVideoSelect) {
-                        onVideoSelect(video.id);
-                      }
-                      if (onNavigate) {
-                        onNavigate('reels');
-                      }
-                    }}
+                    onClick={() => handleVideoClick(index, video)}
                   >
                     {/* Video Element */}
                     <video
-                      ref={(el) => (videoRefs.current[index] = el)}
+                      ref={(el) => {
+                        videoRefs.current[index] = el;
+                      }}
                       src={video.video}
                       className="w-full h-full object-cover"
                       loop
                       muted
                       playsInline
-                      autoPlay
+                      autoPlay={isMerged}
                       preload="auto"
+                      onPlay={() => {
+                        if (!isMerged) {
+                          setPlayingVideos((prev) => new Set(prev).add(index));
+                        }
+                      }}
+                      onPause={() => {
+                        if (!isMerged) {
+                          setPlayingVideos((prev) => {
+                            const newSet = new Set(prev);
+                            newSet.delete(index);
+                            return newSet;
+                          });
+                        }
+                      }}
                     />
                     
                     {/* Overlay on hover */}
@@ -163,7 +207,9 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
                             <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
                             <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
                           </svg>
-                          <span className="text-sm font-semibold">{(video.views / 1000).toFixed(1)}k</span>
+                          <span className="text-sm font-semibold">
+                            {views >= 1000 ? `${(views / 1000).toFixed(1)}k` : views}
+                          </span>
                         </div>
                         
                         {/* Likes */}
@@ -171,7 +217,7 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
                           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                           </svg>
-                          <span className="text-sm font-semibold">{video.likes}</span>
+                          <span className="text-sm font-semibold">{likes}</span>
                         </div>
                       </div>
                     </div>
@@ -184,17 +230,17 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
                         </svg>
                       </div>
                     </div>
+
+                    {/* Company name overlay (bottom) */}
+                    <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 to-transparent">
+                      <p className="text-white text-xs font-semibold truncate">{video.company}</p>
+                    </div>
                   </div>
                 );
               })}
             </div>
 
-            {/* Video count info */}
-            <div className="mt-4 text-center">
-              <p className="text-sm text-gray-400">
-                {videos.length} {videos.length === 1 ? 'video' : 'videos'}
-              </p>
-            </div>
+          
           </div>
         );
       case 'News':

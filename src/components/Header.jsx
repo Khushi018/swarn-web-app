@@ -102,9 +102,6 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate, onOpenStory }) 
                 </span>
                
               </button>
-             
-
-            
             </div>
 
             {/* Spacer */}
