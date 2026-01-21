@@ -1,6 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
+import { companies } from '../data/companies';
+import CompanyLogo from './CompanyLogo';
 
-const Sidebar = ({ isOpen, onClose, userName = "Alex Sterling", avatarUrl, onNavigate }) => {
+const Sidebar = ({
+  isOpen,
+  onClose,
+  userName = "Alex Sterling",
+  avatarUrl,
+  onNavigate,
+  onCompanySelect,
+  ownedCompanyIds = [1, 2], // investor "own companies" (at least 2)
+}) => {
   // Prevent body scroll when sidebar is open
   useEffect(() => {
     if (isOpen) {
@@ -13,6 +23,12 @@ const Sidebar = ({ isOpen, onClose, userName = "Alex Sterling", avatarUrl, onNav
       document.body.style.overflow = '';
     };
   }, [isOpen]);
+
+  const ownedCompanies = useMemo(() => {
+    const ids = Array.isArray(ownedCompanyIds) ? ownedCompanyIds : [];
+    return companies.filter((c) => ids.includes(c.id)).slice(0, 2);
+  }, [ownedCompanyIds]);
+
   return (
     <>
       {/* Dimmed Overlay Background */}
@@ -48,7 +64,44 @@ const Sidebar = ({ isOpen, onClose, userName = "Alex Sterling", avatarUrl, onNav
                 <p className="text-xs text-gray-400">Angel Investor</p>
               </div>
             </div>
-            <button className="w-full flex items-center justify-between px-4 py-3 rounded-lg hover:bg-dark transition-colors touch-target">
+
+            {/* Investor companies */}
+            {ownedCompanies.length > 0 && (
+              <div className="px-4 py-2 mb-2">
+                <p className="text-[11px] font-semibold text-gray-400 tracking-wide uppercase mb-2">
+                  My Companies
+                </p>
+                <div className="space-y-1">
+                  {ownedCompanies.map((c) => (
+                    <button
+                      key={c.id}
+                      onClick={() => {
+                        if (onCompanySelect) onCompanySelect(c.id);
+                        onClose();
+                      }}
+                      className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-dark transition-colors touch-target"
+                    >
+                      <CompanyLogo initials={c.shortName} author={c.name} size="sm" className="rounded-lg" />
+                      <div className="flex-1 min-w-0 text-left">
+                        <p className="text-sm font-medium text-white truncate">{c.name}</p>
+                        <p className="text-xs text-gray-400 truncate">{c.industry}</p>
+                      </div>
+                      <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <button
+              onClick={() => {
+                if (onNavigate) onNavigate('profile');
+                onClose();
+              }}
+              className="w-full flex items-center justify-between px-4 py-3 rounded-lg hover:bg-dark transition-colors touch-target"
+            >
               <div className="flex items-center gap-3">
                 <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -60,20 +113,6 @@ const Sidebar = ({ isOpen, onClose, userName = "Alex Sterling", avatarUrl, onNav
               </svg>
             </button>
 
-            <button className="w-full flex items-center justify-between px-4 py-3 rounded-lg hover:bg-dark transition-colors touch-target">
-              <div className="flex items-center gap-3">
-                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                </svg>
-                <span className="text-sm font-medium text-white">Notifications</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 bg-primary text-white text-xs font-semibold rounded-full">3</span>
-                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </div>
-            </button>
 
             <button className="w-full flex items-center justify-between px-4 py-3 rounded-lg hover:bg-dark transition-colors touch-target">
               <div className="flex items-center gap-3">
@@ -100,17 +139,7 @@ const Sidebar = ({ isOpen, onClose, userName = "Alex Sterling", avatarUrl, onNav
               </svg>
             </button>
 
-            <button className="w-full flex items-center justify-between px-4 py-3 rounded-lg hover:bg-dark transition-colors touch-target">
-              <div className="flex items-center gap-3">
-                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
-                <span className="text-sm font-medium text-white">Appearance</span>
-              </div>
-              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
+           
 
             <button 
               onClick={() => {

@@ -15,6 +15,7 @@ import Reels from './components/Reels';
 import Analytics from './components/Analytics';
 import FeedPreferences from './components/FeedPreferences';
 import StoryViewer from './components/StoryViewer';
+import SearchPage from './components/SearchPage';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
@@ -45,6 +46,10 @@ function App() {
     setCurrentScreen('home');
   };
 
+  const handleBackFromSearch = () => {
+    setCurrentScreen('home');
+  };
+
   const handleCreatePost = (postData) => {
     console.log('New post created:', postData);
     // Here you would typically send the post data to your backend/API
@@ -58,13 +63,15 @@ function App() {
       case 'company':
         return <CompanyProfile companyId={selectedCompanyId} onBack={handleBackFromCompany} />;
       case 'profile':
-        return <UserProfile onBack={handleBackFromProfile} />;
+        return <UserProfile onBack={handleBackFromProfile} onNavigate={setCurrentScreen} />;
       case 'reels':
         return <Reels initialVideoId={selectedVideoId} />;
       case 'analytics':
         return <Analytics onBack={handleBackFromAnalytics} />;
       case 'feedPreferences':
         return <FeedPreferences onBack={handleBackFromFeedPreferences} />;
+      case 'search':
+        return <SearchPage onBack={handleBackFromSearch} onCompanySelect={handleCompanySelect} />;
       case 'home':
       default:
         return (

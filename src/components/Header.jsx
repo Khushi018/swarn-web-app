@@ -72,6 +72,8 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate, onOpenStory }) 
         onClose={() => setIsSidebarOpen(false)} 
         userName="Alex Sterling"
         onNavigate={onNavigate}
+        onCompanySelect={onCompanySelect}
+        ownedCompanyIds={[1, 2]}
       />
       
       {/* Sticky Header - Reddit Style */}
@@ -98,49 +100,21 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate, onOpenStory }) 
                 <span className="text-2xl font-black tracking-tighter bg-gradient-to-r from-green-400 via-emerald-400 to-blue-500 bg-clip-text text-transparent drop-shadow-lg uppercase">
                   Swarg
                 </span>
-                <svg className="w-3 h-3 text-gray-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
+               
               </button>
              
 
-              {/* Dropdown Menu */}
-              {showLogoDropdown && (
-                <div className="absolute top-full left-0 mt-2 bg-dark-light rounded-lg border border-dark-light shadow-xl min-w-[180px] z-50" style={{ backgroundColor: '#1e293b' }}>
-                  <button
-                    onClick={() => {
-                      if (onNavigate) onNavigate('home');
-                      setShowLogoDropdown(false);
-                    }}
-                    className="w-full text-left px-4 py-3 text-white hover:bg-dark transition-colors text-sm font-medium"
-                  >
-                    Home
-                  </button>
-                  <button
-                    onClick={() => {
-                      setShowLogoDropdown(false);
-                    }}
-                    className="w-full text-left px-4 py-3 text-white hover:bg-dark transition-colors text-sm font-medium border-t border-dark"
-                  >
-                    For Founder
-                  </button>
-                  <button
-                    onClick={() => {
-                      setShowLogoDropdown(false);
-                    }}
-                    className="w-full text-left px-4 py-3 text-white hover:bg-dark transition-colors text-sm font-medium border-t border-dark"
-                  >
-                    For Investors
-                  </button>
-                </div>
-              )}
+            
             </div>
 
             {/* Spacer */}
             <div className="flex-1"></div>
 
             {/* Search Icon */}
-            <button className="touch-target flex-shrink-0 p-1 hover:bg-dark-light rounded-lg transition-colors">
+            <button 
+              onClick={() => onNavigate && onNavigate('search')}
+              className="touch-target flex-shrink-0 p-1 hover:bg-dark-light rounded-lg transition-colors"
+            >
               <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>

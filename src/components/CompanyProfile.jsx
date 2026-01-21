@@ -1,6 +1,31 @@
 import React, { useState } from 'react';
 import { companies } from '../data/companies';
 
+const GlassCard = ({ children, className = '' }) => (
+  <div
+    className={[
+      'rounded-2xl border border-white/10 bg-white/5 backdrop-blur',
+      'shadow-[0_10px_30px_rgba(0,0,0,0.25)]',
+      className,
+    ].join(' ')}
+  >
+    {children}
+  </div>
+);
+
+const Chip = ({ children }) => (
+  <span className="px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs text-gray-200">
+    {children}
+  </span>
+);
+
+const SectionTitle = ({ title, right }) => (
+  <div className="flex items-end justify-between gap-3 mb-3">
+    <h3 className="text-sm font-semibold text-white tracking-wide uppercase">{title}</h3>
+    {right ? <div className="text-xs text-gray-300">{right}</div> : null}
+  </div>
+);
+
 // PostsTab Component - Instagram-like grid view
 const PostsTab = ({ company }) => {
   const [selectedPost, setSelectedPost] = useState(null);
@@ -202,6 +227,12 @@ const CompanyProfile = ({ companyId, onBack }) => {
   const [activeTab, setActiveTab] = useState('About');
   const company = companies.find(c => c.id === companyId);
 
+  const getWebsiteUrl = (website) => {
+    if (!website) return null;
+    if (website.startsWith('http://') || website.startsWith('https://')) return website;
+    return `https://${website}`;
+  };
+
   if (!company) {
     return (
       <div className="min-h-screen bg-dark text-white pb-20" style={{ backgroundColor: '#0f172a' }}>
@@ -239,75 +270,88 @@ const CompanyProfile = ({ companyId, onBack }) => {
       case 'Home':
         return (
           <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-bold text-white mb-3">Overview</h3>
-              <p className="text-base text-gray-300 leading-relaxed mb-4">
+            <GlassCard className="p-5">
+              <SectionTitle title="Company Snapshot" right={company.stage} />
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-xl border border-white/10 bg-black/20 p-4">
+                  <p className="text-[11px] text-gray-400">Valuation</p>
+                  <p className="text-lg font-semibold text-white mt-1">{company.valuation}</p>
+                </div>
+                <div className="rounded-xl border border-white/10 bg-black/20 p-4">
+                  <p className="text-[11px] text-gray-400">
+                    {company.status === 'FUND RAISE' ? 'Raised' : 'Raised (prev)'}
+                  </p>
+                  <p className="text-lg font-semibold text-primary mt-1">{company.raised}</p>
+                </div>
+              </div>
+              <div className="mt-4 text-sm text-gray-200/90 leading-relaxed">
                 {company.businessBrief}
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-dark-light rounded-xl p-4 border border-dark-light">
-                <p className="text-xs text-gray-400 mb-1">Valuation</p>
-                <p className="text-xl font-bold text-white">{company.valuation}</p>
               </div>
-              <div className="bg-dark-light rounded-xl p-4 border border-dark-light">
-                <p className="text-xs text-gray-400 mb-1">Raised</p>
-                <p className="text-xl font-bold text-primary">{company.raised}</p>
-              </div>
-            </div>
+            </GlassCard>
           </div>
         );
       case 'About':
         return (
           <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-bold text-white mb-3">Overview</h3>
-              <p className="text-base text-gray-300 leading-relaxed mb-4">
-                {company.businessBrief}
-              </p>
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-white mb-3">Company Details</h3>
-              <div className="bg-dark-light rounded-xl p-5 border border-dark-light space-y-4">
-                <div className="flex justify-between items-center">
+            <GlassCard className="p-5">
+              <SectionTitle title="Overview" />
+              <p className="text-sm text-gray-200/90 leading-relaxed">{company.businessBrief}</p>
+            </GlassCard>
+
+            <GlassCard className="p-5">
+              <SectionTitle title="Company Details" />
+              <div className="space-y-4">
+                <div className="flex justify-between items-center gap-3">
                   <span className="text-gray-400 text-sm">Industry</span>
-                  <span className="text-white text-sm">{company.industry}</span>
+                  <span className="text-white text-sm text-right">{company.industry}</span>
                 </div>
-                <div className="h-px bg-dark"></div>
-                <div className="flex justify-between items-center">
+                <div className="h-px bg-white/10"></div>
+                <div className="flex justify-between items-center gap-3">
                   <span className="text-gray-400 text-sm">Founded</span>
-                  <span className="text-white text-sm">{company.founded}</span>
+                  <span className="text-white text-sm text-right">{company.founded}</span>
                 </div>
-                <div className="h-px bg-dark"></div>
-                <div className="flex justify-between items-center">
+                <div className="h-px bg-white/10"></div>
+                <div className="flex justify-between items-center gap-3">
                   <span className="text-gray-400 text-sm">Employees</span>
-                  <span className="text-white text-sm">{company.employees}</span>
+                  <span className="text-white text-sm text-right">{company.employees}</span>
                 </div>
-                <div className="h-px bg-dark"></div>
-                <div className="flex justify-between items-center">
+                <div className="h-px bg-white/10"></div>
+                <div className="flex justify-between items-center gap-3">
                   <span className="text-gray-400 text-sm">Location</span>
-                  <span className="text-white text-sm">{company.location}</span>
+                  <span className="text-white text-sm text-right">{company.location}</span>
                 </div>
-                <div className="h-px bg-dark"></div>
-                <div className="flex justify-between items-center">
+                <div className="h-px bg-white/10"></div>
+                <div className="flex justify-between items-center gap-3">
                   <span className="text-gray-400 text-sm">Stage</span>
-                  <span className="text-white text-sm">{company.stage}</span>
+                  <span className="text-white text-sm text-right">{company.stage}</span>
                 </div>
+                {company.website ? (
+                  <>
+                    <div className="h-px bg-white/10"></div>
+                    <div className="flex justify-between items-center gap-3">
+                      <span className="text-gray-400 text-sm">Website</span>
+                      <a
+                        className="text-primary text-sm hover:underline text-right"
+                        href={getWebsiteUrl(company.website)}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {company.website}
+                      </a>
+                    </div>
+                  </>
+                ) : null}
               </div>
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-white mb-3">Tags</h3>
+            </GlassCard>
+
+            <GlassCard className="p-5">
+              <SectionTitle title="Tags" />
               <div className="flex flex-wrap gap-2">
-                {company.tags.map((tag, index) => (
-                  <span 
-                    key={index}
-                    className="px-4 py-2 bg-dark-light rounded-full text-gray-300 text-sm border border-dark-light"
-                  >
-                    {tag}
-                  </span>
+                {(company.tags || []).map((tag, index) => (
+                  <Chip key={index}>{tag}</Chip>
                 ))}
               </div>
-            </div>
+            </GlassCard>
           </div>
         );
       case 'Posts':
@@ -316,7 +360,8 @@ const CompanyProfile = ({ companyId, onBack }) => {
         return (
           <div className="space-y-6">
             {/* Status Header */}
-            <div className="bg-dark-light rounded-xl p-5 border border-dark-light">
+            <GlassCard className="p-5">
+              <SectionTitle title="Investment Opportunity" right={company.status} />
               <div className="flex items-center gap-3 mb-4">
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${getStatusColor(company.status).split(' ')[0]}`}>
                   {company.status === 'FUND RAISE' && (
@@ -340,29 +385,29 @@ const CompanyProfile = ({ companyId, onBack }) => {
                   <p className="text-sm text-gray-400">Investment Opportunity</p>
                 </div>
               </div>
-            </div>
+            </GlassCard>
 
             {/* Financial Details */}
-            <div>
-              <h3 className="text-lg font-bold text-white mb-4">Financial Details</h3>
-              <div className="bg-dark-light rounded-xl p-5 border border-dark-light space-y-4">
+            <GlassCard className="p-5">
+              <SectionTitle title="Financial Details" />
+              <div className="space-y-4">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-400 text-sm">Current Valuation</span>
                   <span className="text-white text-lg font-semibold">{company.valuation}</span>
                 </div>
-                <div className="h-px bg-dark"></div>
+                <div className="h-px bg-white/10"></div>
                 {company.status === 'FUND RAISE' && (
                   <>
                     <div className="flex justify-between items-center">
                       <span className="text-gray-400 text-sm">Amount Raised</span>
                       <span className="text-primary text-lg font-semibold">{company.raised}</span>
                     </div>
-                    <div className="h-px bg-dark"></div>
+                    <div className="h-px bg-white/10"></div>
                     <div className="flex justify-between items-center">
                       <span className="text-gray-400 text-sm">Funding Target</span>
                       <span className="text-white text-lg font-semibold">{company.target}</span>
                     </div>
-                    <div className="h-px bg-dark"></div>
+                    <div className="h-px bg-white/10"></div>
                     <div className="mt-4">
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-gray-400 text-xs">Progress</span>
@@ -387,7 +432,7 @@ const CompanyProfile = ({ companyId, onBack }) => {
                       <span className="text-gray-400 text-sm">Asking Price</span>
                       <span className="text-white text-lg font-semibold">{company.valuation}</span>
                     </div>
-                    <div className="h-px bg-dark"></div>
+                    <div className="h-px bg-white/10"></div>
                     <div className="flex justify-between items-center">
                       <span className="text-gray-400 text-sm">Previous Funding</span>
                       <span className="text-gray-300 text-sm">{company.raised}</span>
@@ -395,98 +440,96 @@ const CompanyProfile = ({ companyId, onBack }) => {
                   </>
                 )}
               </div>
-            </div>
+            </GlassCard>
 
             {/* Investment Terms */}
             {company.status === 'FUND RAISE' && (
-              <div>
-                <h3 className="text-lg font-bold text-white mb-4">Investment Terms</h3>
-                <div className="bg-dark-light rounded-xl p-5 border border-dark-light space-y-4">
+              <GlassCard className="p-5">
+                <SectionTitle title="Investment Terms" />
+                <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-400 text-sm">Minimum Investment</span>
                     <span className="text-white text-sm font-medium">$50,000</span>
                   </div>
-                  <div className="h-px bg-dark"></div>
+                  <div className="h-px bg-white/10"></div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-400 text-sm">Equity Offered</span>
                     <span className="text-white text-sm font-medium">10-15%</span>
                   </div>
-                  <div className="h-px bg-dark"></div>
+                  <div className="h-px bg-white/10"></div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-400 text-sm">Expected Close Date</span>
                     <span className="text-white text-sm font-medium">Q2 2024</span>
                   </div>
-                  <div className="h-px bg-dark"></div>
+                  <div className="h-px bg-white/10"></div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-400 text-sm">Use of Funds</span>
                     <span className="text-white text-sm font-medium text-right">Sales expansion, Product development</span>
                   </div>
                 </div>
-              </div>
+              </GlassCard>
             )}
 
             {/* Sale/Purchase Details */}
             {(company.status === 'ON SALE' || company.status === 'ON PURCHASE') && (
-              <div>
-                <h3 className="text-lg font-bold text-white mb-4">
-                  {company.status === 'ON SALE' ? 'Sale Details' : 'Acquisition Details'}
-                </h3>
-                <div className="bg-dark-light rounded-xl p-5 border border-dark-light space-y-4">
+              <GlassCard className="p-5">
+                <SectionTitle title={company.status === 'ON SALE' ? 'Sale Details' : 'Acquisition Details'} />
+                <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-400 text-sm">Transaction Type</span>
                     <span className="text-white text-sm font-medium">
                       {company.status === 'ON SALE' ? 'Asset Sale' : 'Strategic Acquisition'}
                     </span>
                   </div>
-                  <div className="h-px bg-dark"></div>
+                  <div className="h-px bg-white/10"></div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-400 text-sm">Deal Structure</span>
                     <span className="text-white text-sm font-medium">Cash + Equity</span>
                   </div>
-                  <div className="h-px bg-dark"></div>
+                  <div className="h-px bg-white/10"></div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-400 text-sm">Expected Closing</span>
                     <span className="text-white text-sm font-medium">Q3 2024</span>
                   </div>
-                  <div className="h-px bg-dark"></div>
+                  <div className="h-px bg-white/10"></div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-400 text-sm">Due Diligence Period</span>
                     <span className="text-white text-sm font-medium">60-90 days</span>
                   </div>
                 </div>
-              </div>
+              </GlassCard>
             )}
 
             {/* Key Highlights */}
-            <div>
-              <h3 className="text-lg font-bold text-white mb-4">Key Highlights</h3>
-              <div className="bg-dark-light rounded-xl p-5 border border-dark-light space-y-3">
+            <GlassCard className="p-5">
+              <SectionTitle title="Key Highlights" />
+              <div className="space-y-3">
                 <div className="flex items-start gap-3">
                   <svg className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <p className="text-gray-300 text-sm">Established market presence with {company.employees} employees</p>
+                  <p className="text-gray-200/90 text-sm">Established market presence with {company.employees} employees</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <svg className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <p className="text-gray-300 text-sm">Strong growth trajectory in {company.industry} sector</p>
+                  <p className="text-gray-200/90 text-sm">Strong growth trajectory in {company.industry} sector</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <svg className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <p className="text-gray-300 text-sm">Proven business model with {company.stage} stage validation</p>
+                  <p className="text-gray-200/90 text-sm">Proven business model with {company.stage} stage validation</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <svg className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <p className="text-gray-300 text-sm">Located in {company.location} - prime market location</p>
+                  <p className="text-gray-200/90 text-sm">Located in {company.location} - prime market location</p>
                 </div>
               </div>
-            </div>
+            </GlassCard>
 
             {/* Call to Action */}
             <div className="space-y-3">
@@ -515,14 +558,20 @@ const CompanyProfile = ({ companyId, onBack }) => {
         );
       case 'Life':
         return (
-          <div className="text-center py-12">
-            <p className="text-gray-400">Company culture information coming soon</p>
+          <div className="space-y-6">
+            <GlassCard className="p-5">
+              <SectionTitle title="Life at the company" right="Coming soon" />
+              <p className="text-sm text-gray-300">Company culture information coming soon</p>
+            </GlassCard>
           </div>
         );
       case 'People':
         return (
-          <div className="text-center py-12">
-            <p className="text-gray-400">Team members information coming soon</p>
+          <div className="space-y-6">
+            <GlassCard className="p-5">
+              <SectionTitle title="People" right="Coming soon" />
+              <p className="text-sm text-gray-300">Team members information coming soon</p>
+            </GlassCard>
           </div>
         );
       default:
@@ -544,16 +593,9 @@ const CompanyProfile = ({ companyId, onBack }) => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <div className="flex-1 relative">
-              <input
-                type="text"
-                value={company.name}
-                readOnly
-                className="w-full h-10 px-4 pl-10 bg-dark-light rounded-lg text-sm text-white"
-              />
-              <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-white truncate">{company.name}</p>
+              <p className="text-xs text-gray-400 truncate">{company.industry} • Company profile</p>
             </div>
             <button className="touch-target p-2 hover:bg-dark-light rounded-lg transition-colors flex-shrink-0">
               <svg className="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -604,7 +646,13 @@ const CompanyProfile = ({ companyId, onBack }) => {
 
         {/* Action Buttons */}
         <div className="flex items-center gap-3 mb-6">
-          <button className="flex-1 h-11 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors flex items-center justify-center gap-2">
+          <button
+            className="flex-1 h-11 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors flex items-center justify-center gap-2"
+            onClick={() => {
+              const url = getWebsiteUrl(company.website);
+              if (url) window.open(url, '_blank', 'noopener,noreferrer');
+            }}
+          >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
