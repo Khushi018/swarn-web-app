@@ -206,21 +206,45 @@ const UserProfile = ({ onBack }) => {
       case 'Home':
         return (
           <div className="space-y-6">
+            {/* Portfolio Summary Card */}
+            <div className="bg-dark-light rounded-2xl p-5 border border-dark-light">
+              <h3 className="text-lg font-semibold text-white mb-4">Portfolio Summary</h3>
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <p className="text-xs text-gray-400 mb-1">Total Invested</p>
+                  <p className="text-2xl font-bold text-white">{user.stats.portfolioValue}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-400 mb-1">Portfolio Value</p>
+                  <p className="text-2xl font-bold text-primary">$3.2M</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-xs text-gray-400 mb-1">Active Investments</p>
+                  <p className="text-lg font-semibold text-white">{user.stats.activeDeals}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-400 mb-1">Exits</p>
+                  <p className="text-lg font-semibold text-white">2</p>
+                </div>
+              </div>
+              <div className="mt-4 pt-4 border-t border-dark">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-400">Average IRR</span>
+                  <span className="text-lg font-semibold text-green-500">{user.stats.avgReturn}</span>
+                </div>
+              </div>
+              <button className="w-full mt-4 h-11 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors">
+                View Full Analytics
+              </button>
+            </div>
+
             <div>
               <h3 className="text-lg font-bold text-white mb-3">Overview</h3>
               <p className="text-base text-gray-300 leading-relaxed mb-4">
                 {user.bio}
               </p>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-dark-light rounded-xl p-4 border border-dark-light">
-                <p className="text-xs text-gray-400 mb-1">Total Investments</p>
-                <p className="text-xl font-bold text-white">{user.stats.totalInvestments}</p>
-              </div>
-              <div className="bg-dark-light rounded-xl p-4 border border-dark-light">
-                <p className="text-xs text-gray-400 mb-1">Portfolio Value</p>
-                <p className="text-xl font-bold text-primary">{user.stats.portfolioValue}</p>
-              </div>
             </div>
           </div>
         );
@@ -375,9 +399,33 @@ const UserProfile = ({ onBack }) => {
           </div>
         );
       case 'Activity':
+        const activities = [
+          { id: 1, type: 'viewed', company: 'TechFlow Solutions', time: '2h ago', icon: '👁️' },
+          { id: 2, type: 'saved', company: 'GreenEnergy Innovations', time: '5h ago', icon: '💾' },
+          { id: 3, type: 'interested', company: 'MediCare AI', time: '1d ago', icon: '💡' },
+          { id: 4, type: 'commented', company: 'FinTech Pro', time: '2d ago', icon: '💬' },
+          { id: 5, type: 'shared', company: 'EduLearn Platform', time: '3d ago', icon: '📤' },
+          { id: 6, type: 'viewed', company: 'CloudSync Technologies', time: '4d ago', icon: '👁️' },
+        ];
+
         return (
-          <div className="text-center py-12">
-            <p className="text-gray-400">Activity feed coming soon</p>
+          <div className="space-y-4">
+            <h3 className="text-lg font-bold text-white mb-4">Recent Activity</h3>
+            {activities.map((activity) => (
+              <div key={activity.id} className="bg-dark-light rounded-xl p-4 border border-dark-light">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-xl">
+                    {activity.icon}
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm text-white">
+                      <span className="font-semibold">You</span> {activity.type} <span className="font-semibold">{activity.company}</span>
+                    </p>
+                    <p className="text-xs text-gray-400 mt-1">{activity.time}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         );
       default:
@@ -425,13 +473,13 @@ const UserProfile = ({ onBack }) => {
       </div>
 
       {/* Hero Banner Section */}
-      <div className="relative w-full h-48 bg-gradient-to-br from-primary/30 via-primary-dark/30 to-primary/20 overflow-hidden">
+      <div className="relative w-full h-32 bg-gradient-to-br from-primary/30 via-primary-dark/30 to-primary/20 overflow-hidden">
         <div className="absolute inset-0 bg-dark/40"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-dark to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-dark to-transparent"></div>
       </div>
 
       {/* User Info Section */}
-      <div className="container-mobile -mt-16 relative z-10">
+      <div className="container-mobile -mt-12 relative z-10">
         <div className="flex items-start gap-4 mb-4">
           {/* User Avatar */}
           <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center flex-shrink-0 border-4 border-dark shadow-lg">
@@ -450,20 +498,26 @@ const UserProfile = ({ onBack }) => {
             <p className="text-sm text-gray-300 mb-2">
               {user.role} • {user.location}
             </p>
-            <div className="flex items-center gap-4 mb-3">
-              <div>
-                <span className="text-sm font-semibold text-white">{user.investments}</span>
-                <span className="text-xs text-gray-400 ml-1">Investments</span>
-              </div>
-              <div>
-                <span className="text-sm font-semibold text-white">{user.following}</span>
-                <span className="text-xs text-gray-400 ml-1">Following</span>
-              </div>
-              <div>
-                <span className="text-sm font-semibold text-white">{user.followers}</span>
-                <span className="text-xs text-gray-400 ml-1">Followers</span>
-              </div>
-            </div>
+          </div>
+        </div>
+
+        {/* Profile Statistics */}
+        <div className="flex items-center justify-around py-4 mb-4 border-y border-dark-light">
+          <div className="flex flex-col items-center">
+            <span className="text-lg font-bold text-white">{user.investments}</span>
+            <span className="text-xs text-gray-400">Investments</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-lg font-bold text-white">18</span>
+            <span className="text-xs text-gray-400">Saved</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-lg font-bold text-white">{user.following}</span>
+            <span className="text-xs text-gray-400">Following</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-lg font-bold text-white">{user.followers}</span>
+            <span className="text-xs text-gray-400">Followers</span>
           </div>
         </div>
 

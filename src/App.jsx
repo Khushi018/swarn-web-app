@@ -9,6 +9,7 @@ import BottomNavigation from './components/BottomNavigation';
 import ExploreReels from './components/ExploreReels';
 import CompanyProfile from './components/CompanyProfile';
 import UserProfile from './components/UserProfile';
+import ConsultantProfile from './components/ConsultantProfile';
 import Feed from './components/Feed';
 import CreatePostModal from './components/CreatePostModal';
 import Reels from './components/Reels';
@@ -20,6 +21,7 @@ import SearchPage from './components/SearchPage';
 function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
+  const [selectedConsultantId, setSelectedConsultantId] = useState(null);
   const [isCreatePostModalOpen, setIsCreatePostModalOpen] = useState(false);
   const [selectedVideoId, setSelectedVideoId] = useState(null);
   const [storyViewer, setStoryViewer] = useState({ isOpen: false, stories: [], initialIndex: 0 });
@@ -50,6 +52,16 @@ function App() {
     setCurrentScreen('home');
   };
 
+  const handleConsultantSelect = (consultantId) => {
+    setSelectedConsultantId(consultantId);
+    setCurrentScreen('consultant');
+  };
+
+  const handleBackFromConsultant = () => {
+    setSelectedConsultantId(null);
+    setCurrentScreen('home');
+  };
+
   const handleCreatePost = (postData) => {
     console.log('New post created:', postData);
     // Here you would typically send the post data to your backend/API
@@ -64,6 +76,8 @@ function App() {
         return <CompanyProfile companyId={selectedCompanyId} onBack={handleBackFromCompany} />;
       case 'profile':
         return <UserProfile onBack={handleBackFromProfile} onNavigate={setCurrentScreen} />;
+      case 'consultant':
+        return <ConsultantProfile consultantId={selectedConsultantId} onBack={handleBackFromConsultant} isOwnProfile={false} />;
       case 'reels':
         return <Reels initialVideoId={selectedVideoId} />;
       case 'analytics':
@@ -77,7 +91,8 @@ function App() {
         return (
           <div className="min-h-screen bg-dark text-white pb-20" style={{ backgroundColor: '#0f172a' }}>
             <Header 
-              onCompanySelect={handleCompanySelect} 
+              onCompanySelect={handleCompanySelect}
+              onConsultantSelect={handleConsultantSelect}
               onOpenCreatePost={() => setIsCreatePostModalOpen(true)}
               onNavigate={setCurrentScreen}
               onOpenStory={(stories, initialIndex) => setStoryViewer({ isOpen: true, stories, initialIndex })}

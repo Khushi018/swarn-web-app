@@ -3,7 +3,7 @@ import Sidebar from './Sidebar';
 import { companies } from '../data/companies';
 import CompanyLogo from './CompanyLogo';
 
-const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate, onOpenStory }) => {
+const Header = ({ onCompanySelect, onConsultantSelect, onOpenCreatePost, onNavigate, onOpenStory }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -73,6 +73,7 @@ const Header = ({ onCompanySelect, onOpenCreatePost, onNavigate, onOpenStory }) 
         userName="Alex Sterling"
         onNavigate={onNavigate}
         onCompanySelect={onCompanySelect}
+        onConsultantSelect={onConsultantSelect}
         ownedCompanyIds={[1, 2]}
       />
       

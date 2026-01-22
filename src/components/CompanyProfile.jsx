@@ -612,13 +612,13 @@ const CompanyProfile = ({ companyId, onBack }) => {
       </div>
 
       {/* Hero Banner Section */}
-      <div className="relative w-full h-48 bg-gradient-to-br from-primary/30 via-primary-dark/30 to-primary/20 overflow-hidden">
+      <div className="relative w-full h-32 bg-gradient-to-br from-primary/30 via-primary-dark/30 to-primary/20 overflow-hidden">
         <div className="absolute inset-0 bg-dark/40"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-dark to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-dark to-transparent"></div>
       </div>
 
       {/* Company Info Section */}
-      <div className="container-mobile -mt-16 relative z-10">
+      <div className="container-mobile -mt-12 relative z-10">
         <div className="flex items-start gap-4 mb-4">
           {/* Company Logo */}
           <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center flex-shrink-0 border-4 border-dark shadow-lg">
@@ -641,6 +641,26 @@ const CompanyProfile = ({ companyId, onBack }) => {
               </div>
               <span className="text-xs text-gray-400">{company.stage}</span>
             </div>
+          </div>
+        </div>
+
+        {/* Profile Statistics */}
+        <div className="flex items-center justify-around py-4 mb-4 border-y border-dark-light">
+          <div className="flex flex-col items-center">
+            <span className="text-lg font-bold text-white">1.2k</span>
+            <span className="text-xs text-gray-400">Followers</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-lg font-bold text-white">48</span>
+            <span className="text-xs text-gray-400">Posts</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-lg font-bold text-white">156</span>
+            <span className="text-xs text-gray-400">Saved</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-lg font-bold text-white">892</span>
+            <span className="text-xs text-gray-400">Views</span>
           </div>
         </div>
 
