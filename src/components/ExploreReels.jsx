@@ -7,7 +7,6 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('Videos');
   const [searchQuery, setSearchQuery] = useState('');
-  const [playingVideos, setPlayingVideos] = useState(new Set());
   const videoRefs = useRef([]);
   const containerRefs = useRef([]);
 
@@ -82,32 +81,12 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
 
   const videos = prepareGridVideos();
 
-  // Handle video play/pause for non-merged videos
-  const handleVideoClick = (index, video) => {
-    if (video.isMerged) {
-      // Merged videos navigate to reels
-      if (onVideoSelect) {
-        onVideoSelect(video.id);
-      }
-      if (onNavigate) {
-        onNavigate('reels');
-      }
-    } else {
-      // Non-merged videos toggle play/pause
-      const videoEl = videoRefs.current[index];
-      if (videoEl) {
-        if (videoEl.paused) {
-          videoEl.play();
-          setPlayingVideos((prev) => new Set(prev).add(index));
-        } else {
-          videoEl.pause();
-          setPlayingVideos((prev) => {
-            const newSet = new Set(prev);
-            newSet.delete(index);
-            return newSet;
-          });
-        }
-      }
+  const openInReels = (videoId) => {
+    if (onVideoSelect) {
+      onVideoSelect(videoId);
+    }
+    if (onNavigate) {
+      onNavigate('reels');
     }
   };
 
@@ -168,7 +147,7 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
                       isMerged ? 'row-span-2' : ''
                     }`}
                     style={isMerged ? {} : { aspectRatio: '1 / 1' }}
-                    onClick={() => handleVideoClick(index, video)}
+                    onClick={() => openInReels(video.id)}
                   >
                     {/* Video Element */}
                     <video
@@ -182,20 +161,6 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
                       playsInline
                       autoPlay={isMerged}
                       preload="auto"
-                      onPlay={() => {
-                        if (!isMerged) {
-                          setPlayingVideos((prev) => new Set(prev).add(index));
-                        }
-                      }}
-                      onPause={() => {
-                        if (!isMerged) {
-                          setPlayingVideos((prev) => {
-                            const newSet = new Set(prev);
-                            newSet.delete(index);
-                            return newSet;
-                          });
-                        }
-                      }}
                     />
                     
                     {/* Overlay on hover */}
