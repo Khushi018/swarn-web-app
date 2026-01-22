@@ -1,86 +1,174 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const CreatePostModal = ({ isOpen, onClose, onSubmit }) => {
-  const [contentType, setContentType] = useState('news'); // 'news', 'ideas', 'videos', 'gallery'
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generatedContent, setGeneratedContent] = useState(null);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
 
   if (!isOpen) return null;
 
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    setSelectedFiles([...selectedFiles, ...files]);
+  const handleSend = async () => {
+    if (!input.trim() || isGenerating) return;
+
+    const userMessage = {
+      role: 'user',
+      content: input,
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setInput('');
+    setIsGenerating(true);
+
+    // Simulate AI response (replace with actual API call)
+    setTimeout(() => {
+      const aiResponse = generateAIResponse(input);
+      const aiMessage = {
+        role: 'assistant',
+        content: aiResponse.content,
+        title: aiResponse.title,
+        timestamp: new Date(),
+      };
+
+      setMessages((prev) => [...prev, aiMessage]);
+      setGeneratedContent(aiResponse);
+      setTitle(aiResponse.title);
+      setContent(aiResponse.content);
+      setIsGenerating(false);
+    }, 1500);
   };
 
-  const handleRemoveFile = (index) => {
-    setSelectedFiles(selectedFiles.filter((_, i) => i !== index));
-  };
+  const generateAIResponse = (prompt) => {
+    const lowerPrompt = prompt.toLowerCase();
+    
+    // Determine post type from prompt
+    let postType = 'news';
+    if (lowerPrompt.includes('article') || lowerPrompt.includes('guide') || lowerPrompt.includes('analysis')) {
+      postType = 'article';
+    } else if (lowerPrompt.includes('video') || lowerPrompt.includes('reel') || lowerPrompt.includes('short')) {
+      postType = 'reel';
+    }
 
-  const handleSubmit = () => {
-    const postData = {
-      type: contentType,
+    // Generate content based on prompt
+    const title = generateTitle(prompt, postType);
+    const content = generateContent(prompt, postType);
+    const hashtags = generateHashtags(prompt, postType);
+
+    return {
       title,
       content,
-      files: selectedFiles,
+      hashtags,
+      type: postType,
     };
+  };
+
+  const generateTitle = (prompt, type) => {
+    const words = prompt.split(' ').filter(w => w.length > 2).slice(0, 5);
+    const base = words.join(' ');
     
+    if (type === 'article') {
+      return `Understanding ${base}: A Comprehensive Guide`;
+    } else if (type === 'reel') {
+      return `${base}: Quick Insights`;
+    } else {
+      return `${base}: Breaking News Update`;
+    }
+  };
+
+  const generateContent = (prompt, type) => {
+    if (type === 'article') {
+      return `In this comprehensive article, we explore ${prompt} and its implications for the modern business landscape.
+
+**Introduction**
+The landscape is constantly evolving, and understanding ${prompt} is crucial for staying ahead.
+
+**Key Points**
+• Current trends and developments
+• Challenges and opportunities
+• Best practices and recommendations
+• Future outlook
+
+**Conclusion**
+As we navigate through these exciting times, ${prompt} represents an important aspect of the broader transformation happening across industries.`;
+    } else if (type === 'reel') {
+      return `Quick insights on ${prompt}:
+
+🎯 Key takeaway: This is a game-changer
+💡 Why it matters: Significant impact on the industry
+🚀 What's next: Future opportunities ahead
+
+Watch to learn more!`;
+    } else {
+      return `We're excited to share breaking news about ${prompt}. This development represents a significant milestone in our industry.
+
+**Key Highlights:**
+• Major breakthrough announcement
+• Potential impact on the market
+• Next steps and future plans
+
+Stay tuned for more updates as we continue to push boundaries and create value for our community.`;
+    }
+  };
+
+  const generateHashtags = (prompt, type) => {
+    const words = prompt.toLowerCase().split(' ').filter(w => w.length > 3).slice(0, 3);
+    const typeTags = type === 'news' ? ['News', 'Update', 'Breaking'] :
+                     type === 'article' ? ['Article', 'Insights', 'Analysis'] :
+                     ['Reel', 'Video', 'QuickTips'];
+    return [...words, ...typeTags].map(tag => `#${tag.charAt(0).toUpperCase() + tag.slice(1)}`).join(' ');
+  };
+
+  const handlePost = () => {
+    if (!title.trim() || !content.trim()) return;
+
+    const postData = {
+      type: generatedContent?.type || 'news',
+      title,
+      content,
+      prompt: messages.find(m => m.role === 'user')?.content || '',
+      hashtags: generatedContent?.hashtags,
+      aiGenerated: true,
+    };
+
     if (onSubmit) {
       onSubmit(postData);
     }
-    
-    // Reset form
+
+    // Reset
+    setMessages([]);
+    setGeneratedContent(null);
     setTitle('');
     setContent('');
-    setSelectedFiles([]);
+    setInput('');
     onClose();
   };
 
-  const getContentTypeIcon = (type) => {
-    const iconClass = "w-5 h-5";
-    switch (type) {
-      case 'news':
-        return (
-          <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-          </svg>
-        );
-      case 'ideas':
-        return (
-          <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-          </svg>
-        );
-      case 'videos':
-        return (
-          <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-          </svg>
-        );
-      case 'gallery':
-        return (
-          <svg className={iconClass} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-        );
-      default:
-        return null;
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
     }
   };
 
-  const contentTypeOptions = [
-    { id: 'news', label: 'News Article' },
-    { id: 'ideas', label: 'Ideas' },
-    { id: 'videos', label: 'Videos' },
-    { id: 'gallery', label: 'Gallery' },
-  ];
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="w-full max-w-lg mx-4 bg-dark-light rounded-2xl border border-dark-light shadow-2xl max-h-[90vh] overflow-hidden flex flex-col" style={{ backgroundColor: '#1e293b' }}>
+      <div className="w-full max-w-2xl mx-4 bg-dark-light rounded-2xl border border-dark-light shadow-2xl max-h-[90vh] overflow-hidden flex flex-col" style={{ backgroundColor: '#1e293b' }}>
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-dark">
-          <h2 className="text-lg font-semibold text-white">Create Post</h2>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <h2 className="text-lg font-semibold text-white">AI Post Creator</h2>
+          </div>
           <button
             onClick={onClose}
             className="touch-target text-gray-400 hover:text-white transition-colors"
@@ -91,144 +179,170 @@ const CreatePostModal = ({ isOpen, onClose, onSubmit }) => {
           </button>
         </div>
 
-        {/* Content Type Selection */}
-        <div className="p-4 border-b border-dark">
-          <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-2">
-            {contentTypeOptions.map((option) => (
-              <button
-                key={option.id}
-                onClick={() => setContentType(option.id)}
-                className={`flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  contentType === option.id
-                    ? 'bg-primary text-white'
-                    : 'bg-dark text-gray-300 hover:bg-dark-light'
-                }`}
-              >
-                {getContentTypeIcon(option.id)}
-                <span>{option.label}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Form Content */}
+        {/* Messages Area */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          {/* Title Input */}
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Title
-            </label>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder={`Enter ${contentTypeOptions.find(o => o.id === contentType)?.label.toLowerCase()} title...`}
-              className="w-full px-4 py-3 bg-dark rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary"
-            />
+          {messages.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full text-center py-12">
+            <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-4">
+              <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold text-white mb-2">How can I help you create a post?</h3>
+            <p className="text-gray-400 text-sm max-w-md">
+              Describe what you want to post about. I can help you create news articles, articles, or video reel scripts.
+            </p>
+            <div className="mt-6 grid grid-cols-1 gap-2 w-full max-w-md">
+              <button
+                onClick={() => setInput('Create a news post about TechFlow Solutions raising $15M Series A funding')}
+                className="p-3 bg-dark rounded-lg text-left text-sm text-gray-300 hover:bg-dark-light transition-colors"
+              >
+                💡 Create a news post about funding
+              </button>
+              <button
+                onClick={() => setInput('Write an article about the future of SaaS in enterprise automation')}
+                className="p-3 bg-dark rounded-lg text-left text-sm text-gray-300 hover:bg-dark-light transition-colors"
+              >
+                📝 Write an article about SaaS trends
+              </button>
+              <button
+                onClick={() => setInput('Create a video reel script about startup fundraising tips')}
+                className="p-3 bg-dark rounded-lg text-left text-sm text-gray-300 hover:bg-dark-light transition-colors"
+              >
+                🎥 Create a video reel script
+              </button>
+            </div>
           </div>
-
-          {/* Content Textarea */}
-          <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Content
-            </label>
-            <textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              placeholder={`Write your ${contentTypeOptions.find(o => o.id === contentType)?.label.toLowerCase()} here...`}
-              rows={8}
-              className="w-full px-4 py-3 bg-dark rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary resize-none"
-            />
-          </div>
-
-          {/* File Upload Section */}
-          {(contentType === 'videos' || contentType === 'gallery') && (
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                {contentType === 'videos' ? 'Upload Videos' : 'Upload Images'}
-              </label>
-              <div className="border-2 border-dashed border-gray-600 rounded-xl p-6 text-center hover:border-primary transition-colors">
-                <input
-                  type="file"
-                  multiple
-                  accept={contentType === 'videos' ? 'video/*' : 'image/*'}
-                  onChange={handleFileChange}
-                  className="hidden"
-                  id="file-upload"
-                />
-                <label
-                  htmlFor="file-upload"
-                  className="cursor-pointer flex flex-col items-center gap-2"
+          ) : (
+            <>
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
-                  <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                  </svg>
-                  <span className="text-sm text-gray-400">
-                    Click to upload {contentType === 'videos' ? 'videos' : 'images'}
-                  </span>
-                </label>
-              </div>
-
-              {/* Selected Files Preview */}
-              {selectedFiles.length > 0 && (
-                <div className="mt-4 space-y-2">
-                  {selectedFiles.map((file, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-3 bg-dark rounded-lg"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
-                          {contentType === 'videos' ? (
-                            <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                              <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
-                            </svg>
-                          ) : (
-                            <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
-                            </svg>
-                          )}
-                        </div>
-                        <div>
-                          <p className="text-sm text-white font-medium truncate max-w-xs">
-                            {file.name}
-                          </p>
-                          <p className="text-xs text-gray-400">
-                            {(file.size / 1024 / 1024).toFixed(2)} MB
-                          </p>
-                        </div>
+                  <div
+                    className={`max-w-[80%] rounded-2xl px-4 py-3 ${
+                      message.role === 'user'
+                        ? 'bg-primary text-white rounded-br-sm'
+                        : 'bg-dark text-white rounded-bl-sm'
+                    }`}
+                  >
+                    {message.role === 'assistant' && message.title && (
+                      <div className="mb-2 pb-2 border-b border-gray-600">
+                        <p className="text-sm font-semibold text-primary mb-1">Generated Post:</p>
+                        <p className="text-sm font-medium">{message.title}</p>
                       </div>
-                      <button
-                        onClick={() => handleRemoveFile(index)}
-                        className="touch-target text-gray-400 hover:text-red-500 transition-colors"
-                      >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
+                    )}
+                    <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+                    {message.role === 'assistant' && (
+                      <div className="mt-3 pt-3 border-t border-gray-600">
+                        <button
+                          onClick={() => {
+                            setTitle(message.title);
+                            setContent(message.content);
+                            setGeneratedContent({
+                              title: message.title,
+                              content: message.content,
+                              hashtags: generateHashtags(messages[index - 1]?.content || '', message.type || 'news'),
+                              type: message.type || 'news',
+                            });
+                          }}
+                          className="text-xs text-primary hover:text-primary-dark transition-colors"
+                        >
+                          Use this content →
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+              {isGenerating && (
+                <div className="flex justify-start">
+                  <div className="bg-dark rounded-2xl rounded-bl-sm px-4 py-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                      <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                      <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                     </div>
-                  ))}
+                  </div>
                 </div>
               )}
-            </div>
+              <div ref={messagesEndRef} />
+            </>
           )}
         </div>
 
-        {/* Footer Actions */}
-        <div className="p-4 border-t border-dark flex items-center gap-3">
-          <button
-            onClick={onClose}
-            className="flex-1 px-4 py-3 bg-dark rounded-xl text-gray-300 font-medium hover:bg-dark-light transition-colors"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleSubmit}
-            disabled={!title.trim() || !content.trim()}
-            className="flex-1 px-4 py-3 bg-primary rounded-xl text-white font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Post
-          </button>
+        {/* Generated Content Preview (when content is selected) */}
+        {generatedContent && title && content && (
+          <div className="border-t border-dark bg-dark p-4">
+            <div className="mb-3">
+              <p className="text-xs text-gray-400 mb-1">Title</p>
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="w-full px-3 py-2 bg-dark-light rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </div>
+            <div className="mb-3">
+              <p className="text-xs text-gray-400 mb-1">Content</p>
+              <textarea
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                rows={4}
+                className="w-full px-3 py-2 bg-dark-light rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+              />
+            </div>
+            {generatedContent.hashtags && (
+              <div className="mb-3">
+                <p className="text-xs text-gray-400 mb-1">Hashtags</p>
+                <p className="text-xs text-gray-300">{generatedContent.hashtags}</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Input Area */}
+        <div className="p-4 border-t border-dark">
+          <div className="flex items-end gap-3">
+            <div className="flex-1 relative">
+              <textarea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Type your message..."
+                rows={1}
+                className="w-full px-4 py-3 pr-12 bg-dark rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary resize-none max-h-32"
+                style={{ minHeight: '48px' }}
+              />
+              <button
+                onClick={handleSend}
+                disabled={!input.trim() || isGenerating}
+                className="absolute right-2 bottom-2 touch-target text-primary hover:text-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+              </button>
+            </div>
+            {generatedContent && title && content && (
+              <button
+                onClick={handlePost}
+                disabled={!title.trim() || !content.trim()}
+                className="px-6 py-3 bg-primary rounded-xl text-white font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Post
+              </button>
+            )}
+          </div>
+          {generatedContent && title && content && (
+            <button
+              onClick={onClose}
+              className="w-full mt-2 px-4 py-2 bg-dark rounded-xl text-gray-300 text-sm font-medium hover:bg-dark-light transition-colors"
+            >
+              Cancel
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -236,4 +350,3 @@ const CreatePostModal = ({ isOpen, onClose, onSubmit }) => {
 };
 
 export default CreatePostModal;
-

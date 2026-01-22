@@ -11,18 +11,17 @@ import CompanyProfile from './components/CompanyProfile';
 import UserProfile from './components/UserProfile';
 import ConsultantProfile from './components/ConsultantProfile';
 import Feed from './components/Feed';
-import CreatePostModal from './components/CreatePostModal';
 import Reels from './components/Reels';
 import Analytics from './components/Analytics';
 import FeedPreferences from './components/FeedPreferences';
 import StoryViewer from './components/StoryViewer';
 import SearchPage from './components/SearchPage';
+import AICreatePost from './components/AICreatePost';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
   const [selectedConsultantId, setSelectedConsultantId] = useState(null);
-  const [isCreatePostModalOpen, setIsCreatePostModalOpen] = useState(false);
   const [selectedVideoId, setSelectedVideoId] = useState(null);
   const [storyViewer, setStoryViewer] = useState({ isOpen: false, stories: [], initialIndex: 0 });
 
@@ -51,6 +50,11 @@ function App() {
   const handleBackFromSearch = () => {
     setCurrentScreen('home');
   };
+
+  const handleBackFromAICreatePost = () => {
+    setCurrentScreen('home');
+  };
+
 
   const handleConsultantSelect = (consultantId) => {
     setSelectedConsultantId(consultantId);
@@ -86,6 +90,8 @@ function App() {
         return <FeedPreferences onBack={handleBackFromFeedPreferences} />;
       case 'search':
         return <SearchPage onBack={handleBackFromSearch} onCompanySelect={handleCompanySelect} />;
+      case 'aiCreatePost':
+        return <AICreatePost onBack={handleBackFromAICreatePost} onSubmit={handleCreatePost} />;
       case 'home':
       default:
         return (
@@ -93,7 +99,7 @@ function App() {
             <Header 
               onCompanySelect={handleCompanySelect}
               onConsultantSelect={handleConsultantSelect}
-              onOpenCreatePost={() => setIsCreatePostModalOpen(true)}
+              onOpenCreatePost={() => setCurrentScreen('aiCreatePost')}
               onNavigate={setCurrentScreen}
               onOpenStory={(stories, initialIndex) => setStoryViewer({ isOpen: true, stories, initialIndex })}
             />
@@ -123,13 +129,7 @@ function App() {
       <BottomNavigation 
         currentScreen={currentScreen} 
         onNavigate={setCurrentScreen}
-        onOpenCreatePost={() => setIsCreatePostModalOpen(true)}
-      />
-      {/* Create Post Modal - Available on all screens */}
-      <CreatePostModal
-        isOpen={isCreatePostModalOpen}
-        onClose={() => setIsCreatePostModalOpen(false)}
-        onSubmit={handleCreatePost}
+        onOpenCreatePost={() => setCurrentScreen('aiCreatePost')}
       />
       {/* Story Viewer */}
       {storyViewer.isOpen && (

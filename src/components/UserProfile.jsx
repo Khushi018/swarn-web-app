@@ -175,12 +175,16 @@ const PostsGrid = ({ user }) => {
 
 const UserProfile = ({ onBack }) => {
   const [activeTab, setActiveTab] = useState('About');
+  const [profilePicError, setProfilePicError] = useState(false);
+  const [bannerError, setBannerError] = useState(false);
   
   // User data
   const user = {
     name: 'Alex Sterling',
     username: 'alexsterling',
     avatar: 'AS',
+    profilePicture: '/images/investor-profile-pic.png', // Profile picture image path
+    bannerImage: '/images/investor-banner.png', // Banner image path
     role: 'Angel Investor',
     bio: 'Passionate about investing in innovative startups that are changing the world. Focus on SaaS, AI, and CleanTech sectors.',
     location: 'San Francisco, CA',
@@ -473,8 +477,20 @@ const UserProfile = ({ onBack }) => {
       </div>
 
       {/* Hero Banner Section */}
-      <div className="relative w-full h-32 bg-gradient-to-br from-primary/30 via-primary-dark/30 to-primary/20 overflow-hidden">
-        <div className="absolute inset-0 bg-dark/40"></div>
+      <div className="relative w-full h-32 overflow-hidden">
+        {user.bannerImage && !bannerError ? (
+          <>
+            <img 
+              src={user.bannerImage} 
+              alt={`${user.name} banner`}
+              className="w-full h-full object-cover"
+              onError={() => setBannerError(true)}
+            />
+            <div className="absolute inset-0 bg-dark/40"></div>
+          </>
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-primary/30 via-primary-dark/30 to-primary/20"></div>
+        )}
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-dark to-transparent"></div>
       </div>
 
@@ -482,8 +498,17 @@ const UserProfile = ({ onBack }) => {
       <div className="container-mobile -mt-12 relative z-10">
         <div className="flex items-start gap-4 mb-4">
           {/* User Avatar */}
-          <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center flex-shrink-0 border-4 border-dark shadow-lg">
-            <span className="text-white text-3xl font-bold">{user.avatar}</span>
+          <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center flex-shrink-0 border-4 border-dark shadow-lg overflow-hidden">
+            {user.profilePicture && !profilePicError ? (
+              <img 
+                src={user.profilePicture} 
+                alt={user.name}
+                className="w-full h-full object-cover"
+                onError={() => setProfilePicError(true)}
+              />
+            ) : (
+              <span className="text-white text-3xl font-bold">{user.avatar}</span>
+            )}
           </div>
           
           <div className="flex-1 pt-2">
