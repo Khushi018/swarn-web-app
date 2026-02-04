@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Sidebar from './Sidebar';
 import CompanyLogo from './CompanyLogo';
-import { companyVideos } from '../data/companyVideos';
+import { exploreVideos } from '../data/exploreVideos';
 
 const ExploreReels = ({ onNavigate, onVideoSelect }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -22,53 +22,53 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
     let i = 0;
     let groupIndex = 0; // Track which group to determine merged column position
     
-    while (i < companyVideos.length) {
+    while (i < exploreVideos.length) {
       const isMergedRight = groupIndex % 2 === 0; // Even groups: merged in column 3 (right)
       
       if (isMergedRight) {
         // Group with merged video in column 3 (right)
         // Order: vid1, vid2, vid3(merged), vid4, vid5
-        if (i < companyVideos.length) {
-          gridVideos.push({ ...companyVideos[i] }); // Row 1, col 1
+        if (i < exploreVideos.length) {
+          gridVideos.push({ ...exploreVideos[i] }); // Row 1, col 1
           i++;
         }
-        if (i < companyVideos.length) {
-          gridVideos.push({ ...companyVideos[i] }); // Row 1, col 2
+        if (i < exploreVideos.length) {
+          gridVideos.push({ ...exploreVideos[i] }); // Row 1, col 2
           i++;
         }
-        if (i < companyVideos.length) {
-          gridVideos.push({ ...companyVideos[i], isMerged: true, mergedColumn: 'right' }); // Row 1, col 3 (merged)
+        if (i < exploreVideos.length) {
+          gridVideos.push({ ...exploreVideos[i], isMerged: true, mergedColumn: 'right' }); // Row 1, col 3 (merged)
           i++;
         }
-        if (i < companyVideos.length) {
-          gridVideos.push({ ...companyVideos[i] }); // Row 2, col 1
+        if (i < exploreVideos.length) {
+          gridVideos.push({ ...exploreVideos[i] }); // Row 2, col 1
           i++;
         }
-        if (i < companyVideos.length) {
-          gridVideos.push({ ...companyVideos[i] }); // Row 2, col 2
+        if (i < exploreVideos.length) {
+          gridVideos.push({ ...exploreVideos[i] }); // Row 2, col 2
           i++;
         }
       } else {
         // Group with merged video in column 1 (left)
         // Order: vid6(merged), vid7, vid8, vid9, vid10
-        if (i < companyVideos.length) {
-          gridVideos.push({ ...companyVideos[i], isMerged: true, mergedColumn: 'left' }); // Row 1, col 1 (merged)
+        if (i < exploreVideos.length) {
+          gridVideos.push({ ...exploreVideos[i], isMerged: true, mergedColumn: 'left' }); // Row 1, col 1 (merged)
           i++;
         }
-        if (i < companyVideos.length) {
-          gridVideos.push({ ...companyVideos[i] }); // Row 1, col 2
+        if (i < exploreVideos.length) {
+          gridVideos.push({ ...exploreVideos[i] }); // Row 1, col 2
           i++;
         }
-        if (i < companyVideos.length) {
-          gridVideos.push({ ...companyVideos[i] }); // Row 1, col 3
+        if (i < exploreVideos.length) {
+          gridVideos.push({ ...exploreVideos[i] }); // Row 1, col 3
           i++;
         }
-        if (i < companyVideos.length) {
-          gridVideos.push({ ...companyVideos[i] }); // Row 2, col 2
+        if (i < exploreVideos.length) {
+          gridVideos.push({ ...exploreVideos[i] }); // Row 2, col 2
           i++;
         }
-        if (i < companyVideos.length) {
-          gridVideos.push({ ...companyVideos[i] }); // Row 2, col 3
+        if (i < exploreVideos.length) {
+          gridVideos.push({ ...exploreVideos[i] }); // Row 2, col 3
           i++;
         }
       }

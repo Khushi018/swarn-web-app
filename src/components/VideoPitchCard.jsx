@@ -45,7 +45,7 @@ const VideoPitchCard = () => {
           {/* Video Player - Horizontal Card Style */}
           <div className="relative mx-4 mb-4 rounded-2xl overflow-hidden bg-black shadow-lg border border-primary/10">
             <video
-              src="/videos/AI Solar Disruption.mp4"
+              src="/videos/solar-panel.mp4"
               className="w-full h-full object-cover"
               controls
             />

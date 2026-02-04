@@ -48,8 +48,12 @@ const raw = [
   {
     industry: 'Fintech',
     company: 'Finvexa Labs',
-    caption:
-      'Finvexa Labs is shaping the future of digital finance through secure, scalable, and user-centric solutions. From seamless transactions to data-driven financial intelligence, we empower businesses and individuals to make smarter financial decisions. Our vision is to simplify finance while building trust, transparency, and technology that grows with the digital economy.',
+    caption: `The Podcast with @yashorajtyagi is out now on our YouTube channel. This one is packed with all the insights of the fintech industry. Check this podcast -> Link is in the bio.
+.
+.
+.
+.
+Podcast fintech cashe 13karat marketing starting startups startup India nifty investing`,
     video: '/videos/fintech.mp4',
     thumbnail: '/images/fintech.png',
   },
@@ -57,8 +61,22 @@ const raw = [
   {
     industry: 'Agriculture / Kesar Farming',
     company: 'AgriSaffron Collective',
-    caption:
-      'AgriSaffron Collective blends tradition with innovation to elevate sustainable farming practices. Supporting farmers with modern techniques, supply chain transparency, and market access, we aim to preserve quality while increasing value. Our work celebrates agriculture not just as an industry, but as a legacy powered by care, science, and community growth.',
+    caption: `Retirement ke baad ₹3.5 lakh/month? 🤯
+
+This 65-year-old engineer figured out how to grow Kashmiri saffron at home — inside a small room.
+No soil. Fully controlled setup. Predictable yield.
+
+India consumes far more saffron than Kashmir produces, and climate change is shrinking supply.
+He spotted the gap, used indoor controlled farming, and turned the world's most expensive spice into a serious income stream.
+
+Today, he earns from saffron cultivation + training + YouTube — all from home.
+
+Real Dhande Ki Baat:
+Opportunities don't retire. People do.
+
+[Kashmiri saffron farming, indoor farming India, saffron business model, retirement income ideas, high value crops]
+
+#DhandeKiBaat #SaffronFarming #IndoorFarming #BusinessIdeas #retirementplanning`,
     video: '/videos/kesar-farmin-in-india.mp4',
     thumbnail: '/images/agriculture.jpeg',
   },
@@ -121,8 +139,14 @@ const raw = [
   {
     industry: 'Biscuit / Food Manufacturing',
     company: 'BakeNest Foods',
-    caption:
-      'BakeNest Foods brings together taste, consistency, and quality in every bite. Crafted with care and powered by efficient production, our products are designed to delight customers while meeting modern food standards. We believe great food is built on trust, tradition, and innovation—served fresh from our ovens to everyday moments.',
+    caption: `A ₹300 biscuit just became ₹10 in India 🤯
+
+Lotus Biscoff has completely changed its India strategy — and the market will never be the same.
+Here's the real Dhande Ki Baat ↓
+
+[Lotus Biscoff India, Mondelez partnership, Cadbury India, premium to mass strategy, FMCG case study, Indian consumer market, pricing strategy India, manufacturing in India]
+
+#DhandeKiBaat #LotusBiscoff #BrandStrategy #FMCGIndia #IndiaBusiness #MondelezIndia #MarketingCaseStudy #ConsumerBehaviour #IndianMarket #casestudy #businesscasestudy #business`,
     video: '/videos/biscuit-food.mp4',
     thumbnail: '/images/stock.png',
   },
@@ -130,8 +154,10 @@ const raw = [
   {
     industry: 'Chai Analysis / Business Insight',
     company: 'ChaiMetrics',
-    caption:
-      'ChaiMetrics blends culture with data to uncover insights behind everyday habits. From sourcing to consumption trends, we analyze what fuels India’s most loved beverage. Our approach helps businesses make smarter decisions while respecting tradition. Because even simple things like chai carry powerful stories backed by meaningful data.',
+    caption: `Every sip of chai powers a trillion-rupee industry and supports millions. On International Tea Day,
+here’s how your morning cup brews economic growth — and investment opportunities.
+
+Follow ChaiMetrics for more finance stories steeped in everyday life.`,
     video: '/videos/chai-analyisis.mp4',
     thumbnail: '/images/analytics.png',
   },
@@ -139,8 +165,13 @@ const raw = [
   {
     industry: 'Chai Café',
     company: 'BrewBharat Café',
-    caption:
-      'BrewBharat Café is more than just tea—it’s an experience. We bring together authentic flavors, warm conversations, and modern café culture under one roof. Every cup reflects comfort, consistency, and community. Whether it’s a quick break or long discussions, we serve moments that feel familiar yet refreshingly new.',
+    caption: `Sometimes the biggest ideas start with the smallest needs. ✨
+
+📍Melbourne, Australia
+
+(Chaiwala, Business, Dropout Chaiwala, Chai cafe, Melbourne, Chai story, Australia)
+
+#dropoutchaiwala #chaicafe #australiachaicafe #chaistories #chailover #business`,
     video: '/videos/chai-cafe.mp4',
     thumbnail: '/images/stock.png',
   },
@@ -148,8 +179,21 @@ const raw = [
   {
     industry: 'Chai + Food',
     company: 'Cup & Crumb Co.',
-    caption:
-      'Cup & Crumb Co. pairs comforting chai with thoughtfully crafted food. Built for everyday indulgence, we focus on quality ingredients, efficient service, and flavors that connect people. Our goal is simple—turn small breaks into memorable moments through food that feels homely, reliable, and deeply satisfying.',
+    caption: `Drop-Out Chaiwala 🔥🔥
+Follow @spiregrowth For More Interesting Stories.
+@spiregrowth
+@spiregrowth
+.
+.
+.
+.
+.
+.
+
+#dropoutchaiwala #dropoutchaiwalastartup #dropoutchaiwalaaustralia
+#hindibusiness #spiregrowth #business #chaishop #mbachaiwala #startup #startupstory #chaiwala
+@dropout_chai_wala @sanjithkondahouse
+@spiregrowth`,
     video: '/videos/chai-food.mp4',
     thumbnail: '/images/stock.png',
   },
@@ -176,8 +220,12 @@ const raw = [
   {
     industry: 'Solar Panels / Renewable Energy',
     company: 'Solarion GridWorks',
-    caption:
-      'At Solarion GridWorks, we design energy solutions that power a sustainable future. By combining efficient solar infrastructure with smart deployment, we help communities and businesses reduce costs and carbon impact. Our mission is to turn sunlight into reliable progress—building cleaner systems today for a stronger, energy-independent tomorrow.',
+    caption: `Future of Solar Energy in India🔋 | भारत में सोलर एनर्जी का भविष्य
+
+📌Keywords
+[Goldi Solar ,Solar Energy, Solar Manufacturing India, Renewable Energy Growth, Green Power, Solar Panels, Clean Energy India, Solar Industry, Energy Independence]
+
+#goldisolar#SolarEnergy #IndiaSolar #RenewableEnergy #SolarPower #GreenEnergy #MakeInIndia #SolarRevolution #CleanEnergy`,
     video: '/videos/solar-panel.mp4',
     thumbnail: '/images/solar.png',
   },
@@ -283,7 +331,37 @@ const raw = [
   },
 ];
 
-export const companyVideos = raw.map((item, idx) => ({
+// Only keep entries whose videos actually exist in /public/videos
+// (prevents broken videos in Reels, Explore, Feed, Stories)
+// This list mirrors the actual files present in `public/videos` (excluding home reels).
+const existingVideoPaths = new Set([
+  '/videos/adani-cement.mp4',
+  '/videos/autoshop.mp4',
+  '/videos/biscuit-food.mp4',
+  '/videos/chai-analyisis.mp4',
+  '/videos/chai-cafe.mp4',
+  '/videos/chai-food.mp4',
+  '/videos/child-care.mp4',
+  '/videos/child-care2.mp4',
+  '/videos/defence.mp4',
+  '/videos/delivering-flowers.mp4', // used by stories, not dataset entries
+  '/videos/defence2.mp4', // used by stories, not dataset entries
+  '/videos/defence3.mp4', // used by stories, not dataset entries
+  '/videos/electronics.mp4',
+  '/videos/fintech.mp4',
+  '/videos/flowers-transportations-logistics.mp4',
+  '/videos/kesar-farmin-in-india.mp4',
+  '/videos/kirana-store.mp4',
+  '/videos/nursery.mp4',
+  '/videos/solar-panel.mp4',
+  '/videos/vehicle-machanic.mp4',
+  '/videos/vending-xerox.mp4',
+  '/videos/vending-xerox2.mp4',
+]);
+
+const filteredRaw = raw.filter((item) => existingVideoPaths.has(item.video));
+
+export const companyVideos = filteredRaw.map((item, idx) => ({
   id: idx,
   ...item,
   author: item.company,

@@ -3,17 +3,7 @@ import CompanyLogo from './CompanyLogo';
 
 const TopPicks = () => {
   const picks = [
-    {
-      id: 1,
-      name: 'Cortex Link',
-      category: 'BioTech',
-      stage: 'Series A',
-      match: 98,
-      valuation: '$45M',
-      asking: '$5M',
-      logo: 'CL',
-      logoColor: 'bg-teal',
-    },
+    
     {
       id: 2,
       name: 'TechFlow',
@@ -68,7 +58,7 @@ const TopPicks = () => {
           <button className="text-primary text-sm font-medium">See All</button>
         </div>
 
-        <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide scroll-smooth snap-x snap-mandatory px-4">
+        <div className="flex gap-4 overflow-x-auto pb-2 scroll-smooth snap-x snap-mandatory px-4 scrollbar-hide md:scrollbar-default">
           {picks.map((pick) => (
             <div
               key={pick.id}

@@ -50,18 +50,7 @@ const Analytics = ({ onBack }) => {
 
   // Portfolio Companies
   const portfolioCompanies = [
-    {
-      id: 1,
-      name: 'Cortex Link',
-      logo: 'CL',
-      stage: 'Series A',
-      industry: 'BioTech',
-      status: 'Active',
-      invested: '$500k',
-      equity: '5.2%',
-      currentVal: '$2.1M',
-      moic: '4.2x',
-    },
+   
     {
       id: 2,
       name: 'PayF',

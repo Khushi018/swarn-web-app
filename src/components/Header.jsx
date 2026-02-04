@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Sidebar from './Sidebar';
 import { companies } from '../data/companies';
 import CompanyLogo from './CompanyLogo';
+import { storiesVideos } from '../data/storiesVideos';
 
 const Header = ({ onCompanySelect, onConsultantSelect, onOpenCreatePost, onNavigate, onOpenStory }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -64,6 +65,9 @@ const Header = ({ onCompanySelect, onConsultantSelect, onOpenCreatePost, onNavig
     setSearchQuery('');
     setShowResults(false);
   };
+
+  // Use stories videos dataset
+  const storySources = storiesVideos;
 
   return (
     <>
@@ -150,7 +154,7 @@ const Header = ({ onCompanySelect, onConsultantSelect, onOpenCreatePost, onNavig
       {/* Non-Sticky Stories Section - Scrolls with page */}
       <div className="w-full bg-dark" style={{ backgroundColor: '#0f172a' }}>
         <div className="w-full px-4 py-4 md:max-w-4xl md:mx-auto">
-          <div className="flex items-center gap-4 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
+          <div className="flex items-center gap-4 overflow-x-auto pb-2 scroll-smooth -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide md:scrollbar-default">
             <button 
               onClick={() => onOpenCreatePost && onOpenCreatePost()}
               className="flex-shrink-0 flex flex-col items-center gap-2"
@@ -161,68 +165,27 @@ const Header = ({ onCompanySelect, onConsultantSelect, onOpenCreatePost, onNavig
               <span className="text-xs text-gray-400">Add Story</span>
             </button>
             {[
-              // Companies with multiple stories
-              { 
-                name: 'Quantum Leap', 
-                author: 'Quantum Leap', 
-                authorAvatar: 'QL',
-                stories: [
-                  { video: '/videos/ai-solar-story.mp4', description: 'AI Solar disruption is here! Post from startup - revolutionizing renewable energy with artificial intelligence 🌞⚡', id: 1 },
-                ]
-              },
-              { 
-                name: 'TechFlow Solutions', 
-                author: 'TechFlow Solutions', 
-                authorAvatar: 'TF',
-                stories: [
-                  { video: '/videos/video1.mp4', description: 'Just launched our new AI-powered workflow automation platform! 🚀', id: 1 },
-                  { video: '/videos/video4.mp4', description: 'Seamless cloud storage solution trusted by 50,000+ businesses! ☁️', id: 2 },
-                ]
-              },
-              { 
-                name: 'GreenEnergy Innovations', 
-                author: 'GreenEnergy Innovations', 
-                authorAvatar: 'GE',
-                stories: [
-                  { video: '/videos/video2.mp4', description: 'Our solar panel technology is revolutionizing residential energy! ⚡', id: 1 },
-                  { video: '/videos/video8-agritech.mp4', description: 'Smart farming technology increasing crop yields by 40%! 🌾', id: 2 },
-                ]
-              },
-              { 
-                name: 'MediCare AI', 
-                author: 'MediCare AI', 
-                authorAvatar: 'MA',
-                stories: [
-                  { video: '/videos/video6-edtech.mp4', description: '100,000+ students improving their grades with our adaptive learning system! 📚', id: 1 },
-                ]
-              },
-              { 
-                name: 'ClimateTech Solutions', 
-                author: 'ClimateTech Solutions', 
-                authorAvatar: 'CT',
-                stories: [
-                  { video: '/videos/video9-climatetech.mp4', description: 'Carbon-neutral solutions reducing emissions by 60%! Leading the fight against climate change with innovative technology. 🌍🌿', id: 1 },
-                ]
-              },
-              // Rest without videos
-              'SolarGrid', 
-              'Sarah Jenkins', 
-              'Vertex AI', 
-              'Oper', 
-              'TechFlow', 
-              'DataVault', 
-              'CloudSync', 
-              'HealthTech Pro', 
-              'FinTech Pro', 
-              'EduLearn', 
-              'MediCare AI', 
-              'GreenEnergy', 
-              'Foodie Express', 
-              'RealEstate Pro', 
-              'LogiChain', 
-              'FitLife App', 
-              'Quantum Leap', 
-              'Cortex Link'
+              // Dynamically built story sources (with videos)
+              ...storySources,
+              // Static name-only bubbles (no videos)
+              'SolarGrid',
+              'Sarah Jenkins',
+              'Vertex AI',
+              'Oper',
+              'TechFlow',
+              'DataVault',
+              'CloudSync',
+              'HealthTech Pro',
+              'FinTech Pro',
+              'EduLearn',
+              'MediCare AI',
+              'GreenEnergy',
+              'Foodie Express',
+              'RealEstate Pro',
+              'LogiChain',
+              'FitLife App',
+              'Quantum Leap',
+              'Cortex Link',
             ].map((item, index) => {
               const isVideoStory = typeof item === 'object' && item.stories;
               const name = isVideoStory ? item.name : item;
@@ -246,8 +209,14 @@ const Header = ({ onCompanySelect, onConsultantSelect, onOpenCreatePost, onNavig
                   className="flex-shrink-0 flex flex-col items-center gap-2"
                 >
                   <div className="w-16 h-16 rounded-full p-0.5 bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center">
-                    <div className="w-full h-full rounded-full bg-dark-light flex items-center justify-center">
-                      {isVideoStory && item.authorAvatar ? (
+                    <div className="w-full h-full rounded-full bg-dark-light flex items-center justify-center overflow-hidden">
+                      {isVideoStory && item.profileImage ? (
+                        <img 
+                          src={item.profileImage} 
+                          alt={name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : isVideoStory && item.authorAvatar ? (
                         <CompanyLogo initials={item.authorAvatar} author={item.author} size="lg" className="border-0" />
                       ) : (
                         <span className="text-white text-sm font-semibold">{name.substring(0, 2)}</span>

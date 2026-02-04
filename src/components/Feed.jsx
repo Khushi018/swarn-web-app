@@ -1,130 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CompanyLogo from './CompanyLogo';
+import { homeVideos } from '../data/homeVideos';
 
 const Feed = () => {
   const [likedPosts, setLikedPosts] = useState(new Set());
   const [playingVideo, setPlayingVideo] = useState(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [expandedCaptions, setExpandedCaptions] = useState(new Set());
 
-  // Sample feed data with images and videos
-  const feedPosts = [
-    {
-      id: 0,
-      username: 'Quantum Leap',
-      userAvatar: 'QL',
-      time: '1h ago',
-      type: 'video',
-      video: '/videos/AI Solar Disruption.mp4',
-      caption: 'AI Solar disruption is here! Post from startup - revolutionizing renewable energy with artificial intelligence 🌞⚡ #AISolar #GreenEnergy #Startup',
-      likes: 2156,
-      comments: 234,
-      shares: 156,
-      duration: '2:30',
-      isReel: true,
-    },
-    {
-      id: 1,
-      username: 'TechFlow Solutions',
-      userAvatar: 'TF',
-      time: '2h ago',
-      type: 'image',
-      image: '/images/techflow.png',
-      caption: 'Just launched our new AI-powered workflow automation platform! 🚀 #SaaS #AI #Productivity',
-      likes: 1247,
-      comments: 89,
-      shares: 23,
-    },
-    {
-      id: 2,
-      username: 'GreenEnergy Innovations',
-      userAvatar: 'GE',
-      time: '4h ago',
-      type: 'video',
-      video: '/videos/video2.mp4',
-      caption: 'Our solar panel technology is revolutionizing residential energy! Watch our 30-second pitch ⚡',
-      likes: 892,
-      comments: 45,
-      shares: 67,
-      duration: '0:30',
-    },
-    {
-      id: 3,
-      username: 'MediCare AI',
-      userAvatar: 'MA',
-      time: '6h ago',
-      type: 'image',
-      image: '/images/medicare.png',
-      caption: 'Proud to announce 95% accuracy in early disease detection! Healthcare innovation at its finest 🏥',
-      likes: 2156,
-      comments: 156,
-      shares: 34,
-    },
-    {
-      id: 4,
-      username: 'FinTech Pro',
-      userAvatar: 'FP',
-      time: '8h ago',
-      type: 'video',
-      video: '/videos/video5-fintech.mp4',
-      caption: 'Processing over $500M monthly with 99.9% uptime! Here\'s how we do it 💳',
-      likes: 1834,
-      comments: 112,
-      shares: 89,
-      duration: '1:15',
-    },
-    {
-      id: 5,
-      username: 'EduLearn Platform',
-      userAvatar: 'EL',
-      time: '12h ago',
-      type: 'image',
-      gradient: 'from-indigo-500/30 via-blue-500/30 to-cyan-500/30',
-      icon: '📚',
-      caption: '100,000+ students improving their grades with our adaptive learning system! 📚✨',
-      likes: 967,
-      comments: 78,
-      shares: 45,
-    },
-    {
-      id: 6,
-      username: 'CloudSync Technologies',
-      userAvatar: 'CS',
-      time: '1d ago',
-      type: 'video',
-      video: '/videos/video4.mp4',
-      caption: 'Seamless cloud storage solution trusted by 50,000+ businesses! ☁️',
-      likes: 1456,
-      comments: 98,
-      shares: 56,
-      duration: '0:45',
-    },
-    {
-      id: 7,
-      username: 'Foodie Express',
-      userAvatar: 'FE',
-      time: '1d ago',
-      type: 'image',
-      gradient: 'from-orange-500/30 via-red-500/30 to-pink-500/30',
-      icon: '🍽️',
-      caption: '500+ premium restaurants now on our platform! Delivering excellence, one meal at a time 🍽️',
-      likes: 1123,
-      comments: 67,
-      shares: 23,
-    },
-    {
-      id: 8,
-      username: 'RealEstate Pro',
-      userAvatar: 'RE',
-      time: '2d ago',
-      type: 'video',
-      gradient: 'from-amber-500/30 via-yellow-500/30 to-lime-500/30',
-      icon: '🏠',
-      caption: 'VR property tours are the future! Experience real estate like never before 🏠',
-      likes: 2341,
-      comments: 189,
-      shares: 123,
-      duration: '2:00',
-    },
-  ];
+  // Handle scroll to show/hide scroll to top button
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show button when scrolled down more than 300px
+      if (window.scrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  // Use dedicated home1–home10 videos dataset for the Home feed
+  const feedPosts = homeVideos.map((video) => ({
+    id: video.id,
+    username: video.company,
+    userAvatar: video.authorAvatar,
+    time: '2h ago',
+    type: 'video',
+    video: video.video,
+    caption: video.caption,
+    likes: video.metrics?.likes ?? 0,
+    comments: video.metrics?.comments ?? 0,
+    shares: video.metrics?.shares ?? 0,
+    duration: undefined,
+  }));
 
   const toggleLike = (postId) => {
     setLikedPosts((prev) => {
@@ -145,6 +65,18 @@ const Feed = () => {
     return num.toString();
   };
 
+  const toggleCaption = (postId) => {
+    setExpandedCaptions((prev) => {
+      const next = new Set(prev);
+      if (next.has(postId)) {
+        next.delete(postId);
+      } else {
+        next.add(postId);
+      }
+      return next;
+    });
+  };
+
   return (
     <div className="w-full bg-dark" style={{ backgroundColor: '#0f172a' }}>
       <div className="w-full">
@@ -153,13 +85,14 @@ const Feed = () => {
             const isLiked = likedPosts.has(post.id);
             const isVideo = post.type === 'video';
             const isPlaying = playingVideo === post.id;
+            const isCaptionExpanded = expandedCaptions.has(post.id);
 
             return (
               <div
                 key={post.id}
                 className="overflow-hidden"
               >
-                {/* Post Header */}
+                {/* Post Header - Full width */}
                 <div className="flex items-center justify-between px-4 pt-4 pb-3">
                   <div className="flex items-center gap-3">
                     <CompanyLogo initials={post.userAvatar} author={post.username} size="md" showBorder={true} />
@@ -175,8 +108,12 @@ const Feed = () => {
                   </button>
                 </div>
 
-                {/* Media - Full Screen */}
-                <div className={`relative w-screen bg-dark overflow-hidden ${isVideo ? 'aspect-[9/16]' : 'aspect-square'}`} style={{ marginLeft: 'calc(-50vw + 50%)', width: '100vw' }}>
+                {/* Horizontal Line */}
+                <div className="w-full border-t border-gray-700"></div>
+
+                {/* Media Container - Full width, video centered at 1/2 width */}
+                <div className="w-full flex items-center justify-center">
+                  <div className={`relative w-full md:w-1/2 bg-dark overflow-hidden ${isVideo ? 'aspect-[9/16] md:aspect-auto md:h-screen' : 'aspect-square'}`}>
                   {isVideo && post.video ? (
                     <div className="relative w-full h-full">
                       <video
@@ -241,9 +178,13 @@ const Feed = () => {
                       <div className="absolute inset-0 bg-black/10"></div>
                     </div>
                   )}
+                  </div>
                 </div>
 
-                {/* Actions */}
+                {/* Horizontal Line */}
+                <div className="w-full border-t border-gray-700"></div>
+
+                {/* Actions Footer - Full width */}
                 <div className="p-4 pt-3">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-4">
@@ -307,10 +248,19 @@ const Feed = () => {
 
                   {/* Caption */}
                   <div className="mb-2">
-                    <p className="text-sm text-white">
+                    <p className={`text-sm text-white ${isCaptionExpanded ? '' : 'line-clamp-2'}`}>
                       <span className="font-semibold mr-2">{post.username}</span>
                       {post.caption}
                     </p>
+                    {post.caption && post.caption.length > 140 && (
+                      <button
+                        type="button"
+                        className="mt-1 text-xs font-semibold text-primary hover:text-primary/80"
+                        onClick={() => toggleCaption(post.id)}
+                      >
+                        {isCaptionExpanded ? 'Show less' : 'Show more'}
+                      </button>
+                    )}
                   </div>
 
                   {/* Comments */}
@@ -326,6 +276,29 @@ const Feed = () => {
           })}
         </div>
       </div>
+
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-20 right-8 z-50 w-12 h-12 bg-primary hover:bg-primary-dark rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
+          aria-label="Scroll to top"
+        >
+          <svg
+            className="w-6 h-6 text-white"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 10l7-7m0 0l7 7m-7-7v18"
+            />
+          </svg>
+        </button>
+      )}
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import CompanyLogo from './CompanyLogo';
-import { companyVideos } from '../data/companyVideos';
+import { reelsVideos } from '../data/reelsVideos';
 
 const Reels = ({ initialVideoId = null }) => {
-  const reels = companyVideos.map((v) => ({
+  const reels = reelsVideos.map((v) => ({
     id: v.id,
     video: v.video,
     thumbnail: v.thumbnail,
@@ -30,6 +30,7 @@ const Reels = ({ initialVideoId = null }) => {
   const [likedVideos, setLikedVideos] = useState(new Set());
   // Initialize with all video indices so all videos start unmuted
   const [mutedVideos, setMutedVideos] = useState(new Set(Array.from({ length: reels.length }, (_, i) => i)));
+  const [expandedDescriptions, setExpandedDescriptions] = useState(new Set());
   const videoRefs = useRef([]);
   const containerRefs = useRef([]);
 
@@ -192,22 +193,37 @@ const Reels = ({ initialVideoId = null }) => {
     return num.toString();
   };
 
+  const toggleDescription = (videoId) => {
+    setExpandedDescriptions((prev) => {
+      const next = new Set(prev);
+      if (next.has(videoId)) {
+        next.delete(videoId);
+      } else {
+        next.add(videoId);
+      }
+      return next;
+    });
+  };
+
   return (
     <div className="fixed inset-0 bottom-16 bg-dark overflow-hidden" style={{ backgroundColor: '#0f172a' }}>
-      {/* Reels Container - Full screen on mobile, centered on desktop */}
+      {/* Reels Container - Full screen on mobile, 1/2 width on desktop */}
       <div className="reels-container h-full overflow-y-auto snap-y snap-mandatory">
-        {reels.map((reel, index) => {
-          const isLiked = likedVideos.has(reel.id);
-          const isCurrent = currentVideoIndex === index;
+        {/* Desktop container wrapper - 1/2 width, centered */}
+        <div className="w-full md:w-1/2 md:mx-auto h-full">
+          {reels.map((reel, index) => {
+            const isLiked = likedVideos.has(reel.id);
+            const isCurrent = currentVideoIndex === index;
+            const isExpanded = expandedDescriptions.has(reel.id);
 
-          return (
-            <div
-              key={reel.id}
-              ref={(el) => (containerRefs.current[index] = el)}
-              className="h-full w-full snap-start snap-always flex items-center justify-center relative"
-            >
-              {/* Video Container - Full screen on mobile, centered on desktop */}
-              <div className="relative w-full h-full md:max-w-2xl md:mx-auto md:h-auto md:aspect-[9/16] bg-black flex items-center justify-center md:rounded-lg overflow-hidden">
+            return (
+              <div
+                key={reel.id}
+                ref={(el) => (containerRefs.current[index] = el)}
+                className="h-full w-full snap-start snap-always flex items-center justify-center relative"
+              >
+                {/* Video Container - Full screen on mobile, 1/3 width and full height on desktop */}
+                <div className="relative w-full h-full bg-black flex items-center justify-center md:rounded-lg overflow-hidden">
                 {/* Video Element */}
                 <video
                   ref={(el) => {
@@ -372,7 +388,21 @@ const Reels = ({ initialVideoId = null }) => {
                             <CompanyLogo initials={reel.authorAvatar} author={reel.author} size="md" showBorder={true} />
                     <div className="flex-1 min-w-0">
                       <p className="text-white font-semibold text-sm mb-1">{reel.author}</p>
-                      <p className="text-white text-sm line-clamp-2">{reel.description}</p>
+                      <p className={`text-white text-sm ${isExpanded ? '' : 'line-clamp-2'}`}>
+                        {reel.description}
+                      </p>
+                      {reel.description && reel.description.length > 140 && (
+                        <button
+                          type="button"
+                          className="mt-1 text-xs font-semibold text-primary hover:text-primary/80"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleDescription(reel.id);
+                          }}
+                        >
+                          {isExpanded ? 'Show less' : 'Show more'}
+                        </button>
+                      )}
                     </div>
                   </div>
                   <div className="flex items-center gap-4 text-white text-sm mb-2">
@@ -381,10 +411,11 @@ const Reels = ({ initialVideoId = null }) => {
                     <span>{formatNumber(reel.likes)} likes</span>
                   </div>
                 </div>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );
