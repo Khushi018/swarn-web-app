@@ -4,7 +4,7 @@ import { companies } from '../data/companies';
 import CompanyLogo from './CompanyLogo';
 import { storiesVideos } from '../data/storiesVideos';
 
-const Header = ({ onCompanySelect, onConsultantSelect, onOpenCreatePost, onNavigate, onOpenStory }) => {
+const Header = ({ onCompanySelect, onConsultantSelect, onOpenCreatePost, onNavigate, onOpenStory, isWhiteTheme = false, onThemeToggle }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -79,33 +79,38 @@ const Header = ({ onCompanySelect, onConsultantSelect, onOpenCreatePost, onNavig
         onCompanySelect={onCompanySelect}
         onConsultantSelect={onConsultantSelect}
         ownedCompanyIds={[1, 2]}
+        isWhiteTheme={isWhiteTheme}
+        onThemeToggle={onThemeToggle}
       />
       
       {/* Sticky Header - Reddit Style */}
-      <header className="w-full bg-dark sticky top-0 z-50 border-b border-dark-light" style={{ backgroundColor: '#0f172a' }}>
-        <div className="w-full px-4 py-2 md:max-w-4xl md:mx-auto">
+      <header className={`w-full sticky top-0 z-50 border-b ${isWhiteTheme ? 'bg-white border-gray-200' : 'bg-dark border-dark-light'}`} style={isWhiteTheme ? { backgroundColor: '#ffffff' } : { backgroundColor: '#0f172a' }}>
+        <div className="w-full px-4 py-0.5 md:max-w-4xl md:mx-auto">
           <div className="flex items-center gap-2">
-            {/* Hamburger Menu with Green Notification */}
+            {/* Hamburger Menu with Notification Dot */}
             <button
               onClick={() => setIsSidebarOpen(true)}
-              className="relative flex-shrink-0 p-1.5 hover:bg-dark-light rounded-lg transition-colors"
+              className={`relative flex-shrink-0 p-1 rounded-lg transition-colors ${isWhiteTheme ? 'hover:bg-gray-100' : 'hover:bg-dark-light'}`}
             >
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className={`w-5 h-5 ${isWhiteTheme ? 'text-yellow-500' : 'text-white'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
-              <span className="absolute top-0.5 right-0.5 w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+              <span className={`absolute top-0.5 right-0.5 w-1.5 h-1.5 rounded-full ${isWhiteTheme ? 'bg-yellow-500' : 'bg-green-500'}`}></span>
             </button>
 
             {/* Logo with Dropdown */}
             <div className="relative flex-shrink-0" ref={logoDropdownRef}>
               <button
                 onClick={() => setShowLogoDropdown(!showLogoDropdown)}
-                className="flex items-center gap-1 rounded px-1 py-1 transition-colors active:bg-transparent"
+                className="flex items-center gap-2 rounded transition-colors active:bg-transparent -my-1"
               >
-                <span className="text-2xl font-black tracking-tighter bg-gradient-to-r from-green-400 via-emerald-400 to-blue-500 bg-clip-text text-transparent drop-shadow-lg uppercase">
-                  Swarg
-                </span>
-               
+                <img 
+                  src="/images/swarg-logo.svg" 
+                  alt="Swarg Logo" 
+                  className="h-9 w-auto object-contain"
+                />
+              
+                
               </button>
             </div>
 
@@ -115,16 +120,16 @@ const Header = ({ onCompanySelect, onConsultantSelect, onOpenCreatePost, onNavig
             {/* Search Icon */}
             <button 
               onClick={() => onNavigate && onNavigate('search')}
-              className="touch-target flex-shrink-0 p-1 hover:bg-dark-light rounded-lg transition-colors"
+              className={`touch-target flex-shrink-0 p-1 rounded-lg transition-colors ${isWhiteTheme ? 'hover:bg-gray-100' : 'hover:bg-dark-light'}`}
             >
-              <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className={`w-5 h-5 ${isWhiteTheme ? 'text-yellow-500' : 'text-gray-300'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </button>
 
             {/* Notification Icon */}
-            <button className="touch-target relative flex-shrink-0 p-1 hover:bg-dark-light rounded-lg transition-colors -ml-1">
-              <svg className="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button className={`touch-target relative flex-shrink-0 p-1 rounded-lg transition-colors -ml-1 ${isWhiteTheme ? 'hover:bg-gray-100' : 'hover:bg-dark-light'}`}>
+              <svg className={`w-5 h-5 ${isWhiteTheme ? 'text-yellow-500' : 'text-gray-300'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
               </svg>             
             </button>
@@ -152,17 +157,17 @@ const Header = ({ onCompanySelect, onConsultantSelect, onOpenCreatePost, onNavig
       </header>
 
       {/* Non-Sticky Stories Section - Scrolls with page */}
-      <div className="w-full bg-dark" style={{ backgroundColor: '#0f172a' }}>
+      <div className={`w-full ${isWhiteTheme ? 'bg-white' : 'bg-dark'}`} style={isWhiteTheme ? { backgroundColor: '#ffffff' } : { backgroundColor: '#0f172a' }}>
         <div className="w-full px-4 py-4 md:max-w-4xl md:mx-auto">
           <div className="flex items-center gap-4 overflow-x-auto pb-2 scroll-smooth -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide md:scrollbar-default">
             <button 
               onClick={() => onOpenCreatePost && onOpenCreatePost()}
               className="flex-shrink-0 flex flex-col items-center gap-2"
             >
-              <div className="w-16 h-16 rounded-full bg-dark-light flex items-center justify-center border-2 border-dashed border-gray-500">
-                <span className="text-white text-2xl">+</span>
+              <div className={`w-16 h-16 rounded-full flex items-center justify-center border-2 border-dashed ${isWhiteTheme ? 'bg-gray-50 border-yellow-500' : 'bg-dark-light border-gray-500'}`}>
+                <span className={isWhiteTheme ? 'text-yellow-500 text-2xl' : 'text-white text-2xl'}>+</span>
               </div>
-              <span className="text-xs text-gray-400">Add Story</span>
+              <span className={`text-xs ${isWhiteTheme ? 'text-gray-600' : 'text-gray-400'}`}>Add Story</span>
             </button>
             {[
               // Dynamically built story sources (with videos)
@@ -208,8 +213,8 @@ const Header = ({ onCompanySelect, onConsultantSelect, onOpenCreatePost, onNavig
                   }}
                   className="flex-shrink-0 flex flex-col items-center gap-2"
                 >
-                  <div className="w-16 h-16 rounded-full p-0.5 bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center">
-                    <div className="w-full h-full rounded-full bg-dark-light flex items-center justify-center overflow-hidden">
+                  <div className={`w-16 h-16 rounded-full p-0.5 bg-gradient-to-r flex items-center justify-center ${isWhiteTheme ? 'from-yellow-500 to-amber-500' : 'from-green-500 to-blue-500'}`}>
+                    <div className={`w-full h-full rounded-full flex items-center justify-center overflow-hidden ${isWhiteTheme ? 'bg-gray-50' : 'bg-dark-light'}`}>
                       {isVideoStory && item.profileImage ? (
                         <img 
                           src={item.profileImage} 
@@ -219,11 +224,11 @@ const Header = ({ onCompanySelect, onConsultantSelect, onOpenCreatePost, onNavig
                       ) : isVideoStory && item.authorAvatar ? (
                         <CompanyLogo initials={item.authorAvatar} author={item.author} size="lg" className="border-0" />
                       ) : (
-                        <span className="text-white text-sm font-semibold">{name.substring(0, 2)}</span>
+                        <span className={isWhiteTheme ? 'text-gray-900 text-sm font-semibold' : 'text-white text-sm font-semibold'}>{name.substring(0, 2)}</span>
                       )}
                     </div>
                   </div>
-                  <span className="text-xs text-gray-400">{name.length > 8 ? name.substring(0, 8) + '...' : name}</span>
+                  <span className={`text-xs ${isWhiteTheme ? 'text-gray-600' : 'text-gray-400'}`}>{name.length > 8 ? name.substring(0, 8) + '...' : name}</span>
                 </button>
               );
             })}

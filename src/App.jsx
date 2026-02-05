@@ -24,6 +24,7 @@ function App() {
   const [selectedConsultantId, setSelectedConsultantId] = useState(null);
   const [selectedVideoId, setSelectedVideoId] = useState(null);
   const [storyViewer, setStoryViewer] = useState({ isOpen: false, stories: [], initialIndex: 0 });
+  const [isWhiteTheme, setIsWhiteTheme] = useState(false);
 
   const handleCompanySelect = (companyId) => {
     setSelectedCompanyId(companyId);
@@ -95,27 +96,29 @@ function App() {
       case 'home':
       default:
         return (
-          <div className="min-h-screen bg-dark text-white pb-20" style={{ backgroundColor: '#0f172a' }}>
+          <div className={`min-h-screen pb-20 ${isWhiteTheme ? 'bg-white text-gray-900' : 'bg-dark text-white'}`} style={isWhiteTheme ? { backgroundColor: '#ffffff' } : { backgroundColor: '#0f172a' }}>
             <Header 
               onCompanySelect={handleCompanySelect}
               onConsultantSelect={handleConsultantSelect}
               onOpenCreatePost={() => setCurrentScreen('aiCreatePost')}
               onNavigate={setCurrentScreen}
               onOpenStory={(stories, initialIndex) => setStoryViewer({ isOpen: true, stories, initialIndex })}
+              isWhiteTheme={isWhiteTheme}
+              onThemeToggle={setIsWhiteTheme}
             />
             
-            <main className="w-full bg-dark overflow-x-hidden" style={{ backgroundColor: '#0f172a' }}>
+            <main className={`w-full overflow-x-hidden ${isWhiteTheme ? 'bg-white' : 'bg-dark'}`} style={isWhiteTheme ? { backgroundColor: '#ffffff' } : { backgroundColor: '#0f172a' }}>
               <div className="w-full max-w-4xl mx-auto">
-                <TopPicks />
+                <TopPicks isWhiteTheme={isWhiteTheme} />
                 {/* <InvestmentNotification /> */}
-                <MarketWatchCard />
-                <CompanyUpdateCard />
+                <MarketWatchCard isWhiteTheme={isWhiteTheme} />
+                <CompanyUpdateCard isWhiteTheme={isWhiteTheme} />
                 
                 {/* Instagram-like Feed */}
-                <Feed />
+                <Feed isWhiteTheme={isWhiteTheme} />
                 
                 {/* Add some spacing at the bottom for navigation */}
-                <div className="h-4 bg-dark" style={{ backgroundColor: '#0f172a' }}></div>
+                <div className={`h-4 ${isWhiteTheme ? 'bg-white' : 'bg-dark'}`} style={isWhiteTheme ? { backgroundColor: '#ffffff' } : { backgroundColor: '#0f172a' }}></div>
               </div>
             </main>
           </div>
@@ -130,6 +133,7 @@ function App() {
         currentScreen={currentScreen} 
         onNavigate={setCurrentScreen}
         onOpenCreatePost={() => setCurrentScreen('aiCreatePost')}
+        isWhiteTheme={currentScreen === 'home' ? isWhiteTheme : false}
       />
       {/* Story Viewer */}
       {storyViewer.isOpen && (

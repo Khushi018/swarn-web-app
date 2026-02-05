@@ -1,6 +1,6 @@
 import React from 'react';
 
-const BottomNavigation = ({ currentScreen = 'home', onNavigate, onOpenCreatePost }) => {
+const BottomNavigation = ({ currentScreen = 'home', onNavigate, onOpenCreatePost, isWhiteTheme = false }) => {
   const navItems = [
     { id: 'home', label: 'Home', icon: 'home', active: currentScreen === 'home' },
     { id: 'explore', label: 'Explore', icon: 'explore', active: currentScreen === 'explore' },
@@ -49,38 +49,51 @@ const BottomNavigation = ({ currentScreen = 'home', onNavigate, onOpenCreatePost
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-dark-light border-t border-dark z-50 safe-area-bottom" style={{ backgroundColor: '#1e293b' }}>
+    <nav className={`fixed bottom-0 left-0 right-0 border-t z-50 safe-area-bottom ${isWhiteTheme ? 'bg-white border-gray-200' : 'bg-dark-light border-dark'}`} style={isWhiteTheme ? { backgroundColor: '#ffffff' } : { backgroundColor: '#1e293b' }}>
       <div className="container-mobile">
         <div className="flex items-center justify-between h-16 gap-2">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => {
-                if (item.isCenter && onOpenCreatePost) {
-                  onOpenCreatePost();
-                } else if (!item.isCenter && onNavigate) {
-                  onNavigate(item.id);
-                }
-              }}
-              className={`relative flex flex-col items-center justify-center touch-target ${
-                item.isCenter 
-                  ? 'flex-1 text-gray-400' 
-                  : 'flex-1 text-gray-400'
-              } ${item.active && !item.isCenter ? 'text-primary' : ''}`}
-            >
-              {getIcon(item.icon)}
-              {item.label && (
-                <span className={`text-xs mt-1 ${item.active && !item.isCenter ? 'text-primary' : 'text-gray-400'}`}>
-                  {item.label}
-                </span>
-              )}
-              {item.badge && (
-                <span className="absolute top-0 right-2 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
-                  {item.badge}
-                </span>
-              )}
-            </button>
-          ))}
+          {navItems.map((item) => {
+            const isActive = item.active && !item.isCenter;
+            const activeColor = isWhiteTheme ? 'text-yellow-500' : 'text-primary';
+            
+            return (
+              <button
+                key={item.id}
+                onClick={() => {
+                  if (item.isCenter && onOpenCreatePost) {
+                    onOpenCreatePost();
+                  } else if (!item.isCenter && onNavigate) {
+                    onNavigate(item.id);
+                  }
+                }}
+                className={`relative flex flex-col items-center justify-center touch-target flex-1 ${
+                  item.isCenter 
+                    ? isWhiteTheme ? 'text-gray-600' : 'text-gray-400'
+                    : isActive ? activeColor : isWhiteTheme ? 'text-gray-600' : 'text-gray-400'
+                }`}
+              >
+                {item.isCenter ? (
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center ${isWhiteTheme ? 'bg-yellow-500' : 'bg-primary'}`}>
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                  </div>
+                ) : (
+                  getIcon(item.icon)
+                )}
+                {item.label && !item.isCenter && (
+                  <span className={`text-xs mt-1 ${isActive ? activeColor : isWhiteTheme ? 'text-gray-600' : 'text-gray-400'}`}>
+                    {item.label}
+                  </span>
+                )}
+                {item.badge && (
+                  <span className="absolute top-0 right-2 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                    {item.badge}
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </div>
       </div>
     </nav>

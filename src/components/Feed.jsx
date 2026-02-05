@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CompanyLogo from './CompanyLogo';
 import { homeVideos } from '../data/homeVideos';
 
-const Feed = () => {
+const Feed = ({ isWhiteTheme = false }) => {
   const [likedPosts, setLikedPosts] = useState(new Set());
   const [playingVideo, setPlayingVideo] = useState(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -78,7 +78,7 @@ const Feed = () => {
   };
 
   return (
-    <div className="w-full bg-dark" style={{ backgroundColor: '#0f172a' }}>
+    <div className={`w-full ${isWhiteTheme ? 'bg-white' : 'bg-dark'}`} style={isWhiteTheme ? { backgroundColor: '#ffffff' } : { backgroundColor: '#0f172a' }}>
       <div className="w-full">
         <div className="space-y-0">
           {feedPosts.map((post) => {
@@ -97,23 +97,23 @@ const Feed = () => {
                   <div className="flex items-center gap-3">
                     <CompanyLogo initials={post.userAvatar} author={post.username} size="md" showBorder={true} />
                     <div>
-                      <h3 className="text-sm font-semibold text-white">{post.username}</h3>
-                      <p className="text-xs text-gray-400">{post.time}</p>
+                      <h3 className={`text-sm font-semibold ${isWhiteTheme ? 'text-gray-900' : 'text-white'}`}>{post.username}</h3>
+                      <p className={`text-xs ${isWhiteTheme ? 'text-gray-500' : 'text-gray-400'}`}>{post.time}</p>
                     </div>
                   </div>
                   <button className="touch-target">
-                    <svg className="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className={`w-5 h-5 ${isWhiteTheme ? 'text-yellow-500' : 'text-gray-400'}`} fill="currentColor" viewBox="0 0 20 20">
                       <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                     </svg>
                   </button>
                 </div>
 
                 {/* Horizontal Line */}
-                <div className="w-full border-t border-gray-700"></div>
+                <div className={`w-full border-t ${isWhiteTheme ? 'border-gray-200' : 'border-gray-700'}`}></div>
 
                 {/* Media Container - Full width, video centered at 1/2 width */}
                 <div className="w-full flex items-center justify-center">
-                  <div className={`relative w-full md:w-1/2 bg-dark overflow-hidden ${isVideo ? 'aspect-[9/16] md:aspect-auto md:h-screen' : 'aspect-square'}`}>
+                  <div className={`relative w-full md:w-1/2 overflow-hidden ${isWhiteTheme ? 'bg-gray-50' : 'bg-dark'} ${isVideo ? 'aspect-[9/16] md:aspect-auto md:h-screen' : 'aspect-square'}`}>
                   {isVideo && post.video ? (
                     <div className="relative w-full h-full">
                       <video
@@ -182,7 +182,7 @@ const Feed = () => {
                 </div>
 
                 {/* Horizontal Line */}
-                <div className="w-full border-t border-gray-700"></div>
+                <div className={`w-full border-t ${isWhiteTheme ? 'border-gray-200' : 'border-gray-700'}`}></div>
 
                 {/* Actions Footer - Full width */}
                 <div className="p-4 pt-3">
@@ -193,7 +193,7 @@ const Feed = () => {
                         className="touch-target"
                       >
                         <svg
-                          className={`w-6 h-6 ${isLiked ? 'text-red-500 fill-red-500' : 'text-gray-300'}`}
+                          className={`w-6 h-6 ${isLiked ? 'text-red-500 fill-red-500' : isWhiteTheme ? 'text-gray-600' : 'text-gray-300'}`}
                           fill={isLiked ? 'currentColor' : 'none'}
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -207,7 +207,7 @@ const Feed = () => {
                         </svg>
                       </button>
                       <button className="touch-target">
-                        <svg className="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className={`w-6 h-6 ${isWhiteTheme ? 'text-yellow-500' : 'text-gray-300'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -217,7 +217,7 @@ const Feed = () => {
                         </svg>
                       </button>
                       <button className="touch-target">
-                        <svg className="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className={`w-6 h-6 ${isWhiteTheme ? 'text-yellow-500' : 'text-gray-300'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -228,7 +228,7 @@ const Feed = () => {
                       </button>
                     </div>
                     <button className="touch-target">
-                      <svg className="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className={`w-6 h-6 ${isWhiteTheme ? 'text-yellow-500' : 'text-gray-300'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -241,21 +241,21 @@ const Feed = () => {
 
                   {/* Likes Count */}
                   <div className="mb-2">
-                    <p className="text-sm font-semibold text-white">
+                    <p className={`text-sm font-semibold ${isWhiteTheme ? 'text-gray-900' : 'text-white'}`}>
                       {formatNumber(isLiked ? post.likes + 1 : post.likes)} likes
                     </p>
                   </div>
 
                   {/* Caption */}
                   <div className="mb-2">
-                    <p className={`text-sm text-white ${isCaptionExpanded ? '' : 'line-clamp-2'}`}>
+                    <p className={`text-sm ${isWhiteTheme ? 'text-gray-900' : 'text-white'} ${isCaptionExpanded ? '' : 'line-clamp-2'}`}>
                       <span className="font-semibold mr-2">{post.username}</span>
                       {post.caption}
                     </p>
                     {post.caption && post.caption.length > 140 && (
                       <button
                         type="button"
-                        className="mt-1 text-xs font-semibold text-primary hover:text-primary/80"
+                        className={`mt-1 text-xs font-semibold ${isWhiteTheme ? 'text-yellow-500 hover:text-yellow-600' : 'text-primary hover:text-primary/80'}`}
                         onClick={() => toggleCaption(post.id)}
                       >
                         {isCaptionExpanded ? 'Show less' : 'Show more'}
@@ -264,12 +264,12 @@ const Feed = () => {
                   </div>
 
                   {/* Comments */}
-                  <button className="text-sm text-gray-400 mb-2">
+                  <button className={`text-sm mb-2 ${isWhiteTheme ? 'text-gray-600' : 'text-gray-400'}`}>
                     View all {post.comments} comments
                   </button>
 
                   {/* Time */}
-                  <p className="text-xs text-gray-500 uppercase">{post.time}</p>
+                  <p className={`text-xs uppercase ${isWhiteTheme ? 'text-gray-400' : 'text-gray-500'}`}>{post.time}</p>
                 </div>
               </div>
             );
@@ -281,7 +281,7 @@ const Feed = () => {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-20 right-8 z-50 w-12 h-12 bg-primary hover:bg-primary-dark rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
+          className={`fixed bottom-20 right-8 z-50 w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 active:scale-95 ${isWhiteTheme ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-primary hover:bg-primary-dark'}`}
           aria-label="Scroll to top"
         >
           <svg
