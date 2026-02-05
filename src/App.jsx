@@ -17,6 +17,7 @@ import FeedPreferences from './components/FeedPreferences';
 import StoryViewer from './components/StoryViewer';
 import SearchPage from './components/SearchPage';
 import AICreatePost from './components/AICreatePost';
+import VideoUpload from './components/VideoUpload';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
@@ -56,6 +57,16 @@ function App() {
     setCurrentScreen('home');
   };
 
+  const handleBackFromVideoUpload = () => {
+    setCurrentScreen('home');
+  };
+
+  const handleVideoUpload = (uploadData) => {
+    console.log('Video uploaded:', uploadData);
+    // Here you would typically send the upload data to your backend/API
+    // For now, we'll just log it
+  };
+
 
   const handleConsultantSelect = (consultantId) => {
     setSelectedConsultantId(consultantId);
@@ -93,6 +104,12 @@ function App() {
         return <SearchPage onBack={handleBackFromSearch} onCompanySelect={handleCompanySelect} />;
       case 'aiCreatePost':
         return <AICreatePost onBack={handleBackFromAICreatePost} onSubmit={handleCreatePost} />;
+      case 'feedUpload':
+        return <VideoUpload uploadType="feed" onBack={handleBackFromVideoUpload} onSubmit={handleVideoUpload} isWhiteTheme={isWhiteTheme} />;
+      case 'reelUpload':
+        return <VideoUpload uploadType="reel" onBack={handleBackFromVideoUpload} onSubmit={handleVideoUpload} isWhiteTheme={isWhiteTheme} />;
+      case 'storyUpload':
+        return <VideoUpload uploadType="story" onBack={handleBackFromVideoUpload} onSubmit={handleVideoUpload} isWhiteTheme={isWhiteTheme} />;
       case 'home':
       default:
         return (

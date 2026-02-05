@@ -34,3 +34,8 @@ lerna-debug.log*
 # Vite
 .vite
 
+# GCS Credentials (security - never commit these!)
+gen-lang-client-*.json
+*-credentials.json
+gcs-credentials.json
+
