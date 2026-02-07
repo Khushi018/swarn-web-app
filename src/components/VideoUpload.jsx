@@ -43,14 +43,23 @@ const VideoUpload = ({ uploadType = 'feed', onBack, onSubmit, isWhiteTheme = fal
   const handleVideoSelect = (e) => {
     const file = e.target.files[0];
     if (file) {
-      if (file.type.startsWith('video/')) {
-        setVideoFile(file);
-        // Create preview URL
-        const previewUrl = URL.createObjectURL(file);
-        setVideoPreview(previewUrl);
-      } else {
+      // Check file type
+      if (!file.type.startsWith('video/')) {
         alert('Please select a video file');
+        return;
       }
+
+      // Check file size (100MB limit for Vercel Pro, 4.5MB for Hobby)
+      const maxSize = 100 * 1024 * 1024; // 100MB
+      if (file.size > maxSize) {
+        alert(`Video file is too large. Maximum size is ${(maxSize / 1024 / 1024).toFixed(0)}MB. Your file is ${(file.size / 1024 / 1024).toFixed(2)}MB.`);
+        return;
+      }
+
+      setVideoFile(file);
+      // Create preview URL
+      const previewUrl = URL.createObjectURL(file);
+      setVideoPreview(previewUrl);
     }
   };
 
@@ -101,22 +110,27 @@ const VideoUpload = ({ uploadType = 'feed', onBack, onSubmit, isWhiteTheme = fal
         body: formData,
       });
 
-      // Check if response has content
-      const contentType = response.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) {
-        const text = await response.text();
-        throw new Error(`Server returned non-JSON response: ${text || 'Empty response'}`);
+      // Get response text once
+      const responseText = await response.text();
+      
+      // Check if response is empty
+      if (!responseText || responseText.trim() === '') {
+        throw new Error('Empty response from server. Check Vercel function logs.');
       }
 
+      // Check content type
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error(`Server returned non-JSON response: ${responseText.substring(0, 200)}`);
+      }
+
+      // Parse JSON
       let result;
       try {
-        const text = await response.text();
-        if (!text) {
-          throw new Error('Empty response from server');
-        }
-        result = JSON.parse(text);
+        result = JSON.parse(responseText);
       } catch (parseError) {
         console.error('JSON parse error:', parseError);
+        console.error('Response text:', responseText);
         throw new Error(`Failed to parse server response: ${parseError.message}`);
       }
 
@@ -306,7 +320,7 @@ const VideoUpload = ({ uploadType = 'feed', onBack, onSubmit, isWhiteTheme = fal
                       Click to upload video
                     </p>
                     <p className={`text-xs ${isWhiteTheme ? 'text-gray-600' : 'text-gray-400'}`}>
-                      MP4, MOV, AVI up to 500MB
+                      MP4, MOV, AVI up to 100MB
                     </p>
                   </div>
                 </label>
