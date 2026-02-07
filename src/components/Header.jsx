@@ -173,24 +173,6 @@ const Header = ({ onCompanySelect, onConsultantSelect, onOpenCreatePost, onNavig
               // Dynamically built story sources (with videos)
               ...storySources,
               // Static name-only bubbles (no videos)
-              'SolarGrid',
-              'Sarah Jenkins',
-              'Vertex AI',
-              'Oper',
-              'TechFlow',
-              'DataVault',
-              'CloudSync',
-              'HealthTech Pro',
-              'FinTech Pro',
-              'EduLearn',
-              'MediCare AI',
-              'GreenEnergy',
-              'Foodie Express',
-              'RealEstate Pro',
-              'LogiChain',
-              'FitLife App',
-              'Quantum Leap',
-              'Cortex Link',
             ].map((item, index) => {
               const isVideoStory = typeof item === 'object' && item.stories;
               const name = isVideoStory ? item.name : item;

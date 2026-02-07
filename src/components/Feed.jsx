@@ -164,7 +164,25 @@ const Feed = ({ isWhiteTheme = false }) => {
                 {/* Post Header - Full width */}
                 <div className="flex items-center justify-between px-4 pt-4 pb-3">
                   <div className="flex items-center gap-3">
-                    <CompanyLogo initials={post.userAvatar} author={post.username} size="md" showBorder={true} />
+                    {post.username.toLowerCase().includes('runtimebrt') ? (
+                      <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white flex-shrink-0">
+                        <img src="/images/runtimelogo.jpg" alt={post.username} className="w-full h-full object-cover" />
+                      </div>
+                    ) : post.username.toLowerCase().includes('gen.e_in') ? (
+                      <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white flex-shrink-0">
+                        <img src="/images/gen.e_in-logo.jpg" alt={post.username} className="w-full h-full object-cover" />
+                      </div>
+                    ) : post.username.toLowerCase().includes('anujmohanty') ? (
+                      <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white flex-shrink-0">
+                        <img src="/images/anujmohanty-log.jpg" alt={post.username} className="w-full h-full object-cover" />
+                      </div>
+                    ) : post.username.toLowerCase().includes('ecosystem') ? (
+                      <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white flex-shrink-0">
+                        <img src="/images/ecosystem-logo.png" alt={post.username} className="w-full h-full object-cover" />
+                      </div>
+                    ) : (
+                      <CompanyLogo initials={post.userAvatar} author={post.username} size="md" showBorder={true} />
+                    )}
                     <div>
                       <h3 className={`text-sm font-semibold ${isWhiteTheme ? 'text-gray-900' : 'text-white'}`}>{post.username}</h3>
                       <p className={`text-xs ${isWhiteTheme ? 'text-gray-500' : 'text-gray-400'}`}>{post.time}</p>

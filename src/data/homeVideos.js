@@ -50,7 +50,7 @@ Top players to watch:
  
   {
     industry: 'Auto Shop / Automobile Services',
-    company: 'TorqueLine AutoWorks',
+    company: 'anujmohanty_',
     caption: `A torn milk packet sparked an idea.
 
 After Karnataka's plastic ban, Mohammed Sadiq started Biogreen Bags fully compostable bags that decompose in 180 days.
@@ -64,7 +64,7 @@ That's how problems become businesses.`,
   },  
   {
     industry: 'Technology / Regional Development',
-    company: 'Belagavi',
+    company: 'runtimebrt and belagavi',
     caption: `This defence laser is made in India.
 
 Belagavi, Karnataka-based Carbine Systems has conducted a series of successful indoor tests of their first DEW prototype. It's called H.A.R.A. Mk 1, short for Hyper Amplification Radiant Array, and it's a 10 kW-class DEW with an effective engagement range of between one and two kilometres. Carbin Systems has been bootstrapped since 2015. In the early days of the business, they operated as a 3D design agency, and now specialise in additive metal manufacturing. They're also working on their own metal 3D printers, which is why they've spent so much time developing lasers. When they realised that lasers can be useful for applications outside of 3D printing, they decided to enter the iDEX challenge and develop lasers for defence. After hearing from the DRDO and the Navy about their requirements, they began working on H.A.R.A.`,
@@ -73,7 +73,7 @@ Belagavi, Karnataka-based Carbine Systems has conducted a series of successful i
   },  
   {
     industry: 'Technology / Education',
-    company: 'CRACKIT',
+    company: 'runtimebrt and crackit',
     caption: `This lighter is made in India.
 
 We made it to Saturday! Here's what the last 24 hours in Indian tech looked like.
@@ -91,7 +91,7 @@ Finally, Bhavish Aggarwal said Ola Shakti is coming soon.`,
   
   {
     industry: 'Technology / Security & AI',
-    company: 'Guardex AI',
+    company: 'runtimebrt and guardex.ai',
     caption: `This AI model tracks student attention in class.
 
 It's Friday y'all! Here's what the last 24 hours in Indian tech looked like.
@@ -107,7 +107,8 @@ Thirdly, Tarun Sridharan, founder of Odd Compass, dropped the trailer for a new 
   
   {
     industry: 'Technology / Innovation',
-    company: 'Lakshveer Rao',
+    company: 'runtimebrt and lakshveerrao',
+
     caption: `This 8-year-old is India's youngest hardware founder.
 
 It's Tech Tuesday, so here's everything that's happening in India.
@@ -125,7 +126,7 @@ Only one day left of 2025, let's make it count! 🇮🇳`,
   
   {
     industry: 'Technology / Logistics',
-    company: 'LogiXair',
+    company: 'runtimebrt and caleb_friesen',
     caption: `Indian freight will never be the same.
 
 Hyderabad-based LogiXair is building sky trucks to dramatically reduce delivery times between India's logistics hubs.
@@ -139,7 +140,7 @@ LogiXair began their journey in the Netherlands founder Bhanu Teja Chidura was b
   
   {
     industry: 'Technology / Semiconductors',
-    company: 'Raana Semiconductors',
+    company: 'runtimebrt and rspl',
     caption: `This is the future of Indian silicon.
 
 Bengaluru-based Raana Semiconductors, or RSPL, has raised a $3M seed round to build indigenous silicon ingot growth systems. Currently there is no other private Indian firm working exclusively on Czochralski-based crystal growth equipment and single-crystal development. With Czochralski ingot pulling, silicon is melted in a crucible. Then a crystal seed is lowered into the melt and a crystal begins to nucleate at the seed. That seed is then slowly pulled from the melt, which grows a single crystalline ingot. The tails of the ingot are then removed, and diamond-coated wires cut through the ingot to create the thin wafers that are used for semiconductors and solar panels. Currently, this process is not happening in India with Indian machines, but Raana Semiconductors wants to change that. RSPL plans to commercialise their indigenous crystal growth systems specifically for the solar industry within the next 18 months. In the future they also aim to build machines that can do semiconductor-grade wafer production too.`,
@@ -149,7 +150,7 @@ Bengaluru-based Raana Semiconductors, or RSPL, has raised a $3M seed round to bu
   
   {
     industry: 'Technology / Aerospace',
-    company: 'TX Infiniti Aerospace',
+    company: 'runtimebrt and tx_infiniti_aerospace',
     caption: `This startup is building unmanned helicopters.
 
 Bengaluru-based X-infiniti Aerospace uses a process called M2UC, or manned-to-uncrewed conversion, to turn Chetak and Cheetah helicopters into autonomous vehicles. The founder of X-infiniti Aerospace, Vishal Kumar Verma, used to work at The ePlane Company as a Senior Test Pilot before starting X-infiniti Aerospace in July of 2025. X-infiniti Aerospace has also already built a helicopter emergency floatation system which they successfully tested.`,
@@ -159,7 +160,7 @@ Bengaluru-based X-infiniti Aerospace uses a process called M2UC, or manned-to-un
   
   {
     industry: 'Technology / Medical Imaging',
-    company: 'Voxelgrids',
+    company: 'runtimebrt and voxelgrids',
     caption: `This MRI machine is made in India and 40% cheaper to build.
 
 Bengaluru-based Voxelgrids has built India's first domestically developed MRI scanner. Their machine has been installed at the Chandrapur Cancer Care Foundation near Nagpur after 12 years of in-house development, and this MRI design eliminates liquid helium which reduces the cost of building one of these machines by 40%, and it's also a cheaper machine to run compared to non-Indian alternatives because the MRI's magnet electronics are tightly integrated while maintaining the same bore size, which means that power usage is reduced. Voxelgrids can manufacture 20 to 25 scanners per year at their Bengaluru factory. So far they've raised $5M from Zoho.`,
@@ -169,7 +170,7 @@ Bengaluru-based Voxelgrids has built India's first domestically developed MRI sc
   
   {
     industry: 'Technology / Innovation',
-    company: 'Apratima',
+    company: 'gen.e_in and diamirzaofficial',
     caption: `Apratima Biosolutions
 Bengaluru-based biotechnology startup, Apratima Biosolutions, is working on a breakthrough that could change how we deal with PET plastic waste. This startup founded by Dr. Kavyasree Manjunath is developing enzymes that can degrade PET plastic within hours, a process that would otherwise take over 450 years. Once broken down, the chemicals extracted can be repurposed to create new, virgin-quality plastic, making the cycle truly circular.
 Incubated at NSCREL, IIM-Bangalore, Apratima secured grants to fuel its R&D, and today, the startup operates out of C-CAMP, Bengaluru’s leading biotech hub.
@@ -181,7 +182,7 @@ With their enzyme-powered innovation, Apratima is showing that the future of pla
   
   {
     industry: 'Technology / Environmental Solutions',
-    company: 'Ecoverva',
+    company: 'gen.e_in and ecoverva',
     caption: `Every year, we upgrade our gadgets, appliances, and tech. But what happens to the old ones? India’s e-waste is piling up faster than ever, with a 70% surge between 2019 and 2024. Most of it ends up forgotten in our homes or dumped in landfills. That’s where recyclers like @recycling_ecoverva come in, turning this growing challenge into an opportunity. They’re recycling e-waste responsibly, recovering valuable metals, and keeping every step transparent and traceable. By spreading e-waste awareness and organising India’s recycling ecosystem, they’re helping build a sustainable circular economy where nothing truly goes to waste.`,
     video: '/feedVideo/ecoverva.mp4',
     thumbnail: '/images/stock.png',
@@ -189,7 +190,7 @@ With their enzyme-powered innovation, Apratima is showing that the future of pla
   
   {
     industry: 'Consumer Goods / Health Products',
-    company: 'Good Gum',
+    company: 'gen.e_in and goodgum',
     caption: `Most chewing gums available in the supermarkets are made of plastic. It is hidden under the term ‘gum base’. So Bengaluru brothers Mayank and Bhuvan decided to come up with the Gud Gum. This made-in-india brand makes plastic-free, all-natural chewing gum from chicle (tree sap) which is flavoured with real fruits powder. Unlike regular gums that pollute sidewalks and harm wildlife, Gud Gum is biodegradable making it a guilt-free, eco-friendly way to freshen your breath. The Good Gum is also incubated at NSRCEL in the circular economy program. The program helped them gain financial access and also suppor in scaling up.`,
     video: '/feedVideo/Good-Gum.mp4',
     thumbnail: '/images/stock.png',
@@ -197,7 +198,7 @@ With their enzyme-powered innovation, Apratima is showing that the future of pla
   
   {
     industry: 'Agriculture / Farming',
-    company: 'Hosachiguru',
+    company: 'gen.e_in and hosachiguru',
     caption: `Most of us dream of owning a farm.
 Very few of us know how to actually run one.
 That’s where @hosachiguru comes in. They help people own farmland that’s professionally managed, transparently run, and rooted in regenerative practices.
@@ -214,7 +215,7 @@ What that gives you:
   
   {
     industry: 'Technology / Innovation',
-    company: 'NIR NALS',
+    company: 'gen.e_in and nirnalwatersolutions',
     caption: `
 In India, millions still don’t have access to safe drinking water. For many families, that means depending on expensive bottled water or relying on unsafe sources. That’s the problem Niranjan from Belagavi set out to solve.
 
@@ -227,7 +228,7 @@ Most RO purifiers waste three litres of water for every one litre they clean. Ni
   
   {
     industry: 'Energy / Solar Technology',
-    company: 'Sunday Grid',
+    company: 'gen.e_in and sundaygrids',
     caption: `@sundaygrids is making solar energy accessible to everyone, even if you live in an apartment or rented house with no roof for panels. The platform lets you reserve solar panels in large solar projects and offset your electricity bill from anywhere by using credits.
 This way every Indian gets access to clean energy and helps contribute to India’s renewable energy mission.
 #cleanenergy@sundaygrids is making solar energy accessible to everyone, even if you live in an apartment or rented house with no roof for panels. The platform lets you reserve solar panels in large solar projects and offset your electricity bill from anywhere by using credits.
@@ -243,7 +244,7 @@ This way every Indian gets access to clean energy and helps contribute to India�
   
   {
     industry: 'Consumer Goods / Traditional Products',
-    company: 'Tribal Veda',
+    company: 'gen.e_in and tribalVeda',
     caption: `TribalVeda is a startup founded by Rajesh Oza and Pooja Oza. Their mission is to transform wild Jamun (Indian blackberry) into shelf-stable wellness products while uplifting tribal communities. The brand sources Jamun fruits from tribal women, processes them into preservative-free products like jam, strips, cubes, teas, seed powder, vinegar, and frozen pulp, and in turn supports sustainable livelihoods for thousands of tribal women.
 Jamun is a super fruit but tons of it goes to waste because not many know how to preserve it. @tribalveda_official is doing this while empowering women and creating jobs for them`,
     video: '/feedVideo/TribalVeda .mp4',
@@ -252,7 +253,7 @@ Jamun is a super fruit but tons of it goes to waste because not many know how to
   
   {
     industry: 'Technology / Innovation',
-    company: 'Without',
+    company: 'gen.e_in and diamirzaofficial',
     caption: `Sourcing materials that are truly sustainable and ethically produced has become one of the biggest challenges for modern brands. Certifications are confusing, supply chains are opaque, and most “green” materials don’t hold up under scrutiny.
 Without aims to close that gap.
 The company transforms low-value, traditionally unrecyclable waste into high-quality, premium materials. From multilayered plastics to textile waste that can’t be reused - @shop.without is helping turn the most difficult waste to recycle into many lives.

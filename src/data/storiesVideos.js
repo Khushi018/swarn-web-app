@@ -5,12 +5,40 @@
 // Edit this array to change story videos
 // Each entry represents a company/user with one or more story videos
 const raw = [
+  {
+    name: 'gen.e_in',
+    author: 'gen.e_in',
+    authorAvatar: 'GE',
+    profileImage: '/images/gen.e_in-logo.jpg',
+    stories: [
+      {
+        id: 1,
+        video: '/feedVideo/Apratima.mp4',
+        description: 'Apratima Biosolutions is developing enzymes that can degrade PET plastic within hours. Turning waste into opportunity.',
+      },
+    ],
+  },
   // Extra videos from industries (beyond primary Reels video)
+  {
+    name: 'runtimebrt',
+    author: 'runtimebrt',
+    authorAvatar: 'RB',
+    profileImage: '/images/runtimelogo.jpg',
+    stories: [
+     
+     
+      {
+        id: 8,
+        video: '/feedVideo/Voxelgrids.mp4',
+        description: 'This MRI machine is made in India and 40% cheaper to build. India\'s first domestically developed MRI scanner.',
+      },
+    ],
+  },
   {
     name: 'ChaiMetrics',
     author: 'ChaiMetrics',
     authorAvatar: 'CM',
-    profileImage: '/images/chai-dp.jpg',
+    profileImage: '/images/chai-logo.png',
     stories: [
       {
         id: 3,
@@ -65,11 +93,6 @@ Follow Pickright for more finance stories steeped in everyday life.`,
     authorAvatar: 'AS',
     stories: [
       {
-        id: 1,
-        video: '/videos/defence2.mp4',
-        description: 'Operational readiness in the field.',
-      },
-      {
         id: 2,
         video: '/videos/defence3.mp4',
         description: 'Advanced defence capabilities in action.',
@@ -88,6 +111,8 @@ Follow Pickright for more finance stories steeped in everyday life.`,
       },
     ],
   },
+ 
+  
 ];
 
 export const storiesVideos = raw;
