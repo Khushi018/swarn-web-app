@@ -1,36 +1,90 @@
 import React, { useState, useEffect, useRef } from 'react';
 import CompanyLogo from './CompanyLogo';
 
-const StoryViewer = ({ stories, initialStoryIndex = 0, onClose }) => {
+const StoryViewer = ({ allCompanies, initialCompanyIndex = 0, initialStoryIndex = 0, onClose }) => {
+  const [currentCompanyIndex, setCurrentCompanyIndex] = useState(initialCompanyIndex);
   const [currentStoryIndex, setCurrentStoryIndex] = useState(initialStoryIndex);
   const [progress, setProgress] = useState(0);
   const videoRef = useRef(null);
   const progressIntervalRef = useRef(null);
+  const isInitialMount = useRef(true);
 
-  const currentStory = stories[currentStoryIndex];
+  // Get current company and its stories
+  const currentCompany = allCompanies[currentCompanyIndex];
+  const rawStories = currentCompany?.stories || [];
+  const currentStories = rawStories.map(story => ({
+    ...story,
+    author: currentCompany?.author || story.author,
+    authorAvatar: currentCompany?.authorAvatar || story.authorAvatar,
+    time: story.time || 'Just now',
+  }));
+  const currentStory = currentStories[currentStoryIndex];
+
+  // Reset story index when company changes (but not on initial mount)
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+    // When company changes, reset to first story
+    setCurrentStoryIndex(0);
+  }, [currentCompanyIndex]);
 
   const handleNext = () => {
-    if (currentStoryIndex < stories.length - 1) {
+    // Check if there are more stories in current company
+    if (currentStoryIndex < currentStories.length - 1) {
+      // Move to next story in same company
       setCurrentStoryIndex(currentStoryIndex + 1);
     } else {
-      onClose();
+      // Move to next company's first story
+      if (currentCompanyIndex < allCompanies.length - 1) {
+        setCurrentCompanyIndex(currentCompanyIndex + 1);
+      } else {
+        // All companies' stories are done
+        onClose();
+      }
     }
   };
 
   useEffect(() => {
-    // Reset progress when story changes
+    // Reset progress when story or company changes
     setProgress(0);
 
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !currentStory) return;
 
-    // Play video
+    // Pause and reset video
+    video.pause();
     video.currentTime = 0;
-    video.play().catch(() => {});
+    
+    // Load the new video source
+    video.load();
+
+    // Wait for video to be ready, then play
+    const handleCanPlay = () => {
+      if (video.readyState >= 2) { // HAVE_CURRENT_DATA
+        video.play().catch((err) => {
+          console.error('Error playing video:', err);
+          // Try with muted if autoplay fails
+          video.muted = true;
+          video.play().catch(() => {
+            video.muted = false;
+          });
+        });
+      }
+    };
+
+    const handleLoadedData = () => {
+      if (video.readyState >= 2) {
+        video.play().catch((err) => {
+          console.error('Error playing video:', err);
+        });
+      }
+    };
 
     // Update progress based on video playback
     const updateProgress = () => {
-      if (video.duration) {
+      if (video.duration && video.duration > 0) {
         const newProgress = (video.currentTime / video.duration) * 100;
         setProgress(newProgress);
       }
@@ -44,6 +98,8 @@ const StoryViewer = ({ stories, initialStoryIndex = 0, onClose }) => {
       updateProgress();
     };
 
+    video.addEventListener('canplay', handleCanPlay);
+    video.addEventListener('loadeddata', handleLoadedData);
     video.addEventListener('timeupdate', handleTimeUpdate);
     video.addEventListener('loadedmetadata', handleLoadedMetadata);
 
@@ -52,20 +108,38 @@ const StoryViewer = ({ stories, initialStoryIndex = 0, onClose }) => {
       updateProgress();
     }, 50);
 
+    // Try to play immediately if video is already loaded
+    if (video.readyState >= 2) {
+      video.play().catch(() => {});
+    }
+
     return () => {
       if (progressIntervalRef.current) {
         clearInterval(progressIntervalRef.current);
       }
+      video.removeEventListener('canplay', handleCanPlay);
+      video.removeEventListener('loadeddata', handleLoadedData);
       video.removeEventListener('timeupdate', handleTimeUpdate);
       video.removeEventListener('loadedmetadata', handleLoadedMetadata);
     };
-  }, [currentStoryIndex, stories.length]);
+  }, [currentStoryIndex, currentCompanyIndex, currentStory?.video]);
 
   const handlePrevious = () => {
+    // Check if there are previous stories in current company
     if (currentStoryIndex > 0) {
+      // Move to previous story in same company
       setCurrentStoryIndex(currentStoryIndex - 1);
     } else {
-      onClose();
+      // Move to previous company's last story
+      if (currentCompanyIndex > 0) {
+        const prevCompany = allCompanies[currentCompanyIndex - 1];
+        const prevCompanyStories = prevCompany?.stories || [];
+        setCurrentCompanyIndex(currentCompanyIndex - 1);
+        setCurrentStoryIndex(prevCompanyStories.length - 1);
+      } else {
+        // At the beginning, close
+        onClose();
+      }
     }
   };
 
@@ -100,15 +174,16 @@ const StoryViewer = ({ stories, initialStoryIndex = 0, onClose }) => {
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [currentStoryIndex, stories.length]);
+  }, [currentStoryIndex, currentCompanyIndex, currentStories.length]);
 
-  if (!stories || stories.length === 0) return null;
+  if (!allCompanies || allCompanies.length === 0 || !currentStory) return null;
 
   return (
     <div className="fixed inset-0 z-50 bg-black">
       {/* Video Container - Full Screen with bottom padding for interactions */}
       <div className="relative w-full h-full flex items-center justify-center pb-24">
         <video
+          key={`${currentCompanyIndex}-${currentStoryIndex}-${currentStory.video}`}
           ref={videoRef}
           src={currentStory.video}
           className="w-full h-full object-contain"
@@ -118,12 +193,13 @@ const StoryViewer = ({ stories, initialStoryIndex = 0, onClose }) => {
           playsInline
           autoPlay
           muted={false}
+          preload="auto"
         />
 
         {/* Top Overlay - Progress Bars */}
         <div className="absolute top-0 left-0 right-0 z-10">
           <div className="flex gap-1 p-2 pt-3">
-            {stories.map((story, index) => (
+            {currentStories.map((story, index) => (
               <div
                 key={story.id || index}
                 className="h-1 flex-1 bg-white/30 rounded-full overflow-hidden"
@@ -143,9 +219,15 @@ const StoryViewer = ({ stories, initialStoryIndex = 0, onClose }) => {
 
         {/* Company Info Overlay on Video */}
         <div className="absolute top-6 left-4 z-10 flex items-center gap-3">
-          <CompanyLogo initials={currentStory.authorAvatar} author={currentStory.author} size="md" showBorder={true} className="shadow-lg" />
+          <CompanyLogo 
+            initials={currentCompany?.authorAvatar || currentStory.authorAvatar} 
+            author={currentCompany?.author || currentStory.author} 
+            size="md" 
+            showBorder={true} 
+            className="shadow-lg" 
+          />
           <div>
-            <p className="text-white font-semibold text-sm drop-shadow-lg">{currentStory.author}</p>
+            <p className="text-white font-semibold text-sm drop-shadow-lg">{currentCompany?.author || currentStory.author}</p>
             <p className="text-white/90 text-xs drop-shadow-lg">{currentStory.time || 'Just now'}</p>
           </div>
         </div>

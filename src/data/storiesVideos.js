@@ -13,6 +13,11 @@ const raw = [
     profileImage: '/images/chai-dp.jpg',
     stories: [
       {
+        id: 3,
+        video: '/videos/chai-cafe.mp4',
+        description: 'Sometimes the biggest ideas start with the smallest needs.',
+      },
+      {
         id: 1,
         video: '/videos/chai-analyisis.mp4',
         description: `Every sip of chai powers a trillion-rupee industry and supports millions. On International Tea Day,
@@ -20,16 +25,8 @@ here's how your morning cup brews economic growth — and investment opportuniti
 
 Follow Pickright for more finance stories steeped in everyday life.`,
       },
-      {
-        id: 2,
-        video: '/videos/chai-food.mp4',
-        description: 'Cup & Crumb Co. pairs comforting chai with thoughtfully crafted food. Built for everyday indulgence, we focus on quality ingredients, efficient service, and flavors that connect people. Our goal is simple—turn small breaks into memorable moments through food that feels homely, reliable, and deeply satisfying.',
-      },
-      {
-        id: 3,
-        video: '/videos/chai-cafe.mp4',
-        description: 'Sometimes the biggest ideas start with the smallest needs.',
-      },
+     
+     
     ],
   },
   {

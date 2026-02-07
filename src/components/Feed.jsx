@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import CompanyLogo from './CompanyLogo';
 import { homeVideos } from '../data/homeVideos';
 
@@ -7,6 +7,35 @@ const Feed = ({ isWhiteTheme = false }) => {
   const [playingVideo, setPlayingVideo] = useState(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [expandedCaptions, setExpandedCaptions] = useState(new Set());
+  const videoRefs = useRef({});
+
+  // Use dedicated home videos dataset for the Home feed
+  const feedPosts = homeVideos.map((item) => ({
+    id: item.id,
+    username: item.company,
+    userAvatar: item.authorAvatar,
+    time: '2h ago',
+    type: item.image ? 'image' : 'video',
+    video: item.video,
+    image: item.image,
+    caption: item.caption,
+    likes: item.metrics?.likes ?? 0,
+    comments: item.metrics?.comments ?? 0,
+    shares: item.metrics?.shares ?? 0,
+    duration: undefined,
+  }));
+
+  // Initialize some posts as liked by default (every 2nd or 3rd post)
+  useEffect(() => {
+    const initialLiked = new Set();
+    feedPosts.forEach((post, index) => {
+      // Like every 2nd or 3rd post to show variety
+      if (index % 3 === 0 || index % 4 === 0) {
+        initialLiked.add(post.id);
+      }
+    });
+    setLikedPosts(initialLiked);
+  }, [feedPosts.length]);
 
   // Handle scroll to show/hide scroll to top button
   useEffect(() => {
@@ -23,6 +52,61 @@ const Feed = ({ isWhiteTheme = false }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Intersection Observer for auto-playing videos on scroll
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.5, // Play when 50% of video container is visible
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        const videoId = entry.target.dataset.videoId;
+        const videoElement = videoRefs.current[videoId];
+
+        if (!videoElement || !videoId) return;
+
+        if (entry.isIntersecting) {
+          // Play this video and stop others
+          setPlayingVideo(parseInt(videoId));
+          videoElement.muted = false; // Unmute for audio
+          videoElement.play().catch((error) => {
+            console.log('Auto-play prevented:', error);
+          });
+          
+          // Pause all other videos and mute them
+          Object.keys(videoRefs.current).forEach((id) => {
+            if (id !== videoId && videoRefs.current[id]) {
+              videoRefs.current[id].pause();
+              videoRefs.current[id].currentTime = 0;
+              videoRefs.current[id].muted = true;
+            }
+          });
+        } else {
+          // Pause video when it goes out of view and mute it
+          if (videoElement && playingVideo === parseInt(videoId)) {
+            videoElement.pause();
+            videoElement.muted = true;
+            setPlayingVideo(null);
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Observe all video container divs
+    const videoContainers = document.querySelectorAll('[data-video-id]');
+    videoContainers.forEach((container) => {
+      observer.observe(container);
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [feedPosts.length, playingVideo]);
+
   // Scroll to top function
   const scrollToTop = () => {
     window.scrollTo({
@@ -30,21 +114,6 @@ const Feed = ({ isWhiteTheme = false }) => {
       behavior: 'smooth',
     });
   };
-
-  // Use dedicated home1–home10 videos dataset for the Home feed
-  const feedPosts = homeVideos.map((video) => ({
-    id: video.id,
-    username: video.company,
-    userAvatar: video.authorAvatar,
-    time: '2h ago',
-    type: 'video',
-    video: video.video,
-    caption: video.caption,
-    likes: video.metrics?.likes ?? 0,
-    comments: video.metrics?.comments ?? 0,
-    shares: video.metrics?.shares ?? 0,
-    duration: undefined,
-  }));
 
   const toggleLike = (postId) => {
     setLikedPosts((prev) => {
@@ -115,8 +184,16 @@ const Feed = ({ isWhiteTheme = false }) => {
                 <div className="w-full flex items-center justify-center">
                   <div className={`relative w-full md:w-1/2 overflow-hidden ${isWhiteTheme ? 'bg-gray-50' : 'bg-dark'} ${isVideo ? 'aspect-[9/16] md:aspect-auto md:h-screen' : 'aspect-square'}`}>
                   {isVideo && post.video ? (
-                    <div className="relative w-full h-full">
+                    <div 
+                      className="relative w-full h-full"
+                      data-video-id={post.id}
+                    >
                       <video
+                        ref={(el) => {
+                          if (el) {
+                            videoRefs.current[post.id] = el;
+                          }
+                        }}
                         src={post.video}
                         poster={post.image || undefined}
                         className="w-full h-full object-cover"
@@ -124,10 +201,46 @@ const Feed = ({ isWhiteTheme = false }) => {
                         muted={!isPlaying}
                         loop
                         playsInline
-                        onClick={() => setPlayingVideo(isPlaying ? null : post.id)}
+                        data-video-id={post.id}
+                        onClick={() => {
+                          const videoElement = videoRefs.current[post.id];
+                          if (isPlaying) {
+                            videoElement?.pause();
+                            videoElement.muted = true;
+                            setPlayingVideo(null);
+                          } else {
+                            // Pause all other videos and mute them
+                            Object.keys(videoRefs.current).forEach((id) => {
+                              if (id !== post.id && videoRefs.current[id]) {
+                                videoRefs.current[id].pause();
+                                videoRefs.current[id].currentTime = 0;
+                                videoRefs.current[id].muted = true;
+                              }
+                            });
+                            videoElement.muted = false; // Unmute for audio
+                            videoElement?.play();
+                            setPlayingVideo(post.id);
+                          }
+                        }}
                       />
                       {!isPlaying && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/20 cursor-pointer" onClick={() => setPlayingVideo(post.id)}>
+                        <div 
+                          className="absolute inset-0 flex items-center justify-center bg-black/20 cursor-pointer z-10" 
+                          onClick={() => {
+                            const videoElement = videoRefs.current[post.id];
+                            // Pause all other videos and mute them
+                            Object.keys(videoRefs.current).forEach((id) => {
+                              if (id !== post.id && videoRefs.current[id]) {
+                                videoRefs.current[id].pause();
+                                videoRefs.current[id].currentTime = 0;
+                                videoRefs.current[id].muted = true;
+                              }
+                            });
+                            videoElement.muted = false; // Unmute for audio
+                            videoElement?.play();
+                            setPlayingVideo(post.id);
+                          }}
+                        >
                           <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center">
                             <svg className="w-8 h-8 text-dark ml-1" fill="currentColor" viewBox="0 0 20 20">
                               <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
@@ -136,7 +249,7 @@ const Feed = ({ isWhiteTheme = false }) => {
                         </div>
                       )}
                       {post.duration && (
-                        <div className="absolute top-3 right-3 px-2 py-1 bg-black/60 rounded text-xs text-white font-medium">
+                        <div className="absolute top-3 right-3 px-2 py-1 bg-black/60 rounded text-xs text-white font-medium z-20">
                           {post.duration}
                         </div>
                       )}
@@ -193,7 +306,7 @@ const Feed = ({ isWhiteTheme = false }) => {
                         className="touch-target"
                       >
                         <svg
-                          className={`w-6 h-6 ${isLiked ? 'text-red-500 fill-red-500' : isWhiteTheme ? 'text-gray-600' : 'text-gray-300'}`}
+                          className={`w-8 h-8 ${isLiked ? 'text-red-500 fill-red-500' : isWhiteTheme ? 'text-gray-600' : 'text-gray-300'}`}
                           fill={isLiked ? 'currentColor' : 'none'}
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -207,7 +320,7 @@ const Feed = ({ isWhiteTheme = false }) => {
                         </svg>
                       </button>
                       <button className="touch-target">
-                        <svg className={`w-6 h-6 ${isWhiteTheme ? 'text-yellow-500' : 'text-gray-300'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className={`w-8 h-8 ${isWhiteTheme ? 'text-yellow-500' : 'text-gray-300'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -217,7 +330,7 @@ const Feed = ({ isWhiteTheme = false }) => {
                         </svg>
                       </button>
                       <button className="touch-target">
-                        <svg className={`w-6 h-6 ${isWhiteTheme ? 'text-yellow-500' : 'text-gray-300'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className={`w-8 h-8 ${isWhiteTheme ? 'text-yellow-500' : 'text-gray-300'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"

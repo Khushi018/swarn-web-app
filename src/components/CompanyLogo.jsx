@@ -17,7 +17,7 @@ const getLogoImage = (author, initials) => {
     'CS': '/images/stock.png',
     'EcoLoop Systems': '/images/ecoloops.png',
     'ES': '/images/ecoloops.png',
-    'Quantum Leap': '/images/quantumLeap-logo.png',
+    'Quantum Leap': '/images/quantum.png',
     'QL': '/images/quantumLeap-logo.png',
   };
 

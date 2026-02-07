@@ -18,13 +18,14 @@ import StoryViewer from './components/StoryViewer';
 import SearchPage from './components/SearchPage';
 import AICreatePost from './components/AICreatePost';
 import VideoUpload from './components/VideoUpload';
+import { storiesVideos } from './data/storiesVideos';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
   const [selectedCompanyId, setSelectedCompanyId] = useState(null);
   const [selectedConsultantId, setSelectedConsultantId] = useState(null);
   const [selectedVideoId, setSelectedVideoId] = useState(null);
-  const [storyViewer, setStoryViewer] = useState({ isOpen: false, stories: [], initialIndex: 0 });
+  const [storyViewer, setStoryViewer] = useState({ isOpen: false, stories: [], initialIndex: 0, initialCompanyIndex: 0 });
   const [isWhiteTheme, setIsWhiteTheme] = useState(false);
 
   const handleCompanySelect = (companyId) => {
@@ -119,7 +120,19 @@ function App() {
               onConsultantSelect={handleConsultantSelect}
               onOpenCreatePost={() => setCurrentScreen('aiCreatePost')}
               onNavigate={setCurrentScreen}
-              onOpenStory={(stories, initialIndex) => setStoryViewer({ isOpen: true, stories, initialIndex })}
+              onOpenStory={(stories, initialIndex) => {
+                // Find which company index this is in all stories
+                const allStories = storiesVideos;
+                const companyIndex = allStories.findIndex(company => 
+                  company.stories && company.stories.some(s => s.video === stories[0]?.video)
+                );
+                setStoryViewer({ 
+                  isOpen: true, 
+                  stories: allStories, 
+                  initialIndex, 
+                  initialCompanyIndex: companyIndex >= 0 ? companyIndex : 0 
+                });
+              }}
               isWhiteTheme={isWhiteTheme}
               onThemeToggle={setIsWhiteTheme}
             />
@@ -155,9 +168,10 @@ function App() {
       {/* Story Viewer */}
       {storyViewer.isOpen && (
         <StoryViewer
-          stories={storyViewer.stories}
+          allCompanies={storyViewer.stories}
+          initialCompanyIndex={storyViewer.initialCompanyIndex}
           initialStoryIndex={storyViewer.initialIndex}
-          onClose={() => setStoryViewer({ isOpen: false, stories: [], initialIndex: 0 })}
+          onClose={() => setStoryViewer({ isOpen: false, stories: [], initialIndex: 0, initialCompanyIndex: 0 })}
         />
       )}
     </>
