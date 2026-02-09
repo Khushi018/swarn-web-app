@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import Sidebar from './Sidebar';
 import CompanyLogo from './CompanyLogo';
 import { exploreVideos } from '../data/exploreVideos';
@@ -9,6 +9,22 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const videoRefs = useRef([]);
   const containerRefs = useRef([]);
+
+  // Filter videos based on search query
+  const filteredVideos = useMemo(() => {
+    if (!searchQuery.trim()) {
+      return exploreVideos;
+    }
+    
+    const query = searchQuery.toLowerCase().trim();
+    return exploreVideos.filter(video => {
+      const companyMatch = video.company?.toLowerCase().includes(query);
+      const industryMatch = video.industry?.toLowerCase().includes(query);
+      const captionMatch = video.caption?.toLowerCase().includes(query);
+      
+      return companyMatch || industryMatch || captionMatch;
+    });
+  }, [searchQuery]);
 
   // Transform videos for grid layout: 2-2-merged pattern with alternating merged columns
   // Pattern alternates between:
@@ -22,53 +38,53 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
     let i = 0;
     let groupIndex = 0; // Track which group to determine merged column position
     
-    while (i < exploreVideos.length) {
+    while (i < filteredVideos.length) {
       const isMergedRight = groupIndex % 2 === 0; // Even groups: merged in column 3 (right)
       
       if (isMergedRight) {
         // Group with merged video in column 3 (right)
         // Order: vid1, vid2, vid3(merged), vid4, vid5
-        if (i < exploreVideos.length) {
-          gridVideos.push({ ...exploreVideos[i] }); // Row 1, col 1
+        if (i < filteredVideos.length) {
+          gridVideos.push({ ...filteredVideos[i] }); // Row 1, col 1
           i++;
         }
-        if (i < exploreVideos.length) {
-          gridVideos.push({ ...exploreVideos[i] }); // Row 1, col 2
+        if (i < filteredVideos.length) {
+          gridVideos.push({ ...filteredVideos[i] }); // Row 1, col 2
           i++;
         }
-        if (i < exploreVideos.length) {
-          gridVideos.push({ ...exploreVideos[i], isMerged: true, mergedColumn: 'right' }); // Row 1, col 3 (merged)
+        if (i < filteredVideos.length) {
+          gridVideos.push({ ...filteredVideos[i], isMerged: true, mergedColumn: 'right' }); // Row 1, col 3 (merged)
           i++;
         }
-        if (i < exploreVideos.length) {
-          gridVideos.push({ ...exploreVideos[i] }); // Row 2, col 1
+        if (i < filteredVideos.length) {
+          gridVideos.push({ ...filteredVideos[i] }); // Row 2, col 1
           i++;
         }
-        if (i < exploreVideos.length) {
-          gridVideos.push({ ...exploreVideos[i] }); // Row 2, col 2
+        if (i < filteredVideos.length) {
+          gridVideos.push({ ...filteredVideos[i] }); // Row 2, col 2
           i++;
         }
       } else {
         // Group with merged video in column 1 (left)
         // Order: vid6(merged), vid7, vid8, vid9, vid10
-        if (i < exploreVideos.length) {
-          gridVideos.push({ ...exploreVideos[i], isMerged: true, mergedColumn: 'left' }); // Row 1, col 1 (merged)
+        if (i < filteredVideos.length) {
+          gridVideos.push({ ...filteredVideos[i], isMerged: true, mergedColumn: 'left' }); // Row 1, col 1 (merged)
           i++;
         }
-        if (i < exploreVideos.length) {
-          gridVideos.push({ ...exploreVideos[i] }); // Row 1, col 2
+        if (i < filteredVideos.length) {
+          gridVideos.push({ ...filteredVideos[i] }); // Row 1, col 2
           i++;
         }
-        if (i < exploreVideos.length) {
-          gridVideos.push({ ...exploreVideos[i] }); // Row 1, col 3
+        if (i < filteredVideos.length) {
+          gridVideos.push({ ...filteredVideos[i] }); // Row 1, col 3
           i++;
         }
-        if (i < exploreVideos.length) {
-          gridVideos.push({ ...exploreVideos[i] }); // Row 2, col 2
+        if (i < filteredVideos.length) {
+          gridVideos.push({ ...filteredVideos[i] }); // Row 2, col 2
           i++;
         }
-        if (i < exploreVideos.length) {
-          gridVideos.push({ ...exploreVideos[i] }); // Row 2, col 3
+        if (i < filteredVideos.length) {
+          gridVideos.push({ ...filteredVideos[i] }); // Row 2, col 3
           i++;
         }
       }
@@ -300,6 +316,16 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
                 <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                )}
               </div>
 
               <button className="touch-target relative flex-shrink-0 p-2 hover:bg-dark-light rounded-lg transition-colors">
