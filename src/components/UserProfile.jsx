@@ -180,14 +180,15 @@ const UserProfile = ({ onBack }) => {
   
   // User data
   const user = {
-    name: 'Alex Sterling',
+    name: 'Sidhant Jain',
     username: 'alexsterling',
-    avatar: 'AS',
-    profilePicture: '/images/investor-profile-pic.png', // Profile picture image path
+    avatar: 'SJ',
+    profilePicture: '', // No custom logo; fall back to initials
     bannerImage: '/images/investor-banner.png', // Banner image path
-    role: 'Angel Investor',
+    role: 'Founder & Director',
+    company: 'Swarg Technologies',
     bio: 'Passionate about investing in innovative startups that are changing the world. Focus on SaaS, AI, and CleanTech sectors.',
-    location: 'San Francisco, CA',
+    location: 'Delhi, India',
     joined: '2020',
     investments: 24,
     portfolioValue: '$2.5M',
@@ -512,17 +513,22 @@ const UserProfile = ({ onBack }) => {
           </div>
           
           <div className="flex-1 pt-2">
-            <div className="flex items-center gap-2 mb-1">
-              <h1 className="text-2xl font-bold text-white">{user.name}</h1>
-              {user.verified && (
-                <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
+            <div className="flex flex-col gap-0.5 mb-2">
+              <div className="flex items-center gap-2">
+                <h1 className="text-2xl font-bold text-white">{user.name}</h1>
+                {user.verified && (
+                  <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                )}
+              </div>
+              {user.company && (
+                <p className="text-sm text-gray-300">{user.company}</p>
               )}
+              <p className="text-sm text-gray-400">
+                {user.role} • {user.location}
+              </p>
             </div>
-            <p className="text-sm text-gray-300 mb-2">
-              {user.role} • {user.location}
-            </p>
           </div>
         </div>
 

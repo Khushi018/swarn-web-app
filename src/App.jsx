@@ -14,6 +14,8 @@ import Feed from './components/Feed';
 import Reels from './components/Reels';
 import Analytics from './components/Analytics';
 import FeedPreferences from './components/FeedPreferences';
+import MarketWatchDetail from './components/MarketWatchDetail';
+import DeckDetail from './components/DeckDetail';
 import StoryViewer from './components/StoryViewer';
 import SearchPage from './components/SearchPage';
 import AICreatePost from './components/AICreatePost';
@@ -43,6 +45,14 @@ function App() {
   };
 
   const handleBackFromAnalytics = () => {
+    setCurrentScreen('home');
+  };
+
+  const handleBackFromMarketWatch = () => {
+    setCurrentScreen('home');
+  };
+
+  const handleBackFromDeck = () => {
     setCurrentScreen('home');
   };
 
@@ -101,6 +111,10 @@ function App() {
         return <Analytics onBack={handleBackFromAnalytics} />;
       case 'feedPreferences':
         return <FeedPreferences onBack={handleBackFromFeedPreferences} />;
+      case 'marketWatch':
+        return <MarketWatchDetail onBack={handleBackFromMarketWatch} />;
+      case 'deck':
+        return <DeckDetail onBack={handleBackFromDeck} />;
       case 'search':
         return <SearchPage onBack={handleBackFromSearch} onCompanySelect={handleCompanySelect} />;
       case 'aiCreatePost':
@@ -141,8 +155,14 @@ function App() {
               <div className="w-full max-w-4xl mx-auto">
                 <TopPicks isWhiteTheme={isWhiteTheme} />
                 {/* <InvestmentNotification /> */}
-                <MarketWatchCard isWhiteTheme={isWhiteTheme} />
-                <CompanyUpdateCard isWhiteTheme={isWhiteTheme} />
+                <MarketWatchCard
+                  isWhiteTheme={isWhiteTheme}
+                  onOpen={() => setCurrentScreen('marketWatch')}
+                />
+                <CompanyUpdateCard
+                  isWhiteTheme={isWhiteTheme}
+                  onViewDeck={() => setCurrentScreen('deck')}
+                />
                 
                 {/* Instagram-like Feed */}
                 <Feed isWhiteTheme={isWhiteTheme} />

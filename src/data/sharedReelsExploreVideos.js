@@ -242,6 +242,44 @@ Website - https://www.tintessa.com/
     video: '/reel-exploreVideo/Tintessa.mp4',
     thumbnail: '/images/stock.png',
   },
+  
+  {
+    industry: 'Technology / Innovation',
+    company: 'Shyam Gursahani',
+    caption: `Most people think India’s pollution problem will be solved by importing cleaner tech. But some of the most practical solutions are being built quietly, using what we already throw away.
+Turning garbage into fuel is not just a climate story. It’s an economics story. Coal is cheap, available, and deeply embedded in how India runs. Any alternative that wants to win has to plug into the same system, not fight it.
+That’s why waste-based fuel matters. It uses existing waste streams. It works with current boilers and furnaces and it reduces emissions without asking industries to redesign everything.
+This is the kind of innovation India needs more of. Not flashy. Not dependent on imports. Just deeply practical.
+For founders looking ahead, sustainability is going to be the future and building on that creates massive businesses.`,
+    video: '/reel-exploreVideo/shyamgursahani.mp4',
+    thumbnail: '/images/stock.png',
+  },
+  
+  {
+    industry: 'Technology / Innovation',
+    company: 'Rithvik HQ',
+    caption: `3w
+Two teenagers just turned car pollution into oxygen — while driving.
+No billion-dollar lab. No government push. Just a bold idea + climate tech.
+
+A 3D-printed filter. Microalgae. Real-time carbon capture.
+If this scales, it could change clean mobility, sustainability, and the auto industry forever.
+
+Save this. Share it. This is what real innovation looks like.
+
+#climateinnovation #cleantech #sustainability #futuretechnology #greeninnovation`,
+    video: '/reel-exploreVideo/the.rithvik.hq.mp4',
+    thumbnail: '/images/stock.png',
+  },
+  
+  {
+    industry: 'Technology / Innovation',
+    company: 'theneonation1',
+    caption: `1d
+Yoga Bar entered a market where snacks were convenient but rarely clean. By focusing on transparent ingredients, protein-rich formats, and everyday nutrition, the brand helped build a new snacking habit in urban India. Its journey shows how solving a simple consumer problem can reshape an entire category over time.`,
+    video: '/reel-exploreVideo/theneonation1.mp4',
+    thumbnail: '/images/stock.png',
+  },
 ];
 
 // Helper function to transform raw data into video objects

@@ -275,7 +275,7 @@ const ExploreReels = ({ onNavigate, onVideoSelect }) => {
 
   return (
     <>
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} userName="Alex Sterling" />
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} userName="Sidhant Jain" />
       
       <div className="min-h-screen bg-dark text-white pb-20" style={{ backgroundColor: '#0f172a' }}>
         {/* Header with Search Bar */}

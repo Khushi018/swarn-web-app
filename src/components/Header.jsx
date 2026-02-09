@@ -74,11 +74,11 @@ const Header = ({ onCompanySelect, onConsultantSelect, onOpenCreatePost, onNavig
       <Sidebar 
         isOpen={isSidebarOpen} 
         onClose={() => setIsSidebarOpen(false)} 
-        userName="Alex Sterling"
+        userName="Sidhant Jain"
         onNavigate={onNavigate}
         onCompanySelect={onCompanySelect}
         onConsultantSelect={onConsultantSelect}
-        ownedCompanyIds={[1, 2]}
+        ownedCompanyIds={[11, 12]}
         isWhiteTheme={isWhiteTheme}
         onThemeToggle={onThemeToggle}
       />

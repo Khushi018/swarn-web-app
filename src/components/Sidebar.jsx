@@ -5,12 +5,12 @@ import CompanyLogo from './CompanyLogo';
 const Sidebar = ({
   isOpen,
   onClose,
-  userName = "Alex Sterling",
+  userName = "Sidhant Jain",
   avatarUrl,
   onNavigate,
   onCompanySelect,
   onConsultantSelect,
-  ownedCompanyIds = [1, 2], // investor "own companies" (at least 2)
+  ownedCompanyIds = [11, 12], // investor "own companies" (Swarg Technologies, Sidhgun Technologies)
   isWhiteTheme = false,
   onThemeToggle,
 }) => {
@@ -54,7 +54,14 @@ const Sidebar = ({
           {/* Menu Items */}
           <nav className="flex-1 p-4 space-y-1">
             {/* User Info */}
-            <div className="flex flex-col items-start gap-3 px-4 py-3 mb-2">
+            <button
+              type="button"
+              onClick={() => {
+                if (onNavigate) onNavigate('profile');
+                onClose();
+              }}
+              className="flex flex-col items-start gap-3 px-4 py-3 mb-2 rounded-lg hover:bg-dark cursor-pointer text-left touch-target"
+            >
               <div className={`w-16 h-16 rounded-full flex items-center justify-center border-2 overflow-hidden flex-shrink-0 ${isWhiteTheme ? 'bg-yellow-500/20 border-yellow-500' : 'bg-primary-dark border-primary'}`}>
                 {avatarUrl ? (
                   <img src={avatarUrl} alt={userName} className="w-full h-full object-cover" />
@@ -64,9 +71,9 @@ const Sidebar = ({
               </div>
               <div>
                 <p className={`text-sm font-semibold ${isWhiteTheme ? 'text-gray-900' : 'text-white'}`}>{userName}</p>
-                <p className={`text-xs ${isWhiteTheme ? 'text-gray-600' : 'text-gray-400'}`}>Angel Investor</p>
+                <p className={`text-xs ${isWhiteTheme ? 'text-gray-600' : 'text-gray-400'}`}>Founder & Director</p>
               </div>
-            </div>
+            </button>
 
             {/* Investor companies */}
             {ownedCompanies.length > 0 && (

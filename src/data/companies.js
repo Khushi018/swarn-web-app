@@ -4,7 +4,7 @@ export const companies = [
     name: "TechFlow Solutions",
     shortName: "TF",
     industry: "SaaS",
-    location: "San Francisco, CA",
+    location: "Delhi, India",
     stage: "Series A",
     status: "FUND RAISE",
     valuation: "$25M",
@@ -178,6 +178,42 @@ export const companies = [
     employees: "52",
     website: "fitlifeapp.com",
     tags: ["HealthTech", "Fitness", "AI"]
+  },
+  {
+    id: 11,
+    name: "Swarg Technologies",
+    shortName: "ST",
+    industry: "Technology",
+    location: "Delhi, India",
+    stage: "Bootstrap",
+    status: "ACTIVE",
+    valuation: "-",
+    raised: "-",
+    target: "-",
+    businessBrief: "Swarg Technologies is building next-generation digital products and platforms with a focus on high-quality engineering and long-term value creation.",
+    description: "Founder-led technology studio focused on product innovation and execution.",
+    founded: "2024",
+    employees: "10",
+    website: "swarg.tech",
+    tags: ["Technology", "Product Studio"]
+  },
+  {
+    id: 12,
+    name: "Sidhgun Technologies",
+    shortName: "SG",
+    industry: "Technology",
+    location: "Delhi, India",
+    stage: "Bootstrap",
+    status: "ACTIVE",
+    valuation: "-",
+    raised: "-",
+    target: "-",
+    businessBrief: "Sidhgun Technologies focuses on building reliable, scalable technology solutions for founders and enterprises.",
+    description: "Technology consulting and product development company.",
+    founded: "2024",
+    employees: "8",
+    website: "sidhgun.tech",
+    tags: ["Technology", "Consulting", "Product Development"]
   }
 ];
 

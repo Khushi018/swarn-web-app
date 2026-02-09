@@ -17,8 +17,14 @@ const getLogoImage = (author, initials) => {
     'CS': '/images/stock.png',
     'EcoLoop Systems': '/images/ecoloops.png',
     'ES': '/images/ecoloops.png',
-    'Quantum Leap': '/images/quantum.png',
+    'Quantum Leap': '/images/quantumlogo.png',
     'QL': '/images/quantumLeap-logo.png',
+    // Swarg
+    'Swarg Technologies': '/images/swarg-icon.svg',
+    'ST': '/images/swarg-icon.svg',
+    // Sidhgun
+    'Sidhgun Technologies': '/images/sidhgun-logo.jpeg',
+    'SG': '/images/sidhgun-logo.jpeg',
   };
 
   return logoMap[author] || logoMap[initials] || null;

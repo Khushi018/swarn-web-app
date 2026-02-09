@@ -1,10 +1,25 @@
 import React from 'react';
 
-const MarketWatchCard = ({ isWhiteTheme = false }) => {
+const MarketWatchCard = ({ isWhiteTheme = false, onOpen }) => {
+  const handleClick = () => {
+    if (onOpen) onOpen();
+  };
+
   return (
-    <div className={`w-full mb-6 ${isWhiteTheme ? 'bg-white' : 'bg-dark'}`} style={isWhiteTheme ? { backgroundColor: '#ffffff' } : { backgroundColor: '#0f172a' }}>
+    <div
+      className={`w-full mb-6 ${isWhiteTheme ? 'bg-white' : 'bg-dark'}`}
+      style={isWhiteTheme ? { backgroundColor: '#ffffff' } : { backgroundColor: '#0f172a' }}
+    >
       <div className="w-full px-4">
-        <div className={`rounded-2xl p-4 border ${isWhiteTheme ? 'bg-white border-gray-200 shadow-sm' : 'bg-dark-light border-dark-light'}`}>
+        <button
+          type="button"
+          onClick={handleClick}
+          className={`w-full text-left rounded-2xl p-4 border transition-colors touch-target ${
+            isWhiteTheme
+              ? 'bg-white border-gray-200 shadow-sm hover:bg-gray-50'
+              : 'bg-dark-light border-dark-light hover:bg-dark'
+          }`}
+        >
           <div className="flex items-center gap-2 mb-3">
             <span className={`text-xs font-medium ${isWhiteTheme ? 'text-gray-600' : 'text-gray-400'}`}>MARKET WATCH</span>
             <span className={`text-xs ${isWhiteTheme ? 'text-gray-400' : 'text-gray-500'}`}>•</span>
@@ -12,11 +27,12 @@ const MarketWatchCard = ({ isWhiteTheme = false }) => {
           </div>
 
           <h3 className={`text-lg font-semibold mb-2 ${isWhiteTheme ? 'text-gray-900' : 'text-white'}`}>
-            Why SaaS Multiples are Rebounding in Q3
+            Why SaaS Multiples Are Rebounding in Q3
           </h3>
 
           <p className={`text-sm mb-4 leading-relaxed ${isWhiteTheme ? 'text-gray-600' : 'text-gray-400'}`}>
-            Analysts predict a surge in B2B valuations as interest rates stabilize...
+            SaaS valuation multiples are showing a rebound in Q3 as easing interest-rate volatility and improved macro
+            visibility restore investor confidence...
           </p>
 
           <div className="flex items-center justify-between">
@@ -30,7 +46,7 @@ const MarketWatchCard = ({ isWhiteTheme = false }) => {
               </svg>
             </div>
           </div>
-        </div>
+        </button>
       </div>
     </div>
   );

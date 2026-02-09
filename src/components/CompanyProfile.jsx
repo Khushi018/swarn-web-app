@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { companies } from '../data/companies';
+import CompanyLogo from './CompanyLogo';
 
 const GlassCard = ({ children, className = '' }) => (
   <div
@@ -621,8 +622,8 @@ const CompanyProfile = ({ companyId, onBack }) => {
       <div className="container-mobile -mt-12 relative z-10">
         <div className="flex items-start gap-4 mb-4">
           {/* Company Logo */}
-          <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center flex-shrink-0 border-4 border-dark shadow-lg">
-            <span className="text-white text-3xl font-bold">{company.shortName}</span>
+          <div className="w-28 h-28 rounded-2xl flex items-center justify-center flex-shrink-0 border-4 border-dark shadow-lg overflow-hidden">
+            <CompanyLogo initials={company.shortName} author={company.name} size="2xl" className="rounded-2xl" />
           </div>
           
           <div className="flex-1 pt-2">
