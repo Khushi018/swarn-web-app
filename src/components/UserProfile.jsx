@@ -183,7 +183,7 @@ const UserProfile = ({ onBack }) => {
     name: 'Sidhant Jain',
     username: 'alexsterling',
     avatar: 'SJ',
-    profilePicture: '', // No custom logo; fall back to initials
+    profilePicture: '/images/sidhant-logo.svg', // Sidhant logo for investor profile
     bannerImage: '/images/investor-banner.png', // Banner image path
     role: 'Founder & Director',
     company: 'Swarg Technologies',

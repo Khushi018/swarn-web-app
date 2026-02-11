@@ -32,6 +32,11 @@ const Sidebar = ({
     return companies.filter((c) => ids.includes(c.id)).slice(0, 2);
   }, [ownedCompanyIds]);
 
+  // Use Sidhant logo if userName includes "sidhant" and no avatarUrl provided
+  const defaultSidhantLogo = '/images/sidhant-logo.svg';
+  const resolvedAvatarUrl =
+    avatarUrl || (userName?.toLowerCase?.().includes('sidhant') ? defaultSidhantLogo : undefined);
+
   return (
     <>
       {/* Dimmed Overlay Background */}
@@ -63,8 +68,8 @@ const Sidebar = ({
               className="flex flex-col items-start gap-3 px-4 py-3 mb-2 rounded-lg hover:bg-dark cursor-pointer text-left touch-target"
             >
               <div className={`w-16 h-16 rounded-full flex items-center justify-center border-2 overflow-hidden flex-shrink-0 ${isWhiteTheme ? 'bg-yellow-500/20 border-yellow-500' : 'bg-primary-dark border-primary'}`}>
-                {avatarUrl ? (
-                  <img src={avatarUrl} alt={userName} className="w-full h-full object-cover" />
+                {resolvedAvatarUrl ? (
+                  <img src={resolvedAvatarUrl} alt={userName} className="w-full h-full object-cover" />
                 ) : (
                   <span className={`text-lg font-semibold ${isWhiteTheme ? 'text-gray-900' : 'text-white'}`}>{userName.charAt(0)}</span>
                 )}
