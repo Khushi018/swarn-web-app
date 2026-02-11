@@ -117,24 +117,7 @@ Send this to someone who is building businesses and is seeking new ways to reach
   },
   
   
-  {
-    industry: 'Technology / Innovation',
-    company: 'runtimebrt and lakshveerrao',
-
-    caption: `This 8-year-old is India's youngest hardware founder.
-
-It's Tech Tuesday, so here's everything that's happening in India.
-
-Firstly, Lakshveer Rao, Darshan Savaliya, and Joe Daniel created a wrist-mounted companion tool for Indian astronauts on Mars at the Hardware Hackathon 2.0 hosted by LionCircuits and PCB Cupid at the Param Foundation PARSEC in Bengaluru.
-
-Next, Anveshak from IIT Madreas is prepping their rover for the Caterpillar Autonomy Challenge at Shaastra 2026. They won first place at CAC 2025 and hope to win again at CAC 2026. Shaastra is Asia student-led tech fest. You can learn more about Shaastra at @shaastra_iitm
-
-Finally, General Autonomy introduced their robot dog PARAM to real dogs in Bengaluru.
-
-Only one day left of 2025, let's make it count! 🇮🇳`,
-    video: '/feedVideo/Lakshveer-Rao.mp4',
-    thumbnail: '/images/stock.png',
-  },
+ 
   
   {
     industry: 'Food & Beverage / Café Chain',
@@ -144,19 +127,7 @@ Only one day left of 2025, let's make it count! 🇮🇳`,
     video: '/reel-exploreVideo/chaayos.mp4',
     thumbnail: '/images/stock.png',
   },
-  {
-    industry: 'Technology / Logistics',
-    company: 'runtimebrt and caleb_friesen',
-    caption: `Indian freight will never be the same.
-
-Hyderabad-based LogiXair is building sky trucks to dramatically reduce delivery times between India's logistics hubs.
-
-As a fully bootstrapped startup, LogiXair is currently in the R&D phase of their journey. They've developed a hybrid-powered fixed-wing technology baseline cargo aircraft, WingHead, but their long-term goal is to build a commercial aircraft with a payload capacity of ~300 kg and a range of 600 km.
-
-LogiXair began their journey in the Netherlands founder Bhanu Teja Chidura was based. Soon, he realised that building a startup in the Netherlands was expensive, so he shifted back to India and continued his journey in Telangana, where he has been bootstrapping his company in Hyderabad. LogiXair is planning to raise a round of capital in 2026, and by 2030 he hopes the company can expand beyond local Indian logistics to tackle international transport and logistics for defence use cases.`,
-    video: '/feedVideo/LogiXair.mp4',
-    thumbnail: '/images/stock.png',
-  },
+ 
 
   {
     industry: 'Consumer Goods / Home Products',
@@ -226,11 +197,11 @@ Website - https://www.tintessa.com/
     video: '/reel-exploreVideo/Tintessa.mp4',
     thumbnail: '/images/stock.png',
   },
+
   {
     industry: 'Technology / Medical Imaging',
     company: 'runtimebrt and voxelgrids',
     caption: `This MRI machine is made in India and 40% cheaper to build.
-
 Bengaluru-based Voxelgrids has built India's first domestically developed MRI scanner. Their machine has been installed at the Chandrapur Cancer Care Foundation near Nagpur after 12 years of in-house development, and this MRI design eliminates liquid helium which reduces the cost of building one of these machines by 40%, and it's also a cheaper machine to run compared to non-Indian alternatives because the MRI's magnet electronics are tightly integrated while maintaining the same bore size, which means that power usage is reduced. Voxelgrids can manufacture 20 to 25 scanners per year at their Bengaluru factory. So far they've raised $5M from Zoho.`,
     video: '/feedVideo/Voxelgrids.mp4',
     thumbnail: '/images/stock.png',
@@ -245,6 +216,33 @@ Incubated at NSCREL, IIM-Bangalore, Apratima secured grants to fuel its R&D, and
 With their enzyme-powered innovation, Apratima is showing that the future of plastic, might be reimagining it.
 #sustainablestories #sustainability`,
     video: '/feedVideo/Apratima.mp4',
+    thumbnail: '/images/stock.png',
+  },
+  {
+    industry: 'Technology / Innovation',
+    company: 'runtimebrt and lakshveerrao',
+
+    caption: `This 8-year-old is India's youngest hardware founder.
+
+It's Tech Tuesday, so here's everything that's happening in India.
+
+Firstly, Lakshveer Rao, Darshan Savaliya, and Joe Daniel created a wrist-mounted companion tool for Indian astronauts on Mars at the Hardware Hackathon 2.0 hosted by LionCircuits and PCB Cupid at the Param Foundation PARSEC in Bengaluru.
+
+Next, Anveshak from IIT Madreas is prepping their rover for the Caterpillar Autonomy Challenge at Shaastra 2026. They won first place at CAC 2025 and hope to win again at CAC 2026. Shaastra is Asia student-led tech fest. You can learn more about Shaastra at @shaastra_iitm
+
+Finally, General Autonomy introduced their robot dog PARAM to real dogs in Bengaluru.
+
+Only one day left of 2025, let's make it count! 🇮🇳`,
+    video: '/feedVideo/Lakshveer-Rao.mp4',
+    thumbnail: '/images/stock.png',
+  },
+  {
+    industry: 'Feed Video',
+    company: 'lucentglobe',
+    caption: `Thoughts guys?!?
+
+#smallbusiness #ecofriendly #cleaning #aussie #sustainableliving #savetheplanet`,
+    video: '/feedVideo/lucentglobe.mp4',
     thumbnail: '/images/stock.png',
   },
   
@@ -271,8 +269,28 @@ Meet ARROBOT, a subsidiary company of Hyderabad-based Raghu Vamsi Aerospace. Bac
     caption: `Most chewing gums available in the supermarkets are made of plastic. It is hidden under the term ‘gum base’. So Bengaluru brothers Mayank and Bhuvan decided to come up with the Gud Gum. This made-in-india brand makes plastic-free, all-natural chewing gum from chicle (tree sap) which is flavoured with real fruits powder. Unlike regular gums that pollute sidewalks and harm wildlife, Gud Gum is biodegradable making it a guilt-free, eco-friendly way to freshen your breath. The Good Gum is also incubated at NSRCEL in the circular economy program. The program helped them gain financial access and also suppor in scaling up.`,
     video: '/feedVideo/Good-Gum.mp4',
     thumbnail: '/images/stock.png',
-  },
+  }, 
   
+  {
+    industry: 'Feed Video',
+    company: 'rowancheung',
+    caption: `A new startup called Pickle has unveiled Pickle 1, AI-powered AR glasses the company calls a “soul computer.”
+
+The device claims to use cameras and sensors to capture a user’s surroundings, organizing moments into searchable “memory bubbles” while learning habits and predicting needs.
+
+Priced at $799 with a $200 refundable deposit, U.S. shipping is expected in Q4 2026 (accidentally said Q2 in the video).
+
+However, industry experts have raised concerns about the feasibility of Pickle’s claims, noting that the stated specifications — dual waveguide displays, 12-hour battery life, and 68-gram weight — would surpass what established companies like Meta have achieved. 
+
+No working hardware demo has been publicly shown.
+
+Only time will tell if this is just vaporware or a real breakthrough.
+
+#ai #smartglasses #technology #augmentedreality #vr`,
+    video: '/feedVideo/rowancheung.mp4',
+    thumbnail: '/images/stock.png',
+  },
+   
   {
     industry: 'Agriculture / Farming',
     company: 'gen.e_in and hosachiguru',
@@ -289,7 +307,19 @@ What that gives you:
     video: '/feedVideo/hosachiguru.mp4',
     thumbnail: '/images/stock.png',
   },
-  
+
+
+  {
+    industry: 'Feed Video',
+    company: 'sudeepsrivastavaai',
+    caption: `A huge part of India’s air pollution doesn’t come from vehicles or factories, it comes from open burning of reject waste.
+
+When waste is treated right where it’s generated, there’s no transport, no landfill dumping, and no toxic smoke. Decentralized processing tackles pollution at the source, making waste management cheaper, cleaner, and far more effective.
+
+If solutions like this scale nationwide, clean air becomes a system.`,
+    video: '/feedVideo/sudeepsrivastavaai.mp4',
+    thumbnail: '/images/stock.png',
+  },
   {
     industry: 'Technology / Innovation',
     company: 'gen.e_in and nirnalwatersolutions',
@@ -302,6 +332,25 @@ Most RO purifiers waste three litres of water for every one litre they clean. Ni
     video: '/feedVideo/NIR-NALS .mp4',
     thumbnail: '/images/stock.png',
   },
+
+  {
+    industry: 'Feed Video',
+    company: 'altdwater',
+    caption: `If you buy water delivery on a monthly basis and you’re drinking out of plastic, I just want you to know you’re not doing it the right way.
+
+From the emissions that transport that water to your house to the microplastics that are actively in the water, it’s objectively not sustainable.
+
+Creating your own water at your home is the most sustainable way to consume water.
+
+Our water has natural alkalinity and we use ozone to oxygenate the water—so naturally, this is some of the cleanest, pure water that you can possibly find. Period.
+
+This may seem like a very foreign concept, but it’s really not.
+
+We capture the moisture out of the air, put it through a rigorous filtration system, and re-mineralize it with calcium and potassium to make sure you’re getting all the essential minerals that you need.`,
+    video: '/feedVideo/altdwater.mp4',
+    thumbnail: '/images/stock.png',
+  },
+  
   
   {
     industry: 'Energy / Solar Technology',
@@ -318,6 +367,17 @@ This way every Indian gets access to clean energy and helps contribute to India�
     video: '/feedVideo/sundaygrid.mp4',
     thumbnail: '/images/stock.png',
   },
+  {
+    industry: 'Feed Video',
+    company: 'sudeepsrivastavaai',
+    caption: `A huge part of India’s air pollution doesn’t come from vehicles or factories, it comes from open burning of reject waste.
+
+When waste is treated right where it’s generated, there’s no transport, no landfill dumping, and no toxic smoke. Decentralized processing tackles pollution at the source, making waste management cheaper, cleaner, and far more effective.
+
+If solutions like this scale nationwide, clean air becomes a system.`,
+    video: '/feedVideo/sudeepsrivastavaai.mp4',
+    thumbnail: '/images/stock.png',
+  },
   
   {
     industry: 'Consumer Goods / Traditional Products',
@@ -325,6 +385,20 @@ This way every Indian gets access to clean energy and helps contribute to India�
     caption: `TribalVeda is a startup founded by Rajesh Oza and Pooja Oza. Their mission is to transform wild Jamun (Indian blackberry) into shelf-stable wellness products while uplifting tribal communities. The brand sources Jamun fruits from tribal women, processes them into preservative-free products like jam, strips, cubes, teas, seed powder, vinegar, and frozen pulp, and in turn supports sustainable livelihoods for thousands of tribal women.
 Jamun is a super fruit but tons of it goes to waste because not many know how to preserve it. @tribalveda_official is doing this while empowering women and creating jobs for them`,
     video: '/feedVideo/TribalVeda .mp4',
+    thumbnail: '/images/stock.png',
+  },
+
+  {
+    industry: 'Technology / Logistics',
+    company: 'runtimebrt and caleb_friesen',
+    caption: `Indian freight will never be the same.
+
+Hyderabad-based LogiXair is building sky trucks to dramatically reduce delivery times between India's logistics hubs.
+
+As a fully bootstrapped startup, LogiXair is currently in the R&D phase of their journey. They've developed a hybrid-powered fixed-wing technology baseline cargo aircraft, WingHead, but their long-term goal is to build a commercial aircraft with a payload capacity of ~300 kg and a range of 600 km.
+
+LogiXair began their journey in the Netherlands founder Bhanu Teja Chidura was based. Soon, he realised that building a startup in the Netherlands was expensive, so he shifted back to India and continued his journey in Telangana, where he has been bootstrapping his company in Hyderabad. LogiXair is planning to raise a round of capital in 2026, and by 2030 he hopes the company can expand beyond local Indian logistics to tackle international transport and logistics for defence use cases.`,
+    video: '/feedVideo/LogiXair.mp4',
     thumbnail: '/images/stock.png',
   },
   {
@@ -365,7 +439,9 @@ The company transforms low-value, traditionally unrecyclable waste into high-qua
 Special thanks to @diamirzaofficial for helping us tell this story 💚💚`,
     video: '/feedVideo/Without.mp4',
     thumbnail: '/images/stock.png',
-  },
+  }
+ 
+
 ];
 
 export const homeVideos = raw.map((item, idx) => ({
