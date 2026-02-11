@@ -19,20 +19,14 @@ const mkMetrics = (id) => ({
 // Edit this array to change which videos appear in Reels and Explore
 const raw = [
   {
-    industry: 'Agriculture / AgriTech',
-    company: 'AgriLeaf',
-    caption:
-      `There are millions of food orders placed every single day in India resulting in tonnes of single use plastic-waste. These plastic containers are slowly contaminating our natural resources, and even our bodies by releasing toxic chemicals and microplastics.
+    industry: 'Technology / Regional Development',
+    company: 'runtimebrt and belagavi',
+    caption: `This defence laser is made in India.
 
-@agrileafdinnerware - a startup from Karnataka wants to replace these food containers and more with fallen areca palm leaves. They can be used to deliver biryani, burgers, pasta and much more. They are a 100% natural alternative and work well with both hot and cold food.
-
-They have made fallen leaves functional by engineering them like modern packaging.
-Agrileaf uses a bio-based coating and heat sealing to make containers leak-proof, tamper-proof, and resistant to sogginess for hours.
-
-This could potentially make our food packaging free of microplastics.`,
-    video: '/reel-exploreVideo/agrileaf.mp4',
+Belagavi, Karnataka-based Carbine Systems has conducted a series of successful indoor tests of their first DEW prototype. It's called H.A.R.A. Mk 1, short for Hyper Amplification Radiant Array, and it's a 10 kW-class DEW with an effective engagement range of between one and two kilometres. Carbin Systems has been bootstrapped since 2015. In the early days of the business, they operated as a 3D design agency, and now specialise in additive metal manufacturing. They're also working on their own metal 3D printers, which is why they've spent so much time developing lasers. When they realised that lasers can be useful for applications outside of 3D printing, they decided to enter the iDEX challenge and develop lasers for defence. After hearing from the DRDO and the Navy about their requirements, they began working on H.A.R.A.`,
+    video: '/feedVideo/Belagavi.mp4',
     thumbnail: '/images/stock.png',
-  },
+  }, 
  
   {
     industry: 'Electronics / Home Appliances',
@@ -44,23 +38,20 @@ This could potentially make our food packaging free of microplastics.`,
   },
   
   {
-    industry: 'Food & Beverage / Traditional Sweets',
-    company: 'Bengali Sweet House',
-    caption:
-      `Legacy doesn't disappear.
-It becomes undiscovered.
+    industry: 'Technology / Security & AI',
+    company: 'runtimebrt and guardex.ai',
+    caption: `This AI model tracks student attention in class.
 
-That's why even long-running Indian businesses like Bengali Sweet House are using simple tools like Boost Post Feature on Instagram not to change their identity, but to make sure the right people see what already exists. Sometimes, it's literally one tap that helps your story travel further.
+It's Friday y'all! Here's what the last 24 hours in Indian tech looked like.
 
-If iconic businesses can find new growth this way, imagine what any business can do.
+Firstly, Guardex AI built an AI model to monitor student attention and teacher effectiveness in classrooms.
 
-Send this to someone who is building businesses and is seeking new ways to reach their audiences.
+Secondly, Sand Falcon's machine was used to clean Marina Beach in Chennai.
 
-[legacy businesses in India, Bengali Sweet House Delhi, family business India, Indian small businesses, Instagram for business, Meta Boost, boosting reels, word of mouth marketing, business discovery, Gen Z audience, brand relevance, digital growth for businesses, entrepreneurship India, traditional businesses going digital]`,
-    video: '/reel-exploreVideo/Bengali-Sweet-House.mp4',
+Thirdly, Tarun Sridharan, founder of Odd Compass, dropped the trailer for a new narrative-driven RPG set in India, Rakshasa.`,
+    video: '/feedVideo/Guardex-AI.mp4',
     thumbnail: '/images/stock.png',
   },
-  
   {
     industry: 'Food & Restaurant / Fast Food',
     company: 'Burger Singh',
