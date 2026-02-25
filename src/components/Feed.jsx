@@ -186,7 +186,7 @@ const Feed = ({ isWhiteTheme = false }) => {
                       </div>
                     ) : post.username.toLowerCase().includes('uttamm_gupta') ? (
                       <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white flex-shrink-0">
-                        <img src="/images/uttamm_gupta_dp.jpeg" alt={post.username} className="w-full h-full object-cover" />
+                        <img src="/images/uttam_dp.jpeg" alt={post.username} className="w-full h-full object-cover" />
                       </div>
                     ) : post.username.toLowerCase().includes('kallaway') ? (
                       <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white flex-shrink-0">

@@ -123,7 +123,7 @@ Follow @kallaway for more videos like this.
 
 [AI wearable, thought reading tech, future gadgets, Omi AI, neurotech, Future tech, AI Updates]`,
     video: '/feedVideo/uttamm_gupta.mp4',
-    thumbnail: '/images/uttamm_gupta_dp.jpeg',
+    thumbnail: '/images/uttam_dp.jpeg',
   },
   {
     industry: 'Auto Shop / Automobile Services',
