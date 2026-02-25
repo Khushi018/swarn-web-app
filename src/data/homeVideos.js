@@ -45,9 +45,86 @@ Top players to watch:
   },
    
   
+  {
+    industry: 'Feed Video',
+    company: 'autoinvent_',
+    caption: `This literally brought my idea to life…
 
+#startup #college #entrepreneur`,
+    video: '/feedVideo/autoinvent_.mp4',
+    thumbnail: '/images/autoinvent_dp.jpeg',
+  },
+  {
+    industry: 'Feed Video',
+    company: 'kallaway',
+    caption: `
+Scientists just figured out how to reverse aging using AI.
+
+And this is a massive breakthrough.
+
+We can now reprogram any human cell back to age 20.
+
+Heart cells, brain cells, skin cells, all reset to their biological prime.
+
+And here’s the wildest part…the technology to do this, has already existed since 2012 (it won the Nobel Prize).
+
+But the real breakthrough wasn’t possible until this year, when they supercharged it with AI.
+
+It’s a wild story.
+
+So in 2006, scientists discovered Yamanaka factors.
+
+They’re proteins that can basically convert any normal cell into a universal stem cell.
+
+Now this was a huge deal, because these stem cells are basically like magic healers. 
+
+If you have torn muscle tissue, you could inject these stem cells into the area and they will turn into the youthful muscle cells you need.
+
+So Yamanaka factors were this insane breakthrough, because they allowed any human to turn any cell you already have into these magic healers.
+
+But, there was one big problem…
+
+It turns out, the original Yamanaka factors weren’t very good at this stem cell conversion.
+
+They could do it, but they just weren’t very reliable.
+
+Enter OpenAI...and this is where things get crazy.
+
+OpenAI designed a special AI model built specifically to create new proteins.
+
+Think of it like ChatGPT but for protein engineering.
+
+So they took all the Yamanaka research and asked this new AI to go ham on improving it.
+
+And get this…
+
+Their version was 50x more effective than the original.
+
+They tested it on 50 year old cells and it successfully started repairing 30% of their cells in just 7 days.
+
+This is just science fiction…it actually happened.
+
+And it sounds crazy, but in a few years, humans will be able to take a shot that will literally reverse the age of their cells.
+
+Shoutout science.
+
+Follow @kallaway for more videos like this.
+
+#ai #artificialintelligence #tech #science #breakthrough #technology #aging #longevity #newtech`,
+    video: '/feedVideo/kallaway2.mp4',
+    thumbnail: '/images/kallaway_dp.jpeg',
+  },
   
- 
+  {
+    industry: 'Feed Video',
+    company: 'uttamm_gupta',
+    caption: `This tiny device on my neck is reading my thoughts and it costs under ₹8,000.
+ Would you trust an AI that lives inside your head?
+
+[AI wearable, thought reading tech, future gadgets, Omi AI, neurotech, Future tech, AI Updates]`,
+    video: '/feedVideo/uttamm_gupta.mp4',
+    thumbnail: '/images/uttamm_gupta_dp.jpeg',
+  },
   {
     industry: 'Auto Shop / Automobile Services',
     company: 'anujmohanty_',
@@ -439,9 +516,54 @@ The company transforms low-value, traditionally unrecyclable waste into high-qua
 Special thanks to @diamirzaofficial for helping us tell this story 💚💚`,
     video: '/feedVideo/Without.mp4',
     thumbnail: '/images/stock.png',
-  }
- 
+  },
 
+
+  {
+    industry: 'Feed Video',
+    company: 'kallaway',
+    caption: `
+This AI headband helps you fall asleep way faster.
+
+It’s called the Elemind.
+
+And the people that use it, fall asleep way faster than normal!
+
+Elemind works using a technique called neuromodulation.
+
+It’s kind of like noise cancellation for the brain.
+
+First, it figures out the rhythm of the brain waves that keep you awake.
+
+And then, it fires pink noise at precisely the right moments to counteract them.
+
+So essentially, it’s cancelling out the brain triggers that make you stay up.
+
+And of course that means…you fall right asleep. 
+
+It’s even great for going back to sleep if you get woken up in the middle of the night.
+
+But I gotta say the coolest part about this…isn’t even the sleep.
+
+It’s the potential for other use cases.
+
+Because this same technology could be used to trigger focused work.
+
+Imagine that…one click and you’re in a flow state, on demand.
+
+And the reviews for this thing are off the charts.
+
+The headband sells for $349.
+
+But the real question is…how much would you pay for guaranteed sleep?
+
+Follow @kallaway for more videos like this
+
+#ai #artificialintelligence #tech #technology #newtech #sleep #elemind`,
+    video: '/feedVideo/kallaway.mp4',
+    thumbnail: '/images/kallaway_dp.jpeg',
+  },
+ 
 ];
 
 export const homeVideos = raw.map((item, idx) => ({

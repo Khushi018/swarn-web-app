@@ -180,6 +180,18 @@ const Feed = ({ isWhiteTheme = false }) => {
                       <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white flex-shrink-0">
                         <img src="/images/ecosystem-logo.png" alt={post.username} className="w-full h-full object-cover" />
                       </div>
+                    ) : post.username.toLowerCase().includes('autoinvent_') ? (
+                      <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white flex-shrink-0">
+                        <img src="/images/autoinvent_dp.jpeg" alt={post.username} className="w-full h-full object-cover" />
+                      </div>
+                    ) : post.username.toLowerCase().includes('uttamm_gupta') ? (
+                      <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white flex-shrink-0">
+                        <img src="/images/uttamm_gupta_dp.jpeg" alt={post.username} className="w-full h-full object-cover" />
+                      </div>
+                    ) : post.username.toLowerCase().includes('kallaway') ? (
+                      <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white flex-shrink-0">
+                        <img src="/images/kallaway_dp.jpeg" alt={post.username} className="w-full h-full object-cover" />
+                      </div>
                     ) : (
                       <CompanyLogo initials={post.userAvatar} author={post.username} size="md" showBorder={true} />
                     )}
